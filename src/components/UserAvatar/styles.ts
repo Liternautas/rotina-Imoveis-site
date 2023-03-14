@@ -1,5 +1,5 @@
-import styled from "styled-components";
+import { styled, TableContainer } from "@mui/material";
 
-export const Container = styled.div`
+export const Container = styled(TableContainer)`
 
 `
