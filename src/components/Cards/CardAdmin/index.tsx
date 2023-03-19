@@ -1,13 +1,22 @@
+import { AdType, IProperty } from "@/src/interfaces";
 import { BedOutlined, DirectionsCarOutlined, Rule, ShowerOutlined, SquareFoot, SquareFootOutlined } from "@mui/icons-material";
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
-export function CardAdmin() {
+interface Props {
+    property: IProperty;
+}
+
+export function CardAdmin({property}: Props) {
+    const router = useRouter();
+    const {adType, address, description, exemptIptu, favorites, id, images, iptu, numberBathroom, numberGarage, numberRooms, totalArea, usefulArea} = property;
+
     return (
-        <Card sx={{position: 'relative'}}>
-            <CardMedia
+        <Card sx={{position: 'relative'}} onClick={() => router.push(`/admin/properties/update/${id}`)}>
+            {images && images.length > 0 && <CardMedia
                 sx={{ height: 190 }}
-                image="https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg?quality=90&strip=info"
-            />
+                image={`http://localhost:8080/${images[0]}`}
+            />}
             <Box sx={{
                 position: 'absolute',
                 top: 8,
@@ -18,7 +27,7 @@ export function CardAdmin() {
                 background: 'rgba(0, 0, 0, .5)',
                 color: '#fff',
                 borderRadius: 1
-            }}>Aluguel</Box>
+            }}>{adType === AdType.venda ? 'Venda' : 'Aluguel'}</Box>
             <CardContent style={{
                 display: "flex",
                 flexDirection: "column",
@@ -33,19 +42,19 @@ export function CardAdmin() {
                 }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <SquareFootOutlined />
-                        <Typography>100m²</Typography>
+                        <Typography>{totalArea}m²</Typography>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <BedOutlined />
-                        <Typography>3</Typography>
+                        <Typography>{numberRooms}</Typography>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <ShowerOutlined />
-                        <Typography>2</Typography>
+                        <Typography>{numberBathroom}</Typography>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <DirectionsCarOutlined />
-                        <Typography>2</Typography>
+                        <Typography>{numberGarage}</Typography>
                     </Box>
                 </Box>
                 <Typography variant="h5" sx={{

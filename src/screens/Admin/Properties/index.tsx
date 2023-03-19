@@ -1,12 +1,16 @@
 import { CardAdmin } from "@/src/components/Cards/CardAdmin";
-import { DialogIcon } from "@/src/components/DialogIcon";
-import { Filter, FilterListOffOutlined, FilterListOutlined, Search } from "@mui/icons-material";
-import { Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, IconButton, InputBase, Pagination, Paper, Stack, styled, Typography } from "@mui/material";
+import { IProperty } from "@/src/interfaces";
+import { FilterListOutlined, Search } from "@mui/icons-material";
+import { Box, Button, Container, Divider, Grid, IconButton, InputBase, Pagination, Paper, Stack, styled, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
-export function Properties() {
+interface Props {
+    properties: IProperty[];
+}
+
+export function Properties({ properties }: Props) {
     const [page, setPage] = useState(1);
     const router = useRouter();
     const GlobalStyles = createGlobalStyle`
@@ -49,24 +53,12 @@ export function Properties() {
                 </Button>
             </Box>
             <Grid container spacing={{ xs: 2, md: 3 }}>
-                <Grid item xs={12} sm={6} md={4}>
-                    <CardAdmin />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <CardAdmin />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <CardAdmin />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <CardAdmin />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <CardAdmin />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <CardAdmin />
-                </Grid>
+                {properties?.map(property => (
+                    <Grid item xs={12} sm={6} md={4}>
+                        <CardAdmin property={property}/>
+                    </Grid>
+                ))
+                }
             </Grid>
             <Stack spacing={2} sx={{ mt: 3 }}>
                 <Pagination count={10} variant="outlined" shape="rounded" page={page} onChange={(e, page) => setPage(page)} />

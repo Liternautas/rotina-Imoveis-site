@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     if (!token || !user) {
         return {
             redirect: {
-                destination: `/imobiliarias/login`,
+                destination: `/login`,
                 permanent: false,
             }
         }

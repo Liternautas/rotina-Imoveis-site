@@ -5,7 +5,7 @@ import { parseCookies } from "nookies";
 
 export default function CreatePropertyPage({details}) {
     return (
-        <PropertyCreate details={details}/>
+        <PropertyCreate details={details} />
     )
 }
 

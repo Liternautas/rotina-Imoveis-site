@@ -40,7 +40,7 @@ export function DialogIcon({ children, title, description, onSubmit }: Props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} variant="outlined">Cancelar</Button>
-                    <Button onClick={onSubmit} autoFocus variant="contained">
+                    <Button onClick={() => onSubmit().then(() => handleClose())} autoFocus variant="contained">
                         Confirmar
                     </Button>
                 </DialogActions>

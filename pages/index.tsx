@@ -19,22 +19,3 @@ export default function HomePage() {
     <Home />
   )
 }
-/* <div style={{
-      width: 500
-    }}>
-      {status === 'authenticated' ?
-        <button
-          onClick={() => signOut()}
-        >
-          SignOut
-        </button>
-        :
-        <button
-          onClick={() => signIn("facebook")}
-        >
-          Login Facebook
-        </button>
-      }
-      <p>{data?.user.email}</p>
-      <p >{data?.accessToken}</p>
-    </div> */

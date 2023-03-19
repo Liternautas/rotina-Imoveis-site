@@ -63,10 +63,6 @@ export function ModalAddUser() {
         handleClose();
     }
 
-    useEffect(() => {
-        name.setValue('Maria');
-    }, []);
-
     return (
         <>
             <Button
