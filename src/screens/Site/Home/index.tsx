@@ -7,12 +7,14 @@ import { Navigation, Pagination } from "swiper";
 import styles from './styles.module.scss';
 import { Title } from "./styles";
 import { PropertiesSection } from "@/src/components/Sections/PropertiesSection";
+import { DistrictsSection } from "@/src/components/Sections/DistrictsSection";
+import { ReleasesSection } from "@/src/components/Sections/ReleasesSection";
 
 export function Home() {
     return (
         <Box sx={{
             mt: '64px',
-            pt: 2,
+            pt: 3,
         }}>
             <BannerHome />
             <Container>
@@ -56,8 +58,9 @@ export function Home() {
                         </SwiperSlide>
                     </Swiper>
                 </Box>
-
                 <PropertiesSection />
+                <DistrictsSection />
+                <ReleasesSection />
             </Container>
         </Box>
     )

@@ -42,3 +42,7 @@ body {
   svg text {
     fill: #fff !important;
   }
+
+  .swiper {
+    position: unset !important;
+  }

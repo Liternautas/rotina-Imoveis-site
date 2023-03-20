@@ -2,13 +2,13 @@ import { Box } from "@mui/material";
 import { Title } from "./styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-import { CardProperty } from "../../Cards/CardProperty";
+import { CardDistrict } from "../../Cards/CardDistrict";
 
 import styles from './styles.module.scss';
-import { SwiperButtons } from "../../SwiperButtons";
 import { useState } from "react";
+import { SwiperButtons } from "../../SwiperButtons";
 
-export function PropertiesSection() {
+export function DistrictsSection() {
     const [state, setState] = useState('start');
 
     return (
@@ -16,7 +16,7 @@ export function PropertiesSection() {
             py: 3
         }}>
             <Box position={'relative'}>
-                <Title variant="h4">Imóveis mais populares da sua região</Title>
+                <Title variant="h4">Explore por bairros mais populares</Title>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -28,16 +28,16 @@ export function PropertiesSection() {
                 }}
             >
                 <SwiperSlide className={styles.swiperSlide}>
-                    <CardProperty />
+                    <CardDistrict image="/image05.png" subtitle="" title="" />
                 </SwiperSlide>
                 <SwiperSlide className={styles.swiperSlide}>
-                    <CardProperty />
+                    <CardDistrict image="/image06.png" subtitle="" title="" />
                 </SwiperSlide>
                 <SwiperSlide className={styles.swiperSlide}>
-                    <CardProperty />
+                    <CardDistrict image="/image07.png" subtitle="" title="" />
                 </SwiperSlide>
                 <SwiperSlide className={styles.swiperSlide}>
-                    <CardProperty />
+                    <CardDistrict image="/image08.png" subtitle="" title="" />
                 </SwiperSlide>
                 <SwiperButtons state={state}/>
             </Swiper>
