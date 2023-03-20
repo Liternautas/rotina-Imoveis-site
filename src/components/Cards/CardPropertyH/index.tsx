@@ -2,15 +2,15 @@ import { BedOutlined, DirectionsCarOutlined, ShowerOutlined, SquareFootOutlined 
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
 
-export function CardProperty() {
+export function CardPropertyH() {
     return (
         <Link href={'/imovel/teste'}>
             <Card sx={{
-                w: '276px',
-                boxShadow: 'none'
+                display: 'flex',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, .15)'
             }}>
                 <CardMedia
-                    sx={{ height: 190, borderRadius: 1 }}
+                    sx={{width: 300, height: 190 }}
                     image="https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg?quality=90&strip=info"
                 />
                 <CardContent sx={{

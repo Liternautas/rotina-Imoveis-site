@@ -1,11 +1,13 @@
 import { useSelect } from "@/src/hooks/useSelect";
 import { Autocomplete, Box, Button, Tab, Tabs, TextField } from "@mui/material";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { BackgroundHome, Container, Form, Title } from "./styles";
 
 export function BannerHome() {
     const [value, setValue] = useState(0);
     const type = useSelect();
+    const router = useRouter();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -64,7 +66,7 @@ export function BannerHome() {
                     color: ' #fff',
                     fontWeight: 600,
                     height: 48
-                }}>Buscar resultados</Button>
+                }} onClick={() => router.push('/imoveis/filter')}>Buscar resultados</Button>
             </Form>
             <BackgroundHome />
         </Container>

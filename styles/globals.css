@@ -46,3 +46,7 @@ body {
   .swiper {
     position: unset !important;
   }
+
+  a {
+    text-decoration: none;
+  }
