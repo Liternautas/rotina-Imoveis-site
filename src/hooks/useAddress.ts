@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { IAddress } from "../interfaces";
+import { IAddress, ICity, IDistrict, IState } from "../interfaces";
 import { cities, districts, states } from "../utils/address";
 import { useForm, useFormProps } from "./useForm";
 import { useSelect, useSelectProps } from "./useSelect";
@@ -13,7 +13,7 @@ export interface useAddressProps {
     number: useFormProps,
     complement: useFormProps
 
-    startProps(stateValue: string, city: string, district?: string): Promise<void>;
+    startProps(stateValue: IState, city: ICity, district?: IDistrict): Promise<void>;
 }
 
 export function useAddress(): useAddressProps {
@@ -35,7 +35,7 @@ export function useAddress(): useAddressProps {
         const filter = cities.filter(item => item.stateId === state.value.id);
         city.setOptions(filter);
         if(initialAddress?.city) {
-            city.onChange(findInOptions(initialAddress.city, filter));
+            city.onChange(findInOptions(initialAddress.city.name, filter));
         }
     }, [state.value]);
     
@@ -43,7 +43,7 @@ export function useAddress(): useAddressProps {
         const filter = districts.filter(item => item.city.id === city.value.id);
         district.setOptions(filter)
         if(initialAddress?.city) {
-            district.onChange(findInOptions(initialAddress.district, filter));
+            district.onChange(findInOptions(initialAddress.district.name, filter));
         }
     }, [city.value]);
 
@@ -67,13 +67,13 @@ export function useAddress(): useAddressProps {
         }
     }, [city.value]);
 
-    const startProps = async (stateValue: string, city: string, district?: string) => {
+    const startProps = async (stateValue: IState, city: ICity, district?: IDistrict) => {
         setInitialAddress({
             city,
             district,
             state: stateValue
         })
-        state.onChange(findInOptions(stateValue, states));
+        state.onChange(findInOptions(stateValue.name, states));
     }
 
     function findInOptions(param: string, options) {

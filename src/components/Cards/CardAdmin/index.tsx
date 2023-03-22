@@ -1,3 +1,4 @@
+import { maskPrice } from "@/src/helpers/mask";
 import { AdType, IProperty } from "@/src/interfaces";
 import { BedOutlined, DirectionsCarOutlined, Rule, ShowerOutlined, SquareFoot, SquareFootOutlined } from "@mui/icons-material";
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
@@ -9,7 +10,7 @@ interface Props {
 
 export function CardAdmin({property}: Props) {
     const router = useRouter();
-    const {adType, address, description, exemptIptu, favorites, id, images, iptu, numberBathroom, numberGarage, numberRooms, totalArea, usefulArea} = property;
+    const {adType, type, address, description, exemptIptu, favorites, id, images, iptu, numberBathroom, numberGarage, numberRooms, totalArea, usefulArea, code, price} = property;
 
     return (
         <Card sx={{position: 'relative'}} onClick={() => router.push(`/admin/properties/update/${id}`)}>
@@ -28,13 +29,38 @@ export function CardAdmin({property}: Props) {
                 color: '#fff',
                 borderRadius: 1
             }}>{adType === AdType.venda ? 'Venda' : 'Aluguel'}</Box>
+            <Box sx={{
+                position: 'absolute',
+                top: 48,
+                left: 8,
+                zIndex: 10,
+                px: 1,
+                py: .5,
+                background: 'rgba(0, 0, 0, .5)',
+                color: '#fff',
+                borderRadius: 1
+            }}>{code}</Box>
+            {type?.name && <Box sx={{
+                position: 'absolute',
+                top: 88,
+                left: 8,
+                zIndex: 10,
+                px: 1,
+                py: .5,
+                background: 'rgba(0, 0, 0, .5)',
+                color: '#fff',
+                borderRadius: 1
+            }}>{type?.name}</Box>}
             <CardContent style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: 2
             }}>
-                <Typography gutterBottom variant="h6" component="div">
-                    Loteamento Ipanema, Catalão
+                <Typography gutterBottom variant="h6" component="div" sx={{mb: 0}}>
+                    {address.district?.name}
+                </Typography>
+                <Typography gutterBottom variant="subtitle2" component="div">
+                    {address.city?.name}
                 </Typography>
                 <Box sx={{
                     display: 'flex',
@@ -60,7 +86,7 @@ export function CardAdmin({property}: Props) {
                 <Typography variant="h5" sx={{
                     fontWeight: 600,
                     mt: 2
-                }}>R$ 1.500,00</Typography>
+                }}>R$ {maskPrice(price)}</Typography>
             </CardContent>
             <CardActions>
                 <Button size="small">Editar</Button>

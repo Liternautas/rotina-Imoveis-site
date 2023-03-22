@@ -9,8 +9,8 @@ export enum Role {
 
 export interface IUser {
     id?: string;
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
     password?: string;
     phone?: string;
     avatar?: string;
@@ -36,6 +36,7 @@ export interface IDetail {
 
 export interface IProperty {
     id?: number;
+    code?: string;
     adType?: string;
     numberRooms?: number;
     numberBathroom?: number;
@@ -63,17 +64,45 @@ export interface IDetail {
     type: string;
 }
 
+export type IState = {
+    id?: number;
+    name?: string;
+    shortName?: string;
+    region?: string;
+    cities?: ICity[];
+    addresses?: IAddress[];
+}
+
+export type ICity = {
+    id?: number;
+    ibgeId?: number;
+    apiId?: number;
+	name?: string;
+    state?: IState;
+    districts?: IDistrict[];
+    addresses?: IAddress[];
+}
+
+export type IDistrict = {
+    id?: number;
+    apiId?: number;
+    name?: string;
+    city?: ICity;
+    addresses?: IAddress[];
+}
+
 export type IAddress = {
     id?: string;
     nation?: string;
-    state: string;
-    city: string;
-    district: string;
+    state?: IState;
+    city?: ICity;
+    district?: IDistrict;
     route?: string;
+    complement?: string;
+    number?: number;
     zipcode?: string;
     place_id?: string;
     formatted_address?: string;
-    number?: number;
-    location?: Location;
-    complement?: string;
+    location?: any;
+    property?: IProperty;
 }

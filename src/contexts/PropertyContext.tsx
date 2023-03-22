@@ -7,7 +7,7 @@ import { useCookies } from "../hooks/useCookies";
 import { useForm, useFormProps } from "../hooks/useForm";
 import { useMultselect, useMultselectProps } from "../hooks/useMultselect";
 import { useNotification } from "../hooks/useNotification";
-import { useSelect, useSelectProps } from "../hooks/useSelect";
+import { OptionSelectProps, useSelect, useSelectProps } from "../hooks/useSelect";
 import { IDetail, IProperty } from "../interfaces";
 import { api } from "../services/api";
 import { adTypes, types } from "../utils/data";
@@ -16,6 +16,8 @@ interface PropertyContextProps {
     address: useAddressProps;
     type: useSelectProps;
     adType: useSelectProps;
+    pickup: useSelectProps;
+    owner: useSelectProps;
 
     numberBathroom: useFormProps;
     numberRooms: useFormProps;
@@ -112,6 +114,8 @@ const PropertyProvider = ({ children }) => {
                 const property: IProperty = res.property;
                  adType.onChange(findInOptions(property.adType, adTypes));
                  type.onChange(findInOptions(property.type.name, types));
+                 owner.onChange(property.owner as OptionSelectProps);
+                 pickup.onChange(property.pickup as OptionSelectProps);
                  totalArea.setValue(maskNumber(property.totalArea+''));
                  usefulArea.setValue(maskNumber(property.usefulArea+''));
                  description.setValue(property.description);
@@ -143,9 +147,15 @@ const PropertyProvider = ({ children }) => {
             
             const property: IProperty = {
                 address: {
-                    city: address.city.value.name,
-                    district: address.district.value.name,
-                    state: address.state.value.name,
+                    city: {
+                        id: +address.city.value.id
+                    },
+                    district: {
+                        id: +address.district.value.id
+                    },
+                    state: {
+                        id: +address.state.value.id
+                    },
                     number: Number(address.number.value),
                     route: address.route.value,
                     complement: address.complement.value,
@@ -166,7 +176,13 @@ const PropertyProvider = ({ children }) => {
                     id: type.value.id as number
                 },
                 images: images,
-                details: [...characteristics.value, ...extras.value, ...furnitures.value, ...security.value]
+                details: [...characteristics.value, ...extras.value, ...furnitures.value, ...security.value],
+                owner: {
+                    id: owner.value ? owner.value.id.toString() : null
+                },
+                pickup: {
+                    id: pickup.value ? pickup.value.id.toString() : null
+                }
             }
             if (id) {
                 const res = await api.patch(`properties/${id}`, property).then(res => res.data);
@@ -216,6 +232,8 @@ const PropertyProvider = ({ children }) => {
             address,
             type,
             adType,
+            pickup,
+            owner,
 
             numberBathroom,
             numberGarage,

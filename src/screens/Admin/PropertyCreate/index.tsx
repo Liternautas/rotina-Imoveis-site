@@ -6,69 +6,8 @@ import { Gallery } from "@/src/components/StepsCreateProperty/Gallery";
 import { Details } from "@/src/components/StepsCreateProperty/Details";
 import { useProperty } from "@/src/contexts/PropertyContext";
 import { Finished } from "@/src/components/StepsCreateProperty/Finished";
-
-const types = [
-    {
-        "id": 1,
-        "name": "Casa",
-        "slug": "casa"
-    },
-    {
-        "id": 3,
-        "name": "Apartamento",
-        "slug": "apartamento"
-    },
-    {
-        "id": 4,
-        "name": "Studio",
-        "slug": "studio"
-    },
-    {
-        "id": 5,
-        "name": "Kitnet",
-        "slug": "kitnet"
-    },
-    {
-        "id": 6,
-        "name": "Casa de Condomínio",
-        "slug": "casa-de-condominio"
-    },
-    {
-        "id": 7,
-        "name": "Casa de Vila",
-        "slug": "casa-de-vila"
-    },
-    {
-        "id": 8,
-        "name": "Cobertura",
-        "slug": "cobertura"
-    },
-    {
-        "id": 9,
-        "name": "Flat",
-        "slug": "flat"
-    },
-    {
-        "id": 10,
-        "name": "Loft",
-        "slug": "loft"
-    },
-    {
-        "id": 11,
-        "name": "Terreno/Lote",
-        "slug": "terrenolote"
-    },
-    {
-        "id": 12,
-        "name": "Fazenda / Sítio / Chácara",
-        "slug": "fazenda-sitio-chacara"
-    },
-    {
-        "id": 13,
-        "name": "Ponto Comercial",
-        "slug": "ponto-comercial"
-    }
-]
+import { useRouter } from "next/router";
+import { IUser } from "@/src/interfaces";
 
 const steps = [
     'Sobre o imóvel',
@@ -77,12 +16,19 @@ const steps = [
     'Finalizar'
 ]
 
-export function PropertyCreate({details}) {
-    const {create, setDetails} = useProperty();
+interface Props {
+    details, 
+    owners?: IUser, 
+    realtors?: IUser
+}
+
+export function PropertyCreate({details, owners, realtors}: Props) {
+    const {create, setDetails, owner, pickup} = useProperty();
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState<{
         [k: number]: boolean;
     }>({});
+    const router = useRouter();
 
 
     const handleStep = (step: number) => () => {
@@ -94,6 +40,18 @@ export function PropertyCreate({details}) {
             setDetails(details);
         }
     }, [details]);
+    
+    useEffect(() => {
+        if(realtors) {
+            pickup.setOptions(realtors);
+        }
+    }, [realtors]);
+    
+    useEffect(() => {
+        if(owners) {
+            owner.setOptions(owners);
+        }
+    }, [owners]);
 
     return (
         <Container>
@@ -151,9 +109,11 @@ export function PropertyCreate({details}) {
                     onClick={async () => {
                         activeStep === 0 && setActiveStep(1);
                         activeStep === 1 && await create().then(res => setActiveStep(2)); 
+                        activeStep === 2 && setActiveStep(3);
+                        activeStep === 3 && await create().then(res => router.push('/admin/properties'));
                     }}
                 >
-                    Próximo
+                    {activeStep === 3 ? 'Finalizar' : 'Próximo'}
                 </Button>
             </Box>
         </Container>

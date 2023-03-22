@@ -13,7 +13,7 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import PersonIcon from '@mui/icons-material/Person';
 import LanguageIcon from '@mui/icons-material/Language';
-import { ArrowRight, Paid } from "@mui/icons-material";
+import { ArrowRight, DocumentScannerOutlined, HomeOutlined, LanguageOutlined, ManageAccountsOutlined, Paid, PaidOutlined, PersonOutline } from "@mui/icons-material";
 
 //styles
 import { AppBar, DrawerHeader, DrawerMobile, Drawer } from "./styles";
@@ -66,30 +66,36 @@ export function Aside({ children }) {
                     <AsideButton
                         onPress={() => router.push('/admin/deals')}
                         text={"Negócios"}
-                        Icon={Paid}
+                        Icon={PaidOutlined}
                         open={open}
                     />
                     <AsideButton
                         onPress={() => router.push('/admin/properties')}
                         text={"Imóveis"}
-                        Icon={HomeIcon}
+                        Icon={HomeOutlined}
+                        open={open}
+                    />
+                    <AsideButton
+                        onPress={() => router.push('/admin/contracts')}
+                        text={"Contratos"}
+                        Icon={DocumentScannerOutlined}
                         open={open}
                     />
                     <AsideButton
                         onPress={() => router.push('/admin/collaborators')}
                         text={"Colaboradores"}
-                        Icon={ManageAccountsIcon}
+                        Icon={ManageAccountsOutlined}
                         open={open}
                     />
                     <AsideButton
                         onPress={() => router.push('/admin/customers')}
                         text={"Clientes"}
-                        Icon={PersonIcon}
+                        Icon={PersonOutline}
                         open={open}
                     />
                     <AsideButtonCollapse
                         text={"Gerenciamento do site"}
-                        Icon={LanguageIcon}
+                        Icon={LanguageOutlined}
                         open={open}
                         onEnvet={handleDrawerOpen}
                     >
@@ -173,7 +179,7 @@ export function Aside({ children }) {
             >
                 <Content />
             </DrawerMobile>
-            <Box component="main" sx={{ flexGrow: 1, p: 3, overflowY: 'auto' }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3, overflowY: 'auto', background: `#fafafa`, minHeight: '100vh' }}>
                 <DrawerHeader />
                 {children}
             </Box>

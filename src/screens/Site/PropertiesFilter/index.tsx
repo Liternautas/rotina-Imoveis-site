@@ -1,6 +1,6 @@
 import { CardPropertyH } from "@/src/components/Cards/CardPropertyH";
 import { Filter } from "@/src/components/Filter";
-import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
+import { Box, Container, Grid, Pagination, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Results } from "./styles";
 
@@ -19,6 +19,21 @@ export function PropertiesFilter() {
                         <Filter />
                     </Grid>
                     <Grid item md={8.5}>
+                        <Box sx={{
+                            height: 48,
+                            display: "flex",
+                            alignItems: "center",
+                            background: "#fff",
+                            padding: 2,
+                            borderRadius: 1,
+                            boxShadow: '0 0 4px rgba(0, 0, 0, .15)',
+                            mb: 3
+                        }}>
+                            <Typography sx={{
+                                fontSize: 14,
+                                fontWeight: 600
+                            }}>Exibindo 3 resultados</Typography>
+                        </Box>
                         <Results>
                             <CardPropertyH />
                             <CardPropertyH />

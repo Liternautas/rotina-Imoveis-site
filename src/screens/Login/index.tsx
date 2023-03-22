@@ -1,12 +1,14 @@
-import { Container, Box, Avatar, Typography, TextField, Button, Grid, Link } from "@mui/material";
-import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
+import { Container, Box, Avatar, Typography, TextField, Button, Grid, Link, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from "@mui/material";
+import { LockOutlined as LockOutlinedIcon, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useForm } from "@/src/hooks/useForm";
 import { useAuth } from "@/src/contexts/AuthContext";
+import { useState } from "react";
 
 export function Login() {
     const { signIn } = useAuth();
 
+    const [showPassword, setShowPassword] = useState(false);
     const email = useForm();
     const password = useForm();
     const router = useRouter();
@@ -15,6 +17,12 @@ export function Login() {
         e.preventDefault();
         await signIn(email.value, password.value);
     }
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -33,7 +41,7 @@ export function Login() {
                 <Typography component="p" variant="inherit" sx={{ mt: 1, mb: 3, textAlign: 'center', fontSize: 14 }}>
                     Ao me logar, aceito os Termos de uso e Política de privacidade da Imobiliária, receber comunicações da Imobiliária e afirmo ter 18 anos ou mais.
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, gap: 2, display: "flex", flexDirection: "column", width: "100%" }}>
                     <TextField
                         margin="normal"
                         required
@@ -46,7 +54,7 @@ export function Login() {
                         value={email.value}
                         onChange={e => email.setValue(e.target.value)}
                     />
-                    <TextField
+                    {/* <TextField
                         margin="normal"
                         required
                         fullWidth
@@ -57,7 +65,29 @@ export function Login() {
                         autoComplete="current-password"
                         value={password.value}
                         onChange={e => password.setValue(e.target.value)}
-                    />
+                    /> */}
+                    <FormControl variant="outlined" fullWidth>
+                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password.value}
+                            onChange={e => password.setValue(e.target.value)}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                        />
+                    </FormControl>
                     <Button
                         type="submit"
                         fullWidth

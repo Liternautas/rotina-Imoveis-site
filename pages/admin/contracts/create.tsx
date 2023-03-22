@@ -1,12 +1,10 @@
-import { PropertyCreate } from "@/src/screens/Admin/PropertyCreate";
+import { CreateContracts } from "@/src/screens/Admin/Contracts/create";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 
-export default function CreatePropertyPage({details, owners, realtors}) {
-    return (
-        <PropertyCreate details={details} realtors={realtors} owners={owners}/>
-    )
+export default function CreateContractsPage({customers, realtors}) {
+    return <CreateContracts customers={customers} realtors={realtors}/>
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -22,15 +20,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     api.defaults.headers['Authorization'] = `Bearer ${token}`
 
-    const details = await api.get('details').then(res => res.data);
-    const owners = await api.get('users/owners').then(res => res.data);
+    const customers = await api.get('users/customers').then(res => res.data);
     const realtors = await api.get('users/realtors').then(res => res.data);
 
     return {
         props: {
-            details: details.results ?? null,
-            owners: owners.results ?? [],
-            realtors: realtors.results ?? [],
+            customers: customers.results ?? [],
+            realtors: realtors.results ?? []
         }
     }
 }

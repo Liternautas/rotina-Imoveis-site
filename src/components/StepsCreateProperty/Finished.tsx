@@ -1,8 +1,10 @@
+import { useProperty } from "@/src/contexts/PropertyContext";
 import { useSelect } from "@/src/hooks/useSelect";
 import { Autocomplete, Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 export function Finished() {
+    const {pickup, owner} = useProperty();
     const type = useSelect();
     return (
         <Box>
@@ -16,10 +18,10 @@ export function Finished() {
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
-                        options={type?.options}
+                        options={owner?.options}
                         sx={{ width: 300 }}
-                        value={type.value}
-                        onChange={(e, value) => type.onChange(value)}
+                        value={owner.value}
+                        onChange={(e, value) => owner.onChange(value)}
                         getOptionLabel={(option) => option.name}
                         renderInput={(params) => <TextField {...params} label="Proprietário" />}
                         renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
@@ -27,10 +29,10 @@ export function Finished() {
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
-                        options={type?.options}
+                        options={pickup?.options}
                         sx={{ width: 300 }}
-                        value={type.value}
-                        onChange={(e, value) => type.onChange(value)}
+                        value={pickup.value}
+                        onChange={(e, value) => pickup.onChange(value)}
                         getOptionLabel={(option) => option.name}
                         renderInput={(params) => <TextField {...params} label="Captador" />}
                         renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}

@@ -25,7 +25,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <AuthProvider>
           <PropertyProvider>
-            {!asPath.startsWith('/admin') || !asPath.startsWith('/login') ? <Header /> : null}
+            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Header /> : null}
             {asPath.startsWith('/admin') ?
               <AdminTemplate>
                 <Component {...pageProps} />
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
               <Component {...pageProps} />
             }
             <ReactNotifications />
-            {!asPath.startsWith('/admin') || !asPath.startsWith('/login') ? <Footer /> : null}
+            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Footer /> : null}
           </PropertyProvider>
         </AuthProvider>
       </SessionProvider>

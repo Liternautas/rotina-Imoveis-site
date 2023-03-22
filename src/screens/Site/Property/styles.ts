@@ -18,7 +18,6 @@ export const Aside = styled(Box)`
     position: sticky;
     top: 88px;
     width: 100%;
-    min-height: 400px;
     box-shadow: 0 0 4px rgba(0, 0, 0, .15);
     background: #fff;
     border-radius: 8px;
