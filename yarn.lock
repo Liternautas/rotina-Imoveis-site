@@ -400,6 +400,14 @@
     "@mui/utils" "^5.11.12"
     prop-types "^15.8.1"
 
+"@mui/styled-engine-sc@^5.11.11":
+  version "5.11.11"
+  resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.11.11.tgz#030882bf991bd11e1a46efba7382ccbfdf7826d2"
+  integrity sha512-6+HsfcKHlhjQklDoEup7Itl+Xgn+BCsqEpIdIIhlxED4YlOZ38xghxIKrx78XFZznTorbhAspUgDDKIaB5vDMg==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+    prop-types "^15.8.1"
+
 "@mui/styled-engine@^5.11.11":
   version "5.11.11"
   resolved "https://registry.npmjs.org/@mui/styled-engine/-/styled-engine-5.11.11.tgz"
