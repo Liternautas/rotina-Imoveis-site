@@ -25,7 +25,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SessionProvider session={session}>
+      {/* <SessionProvider session={session}> */}
         <AuthProvider>
           <FilterProvider>
             <PropertyProvider>
@@ -42,7 +42,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
             </PropertyProvider>
           </FilterProvider>
         </AuthProvider>
-      </SessionProvider>
+      {/* </SessionProvider> */}
     </ThemeProvider>
   )
 }
