@@ -8,10 +8,6 @@ const CssBaseline = dynamic(() => import('@mui/material/CssBaseline'), {
   loading: () => <p>Loading...</p>,
 });
 
-const ThemeProvider = dynamic(() => import('@mui/material/styles/ThemeProvider'), {
-  loading: () => <p>Loading...</p>,
-});
-
 const AdminTemplate = dynamic(() => import('@/src/ui/templates/admin'), {
   loading: () => <p>Loading...</p>,
 });
@@ -34,6 +30,7 @@ import { FilterProvider } from '@/src/contexts/FilterContext';
 import { theme } from '@/styles/theme';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '../src/createEmotionCache';
+import {ThemeProvider} from '@mui/material/styles';
 
 const clientSideEmotionCache = createEmotionCache();
 
