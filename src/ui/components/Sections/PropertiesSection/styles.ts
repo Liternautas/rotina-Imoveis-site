@@ -1,4 +1,5 @@
-import { styled, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import {styled} from "@mui/material/styles";
 
 export const Title = styled(Typography)`
     font-size: 1.5rem;

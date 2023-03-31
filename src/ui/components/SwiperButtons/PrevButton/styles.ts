@@ -1,4 +1,5 @@
-import {Button as ButtonMui, styled} from "@mui/material";
+import {Button as ButtonMui} from "@mui/material";
+import {styled} from "@mui/material/styles";
 
 export const Button = styled(ButtonMui)`
     width: 32px;
