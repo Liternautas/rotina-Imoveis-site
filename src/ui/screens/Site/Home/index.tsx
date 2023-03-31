@@ -17,7 +17,7 @@ export function Home({properties}) {
             pt: 3,
         }}>
             {/* <BannerHome /> */}
-            <Container>
+            {/* <Container>
                 <Box sx={{
                     py: 3
                 }}>
@@ -61,7 +61,7 @@ export function Home({properties}) {
                 <PropertiesSection properties={properties}/>
                 <DistrictsSection />
                 <ReleasesSection />
-            </Container>
+            </Container> */}
         </Box>
     )
 }
