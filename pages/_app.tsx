@@ -12,10 +12,6 @@ const ThemeProvider = dynamic(() => import('@mui/material/styles/ThemeProvider')
   loading: () => <p>Loading...</p>,
 });
 
-const ReactNotifications = dynamic(() => import('react-notifications-component'), {
-  loading: () => <p>Loading...</p>,
-});
-
 const AdminTemplate = dynamic(() => import('@/src/ui/templates/admin'), {
   loading: () => <p>Loading...</p>,
 });
@@ -33,6 +29,7 @@ import 'swiper/css';
 import '@/styles/globals.css';
 import "react-datepicker/dist/react-datepicker.css";
 
+import {ReactNotifications} from "react-notifications-component";
 import { FilterProvider } from '@/src/contexts/FilterContext';
 import { theme } from '@/styles/theme';
 import { CacheProvider, EmotionCache } from '@emotion/react';
