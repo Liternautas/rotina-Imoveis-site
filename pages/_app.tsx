@@ -10,7 +10,6 @@ import { PropertyProvider } from '@/src/contexts/PropertyContext';
 import { AdminTemplate } from '@/src/ui/templates/admin';
 import { Header } from '@/src/ui/components/Header';
 import { Footer } from '@/src/ui/components/Footer';
-import { theme } from '@/styles/theme';
 
 import 'react-notifications-component/dist/theme.css';
 import 'swiper/css';
@@ -18,14 +17,26 @@ import '@/styles/globals.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { FilterProvider } from '@/src/contexts/FilterContext';
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+import { theme } from '@/styles/theme';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import createEmotionCache from '../src/createEmotionCache';
+
+const clientSideEmotionCache = createEmotionCache();
+
+export interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+export default function App({ Component, pageProps: { session, ...pageProps } }: MyAppProps) {
+  const { emotionCache = clientSideEmotionCache } = pageProps;
   const router = useRouter();
   const { asPath } = router;
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {/* <SessionProvider session={session}> */}
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {/* <SessionProvider session={session}> */}
         <AuthProvider>
           <FilterProvider>
             <PropertyProvider>
@@ -42,7 +53,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
             </PropertyProvider>
           </FilterProvider>
         </AuthProvider>
-      {/* </SessionProvider> */}
-    </ThemeProvider>
+        {/* </SessionProvider> */}
+      </ThemeProvider>
+    </CacheProvider>
   )
 }
