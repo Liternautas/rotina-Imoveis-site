@@ -1,8 +1,12 @@
+import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import { Title } from "./styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-import { CardProperty } from "../../Cards/CardProperty";
+
+const CardProperty = dynamic(() => import('../../Cards/CardProperty'), {
+    loading: () => <p>Loading...</p>,
+});
 
 import styles from './styles.module.scss';
 import { SwiperButtons } from "../../SwiperButtons";
@@ -34,7 +38,7 @@ export function PropertiesSection({ properties }: Props) {
             >
                 {properties.map(property =>
                     <SwiperSlide className={styles.swiperSlide}>
-                        <CardProperty property={property}/>
+                        <CardProperty property={property} />
                     </SwiperSlide>
                 )}
                 <SwiperButtons state={state} />
@@ -42,3 +46,5 @@ export function PropertiesSection({ properties }: Props) {
         </Box>
     )
 }
+
+export default PropertiesSection;

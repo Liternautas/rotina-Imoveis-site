@@ -44,3 +44,5 @@ export function DistrictsSection() {
         </Box>
     )
 }
+
+export default DistrictsSection;

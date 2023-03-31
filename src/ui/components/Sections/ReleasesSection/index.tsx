@@ -1,13 +1,16 @@
+import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import { Title } from "./styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-import { CardDistrict } from "../../Cards/CardDistrict";
 
 import styles from './styles.module.scss';
 import { useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
-import { CardRelease } from "../../Cards/CardRelease";
+
+const CardRelease = dynamic(() => import('../../Cards/CardRelease'), {
+    loading: () => <p>Loading...</p>,
+});
 
 export function ReleasesSection() {
     const [state, setState] = useState('start');
@@ -45,3 +48,5 @@ export function ReleasesSection() {
         </Box>
     )
 }
+
+export default ReleasesSection;

@@ -37,3 +37,5 @@ export function CardRelease({ image, link }: Props) {
         </Card>
     )
 }
+
+export default CardRelease;

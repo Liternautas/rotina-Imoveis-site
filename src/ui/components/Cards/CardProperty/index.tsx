@@ -85,3 +85,5 @@ export function CardProperty({property}: Props) {
         </Link>
     )
 }
+
+export default CardProperty;

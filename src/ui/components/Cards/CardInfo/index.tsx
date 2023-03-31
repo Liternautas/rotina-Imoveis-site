@@ -36,3 +36,5 @@ export function CardInfo({image, subtitle, title}: Props) {
         </Card>
     )
 }
+
+export default CardInfo;
