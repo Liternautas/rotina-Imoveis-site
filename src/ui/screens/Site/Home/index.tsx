@@ -1,5 +1,4 @@
-import { BannerHome } from "@/src/ui/components/Banners/BannerHome";
-import { CardInfo } from "@/src/ui/components/Cards/CardInfo";
+import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,11 +6,28 @@ import { Navigation, Pagination } from "swiper";
 
 import styles from './styles.module.scss';
 import { Title } from "./styles";
-import { PropertiesSection } from "@/src/ui/components/Sections/PropertiesSection";
-import { DistrictsSection } from "@/src/ui/components/Sections/DistrictsSection";
-import { ReleasesSection } from "@/src/ui/components/Sections/ReleasesSection";
 
-export function Home({properties}) {
+const BannerHome = dynamic(() => import('@/src/ui/components/Banners/BannerHome'), {
+    loading: () => <p>Loading...</p>,
+});
+
+const PropertiesSection = dynamic(() => import('@/src/ui/components/Sections/PropertiesSection'), {
+    loading: () => <p>Loading...</p>,
+});
+
+const DistrictsSection = dynamic(() => import('@/src/ui/components/Sections/DistrictsSection'), {
+    loading: () => <p>Loading...</p>,
+});
+
+const ReleasesSection = dynamic(() => import('@/src/ui/components/Sections/ReleasesSection'), {
+    loading: () => <p>Loading...</p>,
+});
+
+const CardInfo = dynamic(() => import('@/src/ui/components/Cards/CardInfo'), {
+    loading: () => <p>Loading...</p>,
+});
+
+export function Home({ properties }) {
     return (
         <Box sx={{
             mt: '64px',
@@ -59,7 +75,7 @@ export function Home({properties}) {
                         </SwiperSlide>
                     </Swiper>
                 </Box>
-                <PropertiesSection properties={properties}/>
+                <PropertiesSection properties={properties} />
                 <DistrictsSection />
                 <ReleasesSection />
             </Container>

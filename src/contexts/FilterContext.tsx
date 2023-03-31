@@ -108,4 +108,6 @@ function useFilter() {
     return useContext(FilterContext);
 }
 
-export {useFilter, FilterProvider}
+export {useFilter, FilterProvider, FilterContext}
+
+export default FilterProvider;

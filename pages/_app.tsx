@@ -2,8 +2,6 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app'
 
-import { AuthProvider } from '@/src/contexts/AuthContext';
-
 const CssBaseline = dynamic(() => import('@mui/material/CssBaseline'), {
   loading: () => <p>Loading...</p>,
 });
@@ -20,17 +18,24 @@ const Footer = dynamic(() => import('@/src/ui/components/Footer'), {
   loading: () => <p>Loading...</p>,
 });
 
+const FilterProvider = dynamic(() => import('@/src/contexts/FilterContext'), {
+  loading: () => <p>Loading...</p>,
+});
+
+const AuthProvider = dynamic(() => import('@/src/contexts/AuthContext'), {
+  loading: () => <p>Loading...</p>,
+});
+
 import 'react-notifications-component/dist/theme.css';
 import 'swiper/css';
 import '@/styles/globals.css';
 import "react-datepicker/dist/react-datepicker.css";
 
-import {ReactNotifications} from "react-notifications-component";
-import { FilterProvider } from '@/src/contexts/FilterContext';
+//import {ReactNotifications} from "react-notifications-component";
 import { theme } from '@/styles/theme';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '../src/createEmotionCache';
-import {ThemeProvider} from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -47,7 +52,6 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <SessionProvider session={session}> */}
         <AuthProvider>
           <FilterProvider>
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Header /> : null}
@@ -58,11 +62,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
               :
               <Component {...pageProps} />
             }
-            <ReactNotifications />
+            {/* <ReactNotifications /> */}
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Footer /> : null}
           </FilterProvider>
         </AuthProvider>
-        {/* </SessionProvider> */}
       </ThemeProvider>
     </CacheProvider>
   )

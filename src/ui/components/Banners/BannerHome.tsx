@@ -1,6 +1,5 @@
 import { useFilter } from "@/src/contexts/FilterContext";
 import { normalize } from "@/src/helpers/functions";
-import { useSelect } from "@/src/hooks/useSelect";
 import { Autocomplete, Box, Button, Tab, Tabs, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -84,3 +83,5 @@ export function BannerHome() {
         </Container>
     )
 }
+
+export default BannerHome;
