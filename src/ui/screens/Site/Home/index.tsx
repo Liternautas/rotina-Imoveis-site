@@ -8,23 +8,23 @@ import styles from './styles.module.scss';
 import { Title } from "./styles";
 
 const BannerHome = dynamic(() => import('@/src/ui/components/Banners/BannerHome'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 const PropertiesSection = dynamic(() => import('@/src/ui/components/Sections/PropertiesSection'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 const DistrictsSection = dynamic(() => import('@/src/ui/components/Sections/DistrictsSection'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 const ReleasesSection = dynamic(() => import('@/src/ui/components/Sections/ReleasesSection'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 const CardInfo = dynamic(() => import('@/src/ui/components/Cards/CardInfo'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 export function Home({ properties }) {

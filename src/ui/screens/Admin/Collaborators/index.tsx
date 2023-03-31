@@ -9,37 +9,37 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Box = dynamic(() => import('@mui/material/Box'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const Container = dynamic(() => import('@mui/material/Container'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const IconButton = dynamic(() => import('@mui/material/IconButton'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const Paper = dynamic(() => import('@mui/material/Paper'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const Table = dynamic(() => import('@mui/material/Table'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const TableCell = dynamic(() => import('@mui/material/TableCell'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const TableContainer = dynamic(() => import('@mui/material/TableContainer'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const TableHead = dynamic(() => import('@mui/material/TableHead'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const TablePagination = dynamic(() => import('@mui/material/TablePagination'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const TableRow = dynamic(() => import('@mui/material/TableRow'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 const TableBody = dynamic(() => import('@mui/material/TableBody'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 export function Collaborators({ users }) {

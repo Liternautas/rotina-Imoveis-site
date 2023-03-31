@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 
 const CardProperty = dynamic(() => import('../../Cards/CardProperty'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 import styles from './styles.module.scss';

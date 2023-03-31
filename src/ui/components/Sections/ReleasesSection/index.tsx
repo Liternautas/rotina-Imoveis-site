@@ -9,7 +9,7 @@ import { useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
 
 const CardRelease = dynamic(() => import('../../Cards/CardRelease'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => null,
 });
 
 export function ReleasesSection() {
