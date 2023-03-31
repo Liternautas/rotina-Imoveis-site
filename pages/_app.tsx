@@ -31,11 +31,11 @@ import 'swiper/css';
 import '@/styles/globals.css';
 import "react-datepicker/dist/react-datepicker.css";
 
-//import {ReactNotifications} from "react-notifications-component";
 import { theme } from '@/styles/theme';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '../src/createEmotionCache';
 import { ThemeProvider } from '@mui/material/styles';
+import {ReactNotifications} from 'react-notifications-component';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -62,7 +62,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
               :
               <Component {...pageProps} />
             }
-            {/* <ReactNotifications /> */}
+            <ReactNotifications />
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Footer /> : null}
           </FilterProvider>
         </AuthProvider>
