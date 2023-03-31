@@ -1,4 +1,5 @@
-import { Box, styled, Drawer as MuiDrawer } from "@mui/material";
+import { Box, Drawer as MuiDrawer } from "@mui/material";
+import {styled} from "@mui/material/styles";
 
 export const Results = styled(Box)`
     width: 100%;

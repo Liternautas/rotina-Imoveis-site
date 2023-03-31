@@ -1,12 +1,9 @@
-import {useState} from 'react';
 import { maskPrice } from "@/src/helpers/mask";
 import { IProperty } from "@/src/interfaces";
 import { Gallery } from "@/src/ui/components/Gallery";
 import { GalleryMobile } from "@/src/ui/components/GalleryMobile";
-import { GalleryView } from "@/src/ui/components/GalleryView";
 import { PropertiesSection } from "@/src/ui/components/Sections/PropertiesSection";
-import { characteristics, extras, furniture, security } from "@/src/utils/data";
-import { FavoriteBorderOutlined, ReportOutlined, ShareOutlined } from "@mui/icons-material";
+import { FavoriteBorderOutlined, ShareOutlined } from "@mui/icons-material";
 import { Avatar, Box, Button, Container, Divider, Grid, Typography } from "@mui/material";
 import { Aside, Description, Footer, Subtitle, Title } from "./styles";
 import { ModalScheduling } from '@/src/ui/components/modals/ModalScheduling';
