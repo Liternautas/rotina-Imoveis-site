@@ -2,17 +2,13 @@ import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 
 //styled-components
-import { Box, Toolbar, IconButton, Typography, Divider, List, Tooltip, Avatar, Collapse, Button } from "@mui/material";
+import { Box, Toolbar, IconButton, Typography, Divider, List, Button } from "@mui/material";
 
 //icons
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import HomeIcon from '@mui/icons-material/Home';
 import GridViewIcon from '@mui/icons-material/GridView';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import PersonIcon from '@mui/icons-material/Person';
-import LanguageIcon from '@mui/icons-material/Language';
 import { ArrowRight, DocumentScannerOutlined, HomeOutlined, LanguageOutlined, ManageAccountsOutlined, Paid, PaidOutlined, PersonOutline } from "@mui/icons-material";
 
 //styles

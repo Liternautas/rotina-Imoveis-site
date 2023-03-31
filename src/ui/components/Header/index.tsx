@@ -10,7 +10,7 @@ import { AppBar, DrawerMobile } from "./styles";
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export function Header() {
+export default function Header() {
     const [open, setOpen] = useState(false);
     
     return (

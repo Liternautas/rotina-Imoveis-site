@@ -4,7 +4,7 @@ import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
 import Link from "next/link";
 import { Links, Title } from "./styles";
 
-export function Footer() {
+export default function Footer() {
     return (
         <>
             <Box sx={{

@@ -1,6 +1,6 @@
 import { Aside } from "../components/Aside";
 
-export function AdminTemplate({children}) {
+export default function AdminTemplate({children}) {
     return (
         <Aside>
             {children}

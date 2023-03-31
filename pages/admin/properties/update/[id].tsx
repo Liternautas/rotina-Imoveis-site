@@ -2,10 +2,13 @@ import { PropertyCreate } from "@/src/ui/screens/Admin/PropertyCreate";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { PropertyProvider } from "@/src/contexts/PropertyContext";
 
 export default function CreatePropertyPage({details, owners, realtors}) {
     return (
-        <PropertyCreate details={details} realtors={realtors} owners={owners}/>
+        <PropertyProvider>
+            <PropertyCreate details={details} realtors={realtors} owners={owners}/>
+        </PropertyProvider>
     )
 }
 

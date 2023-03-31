@@ -2,10 +2,13 @@ import { PropertyCreate } from "@/src/ui/screens/Admin/PropertyCreate";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { PropertyProvider } from "@/src/contexts/PropertyContext";
 
-export default function CreatePropertyPage({details}) {
+export default function CreatePropertyPage({ details }) {
     return (
-        <PropertyCreate details={details}/>
+        <PropertyProvider>
+            <PropertyCreate details={details} />
+        </PropertyProvider>
     )
 }
 
@@ -22,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     api.defaults.headers['Authorization'] = `Bearer ${token}`
 
-    const {results} = await api.get('details').then(res => res.data);
+    const { results } = await api.get('details').then(res => res.data);
 
     return {
         props: {

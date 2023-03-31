@@ -1,22 +1,39 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app'
-import { SessionProvider } from 'next-auth/react'
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ReactNotifications } from 'react-notifications-component';
 
 import { AuthProvider } from '@/src/contexts/AuthContext';
-import { PropertyProvider } from '@/src/contexts/PropertyContext';
-import { AdminTemplate } from '@/src/ui/templates/admin';
-import { Header } from '@/src/ui/components/Header';
-import { Footer } from '@/src/ui/components/Footer';
+
+const CssBaseline = dynamic(() => import('@mui/material/CssBaseline'), {
+  loading: () => <p>Loading...</p>,
+});
+
+const ThemeProvider = dynamic(() => import('@mui/material/styles/ThemeProvider'), {
+  loading: () => <p>Loading...</p>,
+});
+
+const ReactNotifications = dynamic(() => import('react-notifications-component'), {
+  loading: () => <p>Loading...</p>,
+});
+
+const AdminTemplate = dynamic(() => import('@/src/ui/templates/admin'), {
+  loading: () => <p>Loading...</p>,
+});
+
+const Header = dynamic(() => import('@/src/ui/components/Header'), {
+  loading: () => <p>Loading...</p>,
+});
+
+const Footer = dynamic(() => import('@/src/ui/components/Footer'), {
+  loading: () => <p>Loading...</p>,
+});
 
 import 'react-notifications-component/dist/theme.css';
 import 'swiper/css';
 import '@/styles/globals.css';
 import "react-datepicker/dist/react-datepicker.css";
-import { FilterProvider } from '@/src/contexts/FilterContext';
 
+import { FilterProvider } from '@/src/contexts/FilterContext';
 import { theme } from '@/styles/theme';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '../src/createEmotionCache';
@@ -39,18 +56,16 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         {/* <SessionProvider session={session}> */}
         <AuthProvider>
           <FilterProvider>
-            <PropertyProvider>
-              {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Header /> : null}
-              {asPath.startsWith('/admin') ?
-                <AdminTemplate>
-                  <Component {...pageProps} />
-                </AdminTemplate>
-                :
+            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Header /> : null}
+            {asPath.startsWith('/admin') ?
+              <AdminTemplate>
                 <Component {...pageProps} />
-              }
-              <ReactNotifications />
-              {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Footer /> : null}
-            </PropertyProvider>
+              </AdminTemplate>
+              :
+              <Component {...pageProps} />
+            }
+            <ReactNotifications />
+            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Footer /> : null}
           </FilterProvider>
         </AuthProvider>
         {/* </SessionProvider> */}
