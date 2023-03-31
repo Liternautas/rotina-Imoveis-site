@@ -39,6 +39,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '../src/createEmotionCache';
 import { ThemeProvider } from '@mui/material/styles';
 import { ReactNotifications } from 'react-notifications-component';
+import { HeadComponent } from '@/src/ui/components/HeadComponent';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -58,18 +59,17 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   if (!muiLoaded) return (
     <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, background: '#000' }}
       open={!muiLoaded}
     >
+      <HeadComponent />
       <CircularProgress color="inherit" />
     </Backdrop>
   )
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
+      <HeadComponent />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
