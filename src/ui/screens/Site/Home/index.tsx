@@ -16,7 +16,7 @@ export function Home({properties}) {
             mt: '64px',
             pt: 3,
         }}>
-            <BannerHome />
+            {/* <BannerHome /> */}
             <Container>
                 <Box sx={{
                     py: 3
