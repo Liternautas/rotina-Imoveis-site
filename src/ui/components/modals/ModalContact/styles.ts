@@ -1,4 +1,5 @@
-import { styled, Button, Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
+import {styled} from "@mui/material/styles";
 
 export const ContentWrapper = styled(Box)`
     position: absolute;
