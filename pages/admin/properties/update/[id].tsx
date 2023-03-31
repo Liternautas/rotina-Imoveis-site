@@ -1,4 +1,4 @@
-import { PropertyCreate } from "@/src/screens/Admin/PropertyCreate";
+import { PropertyCreate } from "@/src/ui/screens/Admin/PropertyCreate";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";

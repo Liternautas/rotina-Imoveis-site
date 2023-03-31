@@ -1,6 +1,6 @@
 import { UserProvider } from "@/src/contexts/UserContext";
 import { IUser } from "@/src/interfaces";
-import { Collaborators } from "@/src/screens/Admin/Collaborators";
+import { Collaborators } from "@/src/ui/screens/Admin/Collaborators";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";

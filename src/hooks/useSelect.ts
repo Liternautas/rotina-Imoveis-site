@@ -2,7 +2,7 @@ import {useState} from "react";
 
 export interface OptionSelectProps {
     id?: number | string;
-    name: string;
+    name?: string;
     enum?: string;
     width?: number;
     height?: number;

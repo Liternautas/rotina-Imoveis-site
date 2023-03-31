@@ -25,6 +25,7 @@ interface PropertyContextProps {
     numberGarage: useFormProps;
 
     price: useFormProps;
+    condominium: useFormProps;
     iptu: useFormProps;
     exemptIptu: useBooleanProps;
     description: useFormProps;
@@ -41,6 +42,7 @@ interface PropertyContextProps {
     create(): Promise<void>;
     uploadImages(file: File): Promise<void>;
     orderImages(images: Array<string>): Promise<void>;
+    removeImage(path: string): Promise<void>;
 
     details: any;
     setDetails: any;
@@ -62,6 +64,7 @@ const PropertyProvider = ({ children }) => {
     const description = useForm();
 
     const price = useForm('price');
+    const condominium = useForm('price');
     const iptu = useForm('price');
     const exemptIptu = useBoolean();
 
@@ -120,6 +123,7 @@ const PropertyProvider = ({ children }) => {
                  usefulArea.setValue(maskNumber(property.usefulArea+''));
                  description.setValue(property.description);
                  price.setValue(maskPrice(property.price));
+                 condominium.setValue(maskPrice(property.condominium));
                  iptu.setValue(maskPrice(property.iptu));
                  address.startProps(property.address.state, property.address.city, property.address.district);
                  numberBathroom.setValue(property.numberBathroom);
@@ -134,7 +138,7 @@ const PropertyProvider = ({ children }) => {
                  characteristics.setValue(property.details.filter(item => item.type === 'characteristics'));
                  extras.setValue(property.details.filter(item => item.type === 'extras'));
                  security.setValue(property.details.filter(item => item.type === 'security'));
-                 furnitures.setValue(property.details.filter(item => item.type === 'furnitures'));
+                 furnitures.setValue(property.details.filter(item => item.type === 'furniture'));
             }
         } catch (error) {
             notification.execute('danger', error.mensage);
@@ -170,6 +174,7 @@ const PropertyProvider = ({ children }) => {
                 numberRooms: Number(numberRooms.value),
                 numberSuite: Number(numberSuite.value),
                 price: price.value,
+                condominium: condominium.value,
                 totalArea: Number(totalArea.value),
                 usefulArea: Number(usefulArea.value),
                 type: {
@@ -190,7 +195,6 @@ const PropertyProvider = ({ children }) => {
                     router.push(`/admin/properties/update/${res.property.id}`);
                 }
             } else {
-                alert(`opa`)
                 const res = await api.post('properties', property).then(res => res.data);
                 if (res.success) {
                     router.push(`/admin/properties/update/${res.property.id}`);
@@ -226,6 +230,23 @@ const PropertyProvider = ({ children }) => {
             notification.execute('danger', error.mensage);
         }
     }
+    
+    const removeImage = async (path: string) => {
+        try {
+            setLoading(true);
+            const res = await api.post(`properties/remove/images/${id}`, {
+                path
+            }).then(res => res.data);
+            if(res.success) {
+                setImages(res.images);
+                notification.execute('success', res.message);
+            } else {
+                notification.execute('danger', res.mensage);
+            }
+        } catch (error) {
+            notification.execute('danger', error.mensage);
+        }
+    }
 
     return (
         <PropertyContext.Provider value={{
@@ -243,6 +264,7 @@ const PropertyProvider = ({ children }) => {
             exemptIptu,
             iptu,
             price,
+            condominium,
             description,
             totalArea,
             usefulArea,
@@ -258,6 +280,7 @@ const PropertyProvider = ({ children }) => {
             create,
             uploadImages,
             orderImages,
+            removeImage,
 
             details,
             setDetails

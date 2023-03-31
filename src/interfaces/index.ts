@@ -44,6 +44,7 @@ export interface IProperty {
     numberGarage?: number;
     description?: string;
     price?: string;
+    condominium?: string;
     iptu?: string;
     exemptIptu?: boolean;
     usefulArea?: number;
@@ -105,4 +106,27 @@ export type IAddress = {
     formatted_address?: string;
     location?: any;
     property?: IProperty;
+}
+
+export interface ISalesContract {
+    id?: number;
+    price?: string;
+    paymentForm?: string;
+    property?: IProperty;
+    owner?: IUser;
+    buyer?: IUser;
+    seller?: IUser;
+    date?: Date;
+}
+export interface IRentalContract {
+    id?: number;
+    price?: string;
+    start?: Date;
+    end?: Date;
+    fineDelay?: number;
+    earlyTerminationFine?: number;
+    property?: IProperty;
+    owner?: IUser;
+    tenant?: IUser;
+    locator?: IUser;
 }

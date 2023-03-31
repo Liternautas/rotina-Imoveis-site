@@ -1,5 +1,5 @@
 import { IUser } from "@/src/interfaces";
-import { Properties } from "@/src/screens/Admin/Properties";
+import { Properties } from "@/src/ui/screens/Admin/Properties";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";

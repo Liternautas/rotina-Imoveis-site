@@ -4,11 +4,13 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useSession, signIn, getSession, signOut } from "next-auth/react";
 import { useEffect } from 'react';
-import { Home } from '@/src/screens/Site/Home';
+import { Home } from '@/src/ui/screens/Site/Home';
+import { GetServerSideProps } from 'next';
+import { api } from '@/src/services/api';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function HomePage() {
+export default function HomePage({properties}) {
   const { data, status }: any = useSession();
 
   useEffect(() => {
@@ -16,6 +18,17 @@ export default function HomePage() {
   }, [data]);
 
   return (
-    <Home />
+    <Home properties={properties}/>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { results, count } = await api.get('properties').then(res => res.data);
+
+  return {
+      props: {
+          properties: results ?? [],
+          total: count ?? 0
+      }
+  }
 }

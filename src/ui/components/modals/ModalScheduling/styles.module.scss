@@ -1,0 +1,13 @@
+#swiper {
+    width: 100%;
+    overflow: hidden;
+}
+
+#swiper_slide {
+    width: fit-content !important;
+    margin-right: 1rem;
+
+    :last-child {
+        margin-right: 0;
+    }
+}
