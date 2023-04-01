@@ -175,7 +175,7 @@ export function Property({properties, property}: Props) {
                                     }}>R$ {maskPrice(priceFinal.toString())}</Typography>
                                 </Box>
                             </Box>
-                            <Box sx={{
+                            {pickup && <Box sx={{
                                 display: "flex",
                                 gap: 1,
                                 mt: 2
@@ -190,7 +190,7 @@ export function Property({properties, property}: Props) {
                                         p: 0
                                     }}>Veja mais imóveis desse corretor</Button>
                                 </Box>
-                            </Box>
+                            </Box>}
                             <Box sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
