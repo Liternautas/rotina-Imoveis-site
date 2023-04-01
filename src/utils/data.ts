@@ -223,62 +223,62 @@ export const extras = [
 
 export const types = [
     {
-        "id": 1,
+        "id": 4,
         "name": "Casa",
         "slug": "casa"
     },
     {
-        "id": 3,
+        "id": 14,
         "name": "Apartamento",
         "slug": "apartamento"
     },
     {
-        "id": 4,
+        "id": 24,
         "name": "Studio",
         "slug": "studio"
     },
     {
-        "id": 5,
+        "id": 34,
         "name": "Kitnet",
         "slug": "kitnet"
     },
     {
-        "id": 6,
+        "id": 44,
         "name": "Casa de Condomínio",
         "slug": "casa-de-condominio"
     },
     {
-        "id": 7,
+        "id": 54,
         "name": "Casa de Vila",
         "slug": "casa-de-vila"
     },
     {
-        "id": 8,
+        "id": 64,
         "name": "Cobertura",
         "slug": "cobertura"
     },
     {
-        "id": 9,
+        "id": 74,
         "name": "Flat",
         "slug": "flat"
     },
     {
-        "id": 10,
+        "id": 84,
         "name": "Loft",
         "slug": "loft"
     },
     {
-        "id": 11,
+        "id": 94,
         "name": "Terreno/Lote",
         "slug": "terrenolote"
     },
     {
-        "id": 12,
+        "id": 104,
         "name": "Fazenda / Sítio / Chácara",
         "slug": "fazenda-sitio-chacara"
     },
     {
-        "id": 13,
+        "id": 114,
         "name": "Ponto Comercial",
         "slug": "ponto-comercial"
     }
