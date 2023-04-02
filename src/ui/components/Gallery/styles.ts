@@ -32,7 +32,6 @@ export const Thumb = styled(Box)`
     width: 100px;
     max-height: 100px;
     flex: 1;
-    background: yellow;
     border-radius: 4px;
     overflow: hidden;
     position: relative;

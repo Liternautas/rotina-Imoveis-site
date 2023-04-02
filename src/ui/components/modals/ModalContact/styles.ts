@@ -13,7 +13,7 @@ export const ContentWrapper = styled(Box)`
     border-radius: 8px;
     padding: 16px;
     padding-top: 24px;
-    height: 80vh;
+    max-height: 80vh;
     overflow: auto;
 
     display: flex;

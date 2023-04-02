@@ -52,6 +52,8 @@ export function Aside({ children }) {
                 <Divider />
                 <List>
                     <AsideButton
+                        link='/admin'
+                        onPress={() => router.push('/admin')}
                         text={"Dashboard"}
                         Icon={GridViewIcon}
                         open={open}
@@ -60,30 +62,28 @@ export function Aside({ children }) {
                 <Divider />
                 <List>
                     <AsideButton
+                        link='/admin/deals'
                         onPress={() => router.push('/admin/deals')}
                         text={"Negócios"}
                         Icon={PaidOutlined}
                         open={open}
                     />
                     <AsideButton
+                        link='/admin/properties'
                         onPress={() => router.push('/admin/properties')}
                         text={"Imóveis"}
                         Icon={HomeOutlined}
                         open={open}
                     />
-                    {/* <AsideButton
-                        onPress={() => router.push('/admin/contracts')}
-                        text={"Contratos"}
-                        Icon={DocumentScannerOutlined}
-                        open={open}
-                    /> */}
                     <AsideButton
+                        link='/admin/collaborators'
                         onPress={() => router.push('/admin/collaborators')}
                         text={"Colaboradores"}
                         Icon={ManageAccountsOutlined}
                         open={open}
                     />
                     <AsideButton
+                        link='/admin/customers'
                         onPress={() => router.push('/admin/customers')}
                         text={"Clientes"}
                         Icon={PersonOutline}
@@ -123,12 +123,14 @@ export function Aside({ children }) {
                         onEnvet={handleDrawerOpen}
                     >
                         <AsideButton
+                            link='/admin/contracts/sales'
                             text={"Contratos de venda"}
                             Icon={ArrowRight}
                             open={open}
                             onPress={() => router.push('/admin/contracts/sales')}
                         />
                         <AsideButton
+                            link='/admin/contracts/rentals'
                             text={"Contratos de locação"}
                             Icon={ArrowRight}
                             open={open}

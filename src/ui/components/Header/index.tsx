@@ -6,11 +6,13 @@ import Link from "next/link";
 
 import Logo from "../../../../public/logo.png"
 import { AppBar, DrawerMobile } from "./styles";
+import { useRouter } from "next/router";
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Header() {
+    const router = useRouter();
     const [open, setOpen] = useState(false);
     
     return (
@@ -47,7 +49,7 @@ export default function Header() {
                         },
                         justifyContent: 'flex-end'
                     }}>
-                        <Button variant="outlined">Area do cliente</Button>
+                        <Button variant="outlined" onClick={() => router.push('/area-do-cliente')}>Area do cliente</Button>
                     </Box>
                     <IconButton
                         sx={{
@@ -100,7 +102,7 @@ export default function Header() {
                             justifyContent: 'flex-end',
                             p: 2
                         }}>
-                            <Button variant="outlined">Area do cliente</Button>
+                            <Button variant="outlined" onClick={() => router.push('/area-do-cliente')}>Area do cliente</Button>
                         </Box>
                     </DrawerMobile>
                 </Toolbar>
