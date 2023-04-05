@@ -156,6 +156,7 @@ export function Aside({ children }) {
                         sx={{
                             marginRight: 2.5,
                             px: 0,
+                            color: '#fff',
                             minWidth: 0,
                             ...(open && { display: 'none' }),
                         }}
@@ -165,7 +166,7 @@ export function Aside({ children }) {
                     <Box style={{
                         flexGrow: 1
                     }}>
-                        {!open && <Typography variant="h6" noWrap component="div">
+                        {!open && <Typography variant="h6" noWrap component="div" sx={{color: '#fff'}}>
                             Imobiliária
                         </Typography>}
                     </Box>

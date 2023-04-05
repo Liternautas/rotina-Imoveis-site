@@ -21,7 +21,7 @@ const types = [
 ]
 
 export function CreateSales({ customers, realtors }) {
-    const {createSales} = useContracts();
+    const { createSales } = useContracts();
     const contractType = useSelect();
     const seller = useSelect();
     const buyer = useSelect();
@@ -29,11 +29,12 @@ export function CreateSales({ customers, realtors }) {
     const owner = useSelect();
     const code = useForm('number');
     const price = useForm('price');
+    const commission = useForm('price');
     const [property, setProperty] = useState<IProperty>(null);
     const [propertyError, setPropertyError] = useState(false);
     const date = useForm();
     const [loading, setLoading] = useState(false);
-    
+
 
     const handleSearchProperty = async () => {
         try {
@@ -55,7 +56,7 @@ export function CreateSales({ customers, realtors }) {
     }
 
     const handleSubmit = async () => {
-        const contract:ISalesContract = {
+        const contract: ISalesContract = {
             buyer: {
                 id: buyer.value.id.toString()
             },
@@ -70,7 +71,7 @@ export function CreateSales({ customers, realtors }) {
             property: {
                 id: property.id
             }
-        } 
+        }
         await createSales(contract);
     }
 
@@ -102,6 +103,7 @@ export function CreateSales({ customers, realtors }) {
                     <Typography variant="h6">Busque a propriedade</Typography>
                     <Paper
                         component="form"
+                        onSubmit={e => e.preventDefault()}
                         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
                     >
                         <InputBase
@@ -172,18 +174,18 @@ export function CreateSales({ customers, realtors }) {
                                 sx={{ width: 300 }}
                             />
                         </Box>
-                        
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                        <TextField
-                            label="Valor"
-                            variant="outlined"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-                            }}
-                            value={price.value}
-                            onChange={(e) => price.onChange(e)}
-                            sx={{ width: 200 }}
-                        />
+
+                        <Box sx={{ display: "flex", gap: 2, maxWidth: 616 }}>
+                            <TextField
+                                label="Valor"
+                                variant="outlined"
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                }}
+                                value={price.value}
+                                onChange={(e) => price.onChange(e)}
+                                sx={{ width: 200 }}
+                            />
                             <TextField
                                 label="Início"
                                 variant="outlined"
@@ -193,6 +195,16 @@ export function CreateSales({ customers, realtors }) {
                                 value={date?.value}
                                 onChange={(e) => date.onChange(e)}
                                 type={"date"}
+                                sx={{ width: 200 }}
+                            />
+                            <TextField
+                                label="Comissão"
+                                variant="outlined"
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                }}
+                                value={commission.value}
+                                onChange={(e) => commission.onChange(e)}
                                 sx={{ width: 200 }}
                             />
                         </Box>

@@ -3,6 +3,7 @@ import { Menu, MenuItem, Divider, ListItemIcon, Tooltip, IconButton, Avatar } fr
 import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 import { IUser } from "@/src/interfaces";
 import { useAuth } from "@/src/contexts/AuthContext";
+import { theme } from "@/styles/theme";
 
 interface Props {
     user: IUser;
@@ -33,7 +34,7 @@ export function UserAvatar({ user }: Props) {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                 >
-                    <Avatar sx={{ width: 32, height: 32 }}>{user.name?.substring(0, 1)}</Avatar>
+                    <Avatar sx={{ width: 32, height: 32, backgroundColor: theme.palette.primary.light }}>{user.name?.substring(0, 1)}</Avatar>
                 </IconButton>
             </Tooltip>
             <Menu
@@ -77,7 +78,7 @@ export function UserAvatar({ user }: Props) {
                     {user.name}
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                         <PersonAdd fontSize="small" />
                     </ListItemIcon>
@@ -88,7 +89,7 @@ export function UserAvatar({ user }: Props) {
                         <Settings fontSize="small" />
                     </ListItemIcon>
                     Settings
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={() => {
                     signOut();
                     handleClose();
