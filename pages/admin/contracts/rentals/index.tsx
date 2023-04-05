@@ -2,10 +2,13 @@ import { Rentals } from "@/src/ui/screens/Admin/Contracts/rentals";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
 export default function ContractsPage({contracts}) {
     return (
-        <Rentals contracts={contracts}/>
+        <ContractsProvider>
+            <Rentals contracts={contracts}/>
+        </ContractsProvider>
     )
 }
 

@@ -37,6 +37,9 @@ function CardComponent({ property }: Props) {
                 sx: 'column',
                 md: 'row'
             },
+            minWidth: {
+                md: 616
+            },
             flex: 1,
             boxShadow: '0 2px 4px rgba(0, 0, 0, .15)'
         }}>
@@ -46,6 +49,7 @@ function CardComponent({ property }: Props) {
                         xs: '100%',
                         md: '40%'
                     }, 
+                    minWidth: '40%',
                     height: 190 
                 }}
                 image={getImageUrl(property.images[0])}

@@ -4,7 +4,7 @@ import {parseCookies} from "nookies";
 export function getApi(ctx?: any) {
     const { 'imob.token': token } = parseCookies(ctx);
     const api = axios.create({
-        baseURL: 'https://rotina-imoveis.herokuapp.com/'
+        baseURL: 'http://localhost:8080/'
     })
     if (token) api.defaults.headers['Authorization'] = `Bearer ${token}`;
     return api;

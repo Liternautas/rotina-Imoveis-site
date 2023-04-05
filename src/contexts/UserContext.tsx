@@ -8,6 +8,7 @@ interface UserContextProps {
     create(user: IUser, role: Role): Promise<void>;
     remove(id: string): Promise<void>;
     update(user: IUser): Promise<void>;
+    uploadAvatar(id: string, file: File): Promise<void>;
 
     results: IUser[];
     setResults: any;
@@ -106,6 +107,27 @@ const UserProvider = ({ children }) => {
         }
     }
 
+    const uploadAvatar = async (id: string, file: File) => {
+        try {
+            setLoading(true);
+
+            const data = new FormData();
+            data.append('file', file);
+
+            const res = await api.post(`users/upload/avatar/${id}`, data).then(res => res.data);
+
+            if(res.success) {
+                notification.execute('success', res.message);    
+            } else {
+                throw new Error(res.message);
+            }
+        } catch (error) {
+            notification.execute('danger', error.message);
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <UserContext.Provider value={{
             create,
@@ -114,7 +136,8 @@ const UserProvider = ({ children }) => {
             loading,
             results,
             setResults,
-            remove
+            remove,
+            uploadAvatar
         }}>
             {children}
         </UserContext.Provider>
@@ -128,3 +151,5 @@ function useUser() {
 };
 
 export { UserProvider, useUser };
+
+export default UserProvider;

@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 
 export const Container = styled(ContainerMui)`
     width: 100%;
-    min-height: 60vh;
+    min-height: 496px;
     height: auto;
     padding-bottom: 1.5rem;
     padding-top: 1.5rem;
@@ -12,7 +12,6 @@ export const Container = styled(ContainerMui)`
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
 `
 export const BackgroundHome = styled(Box)`
     position: absolute;

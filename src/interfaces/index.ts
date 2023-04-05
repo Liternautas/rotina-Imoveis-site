@@ -13,8 +13,13 @@ export interface IUser {
     email?: string;
     password?: string;
     phone?: string;
+    document?: string;
     avatar?: string;
     role?: string;
+    rentalContracts?: IRentalContract[];
+    rentalContractsLocator?: IRentalContract[];
+    salesContracts?: ISalesContract[];
+    salesContractsBuyer?: ISalesContract[];
 }
 
 export interface IPropertyType {

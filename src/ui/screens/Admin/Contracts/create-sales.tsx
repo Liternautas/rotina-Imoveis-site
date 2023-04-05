@@ -7,6 +7,7 @@ import { api } from "@/src/services/api";
 import { DateRangeOutlined, Search } from "@mui/icons-material";
 import { Alert, Autocomplete, Box, Button, Container, InputAdornment, IconButton, InputBase, Paper, TextField, Typography } from "@mui/material";
 import DatePicker from "react-datepicker";
+import { useContracts } from "@/src/contexts/ContractsContext";
 
 const types = [
     {
@@ -20,6 +21,7 @@ const types = [
 ]
 
 export function CreateSales({ customers, realtors }) {
+    const {createSales} = useContracts();
     const contractType = useSelect();
     const seller = useSelect();
     const buyer = useSelect();
@@ -69,7 +71,7 @@ export function CreateSales({ customers, realtors }) {
                 id: property.id
             }
         } 
-        const res = await api.post('sales-contracts', contract).then(res => res.data);
+        await createSales(contract);
     }
 
     useEffect(() => {

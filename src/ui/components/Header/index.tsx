@@ -8,13 +8,10 @@ import Logo from "../../../../public/logo.png"
 import { AppBar, DrawerMobile } from "./styles";
 import { useRouter } from "next/router";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 export default function Header() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
-    
+
     return (
         <AppBar position="fixed" sx={{
             background: '#fff'
@@ -25,7 +22,12 @@ export default function Header() {
                     p: '8px 0 !important',
                     justifyContent: 'space-between'
                 }}>
-                    <Image src={Logo} alt="" />
+                    <Link href={'/'} style={{
+                        display: 'flex',
+                        height: '100%'
+                    }}>
+                        <Image src={Logo} alt="" />
+                    </Link>
                     <Box sx={{
                         display: {
                             xs: 'none',
@@ -36,10 +38,10 @@ export default function Header() {
                         gap: 3
                     }}>
                         <Link href={'/'}>Início</Link>
-                        <Link href={'/'}>Alugar</Link>
-                        <Link href={'/'}>Comprar</Link>
-                        <Link href={'/'}>Descobrir</Link>
-                        <Link href={'/'}>Financiamento</Link>
+                        <Link href={'/sobre'}>Sobre</Link>
+                        <Link href={'/imoveis/filter?adType=aluguel'}>Alugar</Link>
+                        <Link href={'/imoveis/filter?adType=venda'}>Comprar</Link>
+                        <Link href={'/contato'}>Contato</Link>
                     </Box>
                     <Box sx={{
                         flexGrow: 1,

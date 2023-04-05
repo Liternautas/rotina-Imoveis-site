@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Menu, MenuItem, Divider, ListItemIcon, Tooltip, IconButton, Avatar } from "@mui/material";
 import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 import { IUser } from "@/src/interfaces";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 interface Props {
     user: IUser;
 }
 
 export function UserAvatar({ user }: Props) {
+    const { signOut } = useAuth();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -87,7 +89,10 @@ export function UserAvatar({ user }: Props) {
                     </ListItemIcon>
                     Settings
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={() => {
+                    signOut();
+                    handleClose();
+                }}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>

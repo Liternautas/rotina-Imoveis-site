@@ -6,7 +6,7 @@ import { useAuth } from "@/src/contexts/AuthContext";
 import { useState } from "react";
 
 export function Login() {
-    const { signIn } = useAuth();
+    const { signIn, signInCustomer } = useAuth();
 
     const [showPassword, setShowPassword] = useState(false);
     const email = useForm();
@@ -15,7 +15,7 @@ export function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await signIn(email.value, password.value);
+        {router.asPath === '/login' ? await signIn(email.value, password.value) : signInCustomer(email.value, password.value)}
     }
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);

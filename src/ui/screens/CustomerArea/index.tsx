@@ -4,8 +4,16 @@ import { useForm } from "@/src/hooks/useForm";
 import { TableSalesAdmin } from "../../components/Tables/table-sales-admin";
 import { TableRentalAdmin } from "../../components/Tables/table-rental-admin";
 import { TableInvoiceAdmin } from "../../components/Tables/table-invoice-admin";
+import { useUser } from "@/src/contexts/UserContext";
+import { IUser } from "@/src/interfaces";
+import { getImageUrl } from "@/src/helpers/functions";
 
-export function CustomerArea() {
+interface Props {
+    user: IUser;
+}
+
+export function CustomerArea({ user }: Props) {
+    const { update, uploadAvatar } = useUser();
     const fileInputRef = useRef(null);
     const [value, setValue] = useState(0);
     const name = useForm();
@@ -14,7 +22,8 @@ export function CustomerArea() {
     const document = useForm('cpf');
     const [avatar, setAvatar] = useState(null);
 
-    const handleUploadAvatar = ({ target }) => {
+    const handleUploadAvatar = async ({ target }) => {
+        await uploadAvatar(user.id, target.files[0]);
         setAvatar(target.files[0]);
     }
 
@@ -26,11 +35,21 @@ export function CustomerArea() {
         setValue(newValue);
     };
 
+    const handleSubmit = async () => {
+        await update({
+            id: user.id,
+            document: document.value,
+            email: email.value,
+            name: name.value,
+            phone: phone.value
+        })
+    }
+
     useEffect(() => {
-        name.setValue('Ezequiel Pires e Silva');
-        email.setValue('ezequiel.pires082000@gmail.com');
-        phone.setValue('(64) 99926-8117');
-        document.setValue('069.017.831-08');
+        name.setValue(user.name);
+        email.setValue(user.email);
+        phone.setValue(user.phone);
+        document.setValue(user.document);
     }, []);
 
     return (
@@ -64,13 +83,35 @@ export function CustomerArea() {
                             flexDirection: 'column',
                             alignItems: 'flex-start'
                         }}>
-                            <Avatar
-                                src={avatar && URL.createObjectURL(avatar)}
-                                sx={{
-                                    width: 80,
-                                    height: 80,
-                                    mb: 1
-                                }} onClick={handleButtonClick}></Avatar>
+                            {avatar &&
+                                <Avatar
+                                    src={avatar && URL.createObjectURL(avatar)}
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mb: 1
+                                    }} onClick={handleButtonClick}>
+                                    {name.value.substring(0, 1)}
+                                </Avatar>}
+                            {user.avatar && !avatar &&
+                                <Avatar
+                                    src={getImageUrl(user.avatar)}
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mb: 1
+                                    }} onClick={handleButtonClick}>
+                                    {name.value.substring(0, 1)}
+                                </Avatar>}
+                            {!avatar && !user.avatar &&
+                                <Avatar
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mb: 1
+                                    }} onClick={handleButtonClick}>
+                                    {name.value.substring(0, 1)}
+                                </Avatar>}
                             <input
                                 type="file"
                                 ref={fileInputRef}
@@ -88,7 +129,7 @@ export function CustomerArea() {
                         <TextField id="outlined-basic" sx={{ width: 400 }} label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} fullWidth />
                         <TextField id="outlined-basic" sx={{ width: 400 }} label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} fullWidth />
                         <TextField id="outlined-basic" sx={{ width: 400 }} label="CPF" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
-                        <Button variant="contained" sx={{ width: 400, color: '#fff', height: 48 }}>Salvar</Button>
+                        <Button variant="contained" sx={{ width: 400, color: '#fff', height: 48 }} onClick={handleSubmit}>Salvar</Button>
                     </Box>
                 }
                 {
@@ -99,7 +140,7 @@ export function CustomerArea() {
                         flexDirection: 'column',
                         gap: 2
                     }}>
-                        <TableSalesAdmin contracts={[]} action={false} />
+                        <TableSalesAdmin contracts={user.salesContractsBuyer} action={false} />
                     </Box>
                 }
                 {

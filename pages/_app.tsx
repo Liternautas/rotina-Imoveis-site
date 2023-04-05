@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import Head from 'next/head'
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
@@ -40,6 +39,7 @@ import createEmotionCache from '../src/createEmotionCache';
 import { ThemeProvider } from '@mui/material/styles';
 import { ReactNotifications } from 'react-notifications-component';
 import { HeadComponent } from '@/src/ui/components/HeadComponent';
+import { AlertTerms } from '@/src/ui/components/AlertTerms';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -74,7 +74,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         <CssBaseline />
         <AuthProvider>
           <FilterProvider>
-            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Header /> : null}
+            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') && asPath != '/area-do-cliente/login' ? <Header /> : null}
             {asPath.startsWith('/admin') ?
               <AdminTemplate>
                 <Component {...pageProps} />
@@ -82,8 +82,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
               :
               <Component {...pageProps} />
             }
+            <AlertTerms />
             <ReactNotifications />
-            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') ? <Footer /> : null}
+            {!asPath.startsWith('/admin') && !asPath.startsWith('/login') && asPath != '/area-do-cliente/login' ? <Footer /> : null}
           </FilterProvider>
         </AuthProvider>
       </ThemeProvider>

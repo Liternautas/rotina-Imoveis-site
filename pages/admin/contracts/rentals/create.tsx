@@ -2,9 +2,14 @@ import { CreateRentals } from "@/src/ui/screens/Admin/Contracts/create-rentals";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
-export default function CreateContractsPage({customers, realtors}) {
-    return <CreateRentals customers={customers} realtors={realtors}/>
+export default function CreateContractsPage({ customers, realtors }) {
+    return (
+        <ContractsProvider>
+            <CreateRentals customers={customers} realtors={realtors} />
+        </ContractsProvider>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

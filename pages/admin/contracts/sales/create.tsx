@@ -2,9 +2,14 @@ import { CreateSales } from "@/src/ui/screens/Admin/Contracts/create-sales";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
-export default function CreateSalesPage({customers, realtors}) {
-    return <CreateSales customers={customers} realtors={realtors}/>
+export default function CreateSalesPage({ customers, realtors }) {
+    return (
+        <ContractsProvider>
+            <CreateSales customers={customers} realtors={realtors} />
+        </ContractsProvider>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

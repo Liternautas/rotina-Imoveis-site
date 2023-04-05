@@ -1,6 +1,6 @@
 import { getImageUrl } from "@/src/helpers/functions";
 import { maskPrice } from "@/src/helpers/mask";
-import { IProperty } from "@/src/interfaces";
+import { AdType, IProperty } from "@/src/interfaces";
 import { BedOutlined, DirectionsCarOutlined, ShowerOutlined, SquareFootOutlined } from "@mui/icons-material";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
@@ -10,10 +10,10 @@ interface Props {
     property: IProperty;
 }
 
-export function CardProperty({property}: Props) {
-    const {type, adType, address, code} = property;
+export function CardProperty({ property }: Props) {
+    const { type, adType, address, code } = property;
 
-    const normalize = (value: string) => slugify(value, {lower: true});
+    const normalize = (value: string) => slugify(value, { lower: true });
 
     return (
         <Link href={`imovel/${adType === 'aluguel' ? `${type.slug}-para-alugar` : `${type.slug}-a-venda`}-em-${normalize(address.city.name)}-${normalize(address.district.name)}/${code}`}>
@@ -26,6 +26,28 @@ export function CardProperty({property}: Props) {
                     sx={{ height: 190, borderRadius: 1 }}
                     image={getImageUrl(property.images[0])}
                 />
+                <Box sx={{
+                    position: 'absolute',
+                    top: 8,
+                    left: 8,
+                    zIndex: 10,
+                    px: 1,
+                    py: .5,
+                    background: 'rgba(0, 0, 0, .5)',
+                    color: '#fff',
+                    borderRadius: 1
+                }}>{adType === AdType.venda ? 'Venda' : 'Aluguel'}</Box>
+                {type?.name && <Box sx={{
+                    position: 'absolute',
+                    top: 48,
+                    left: 8,
+                    zIndex: 10,
+                    px: 1,
+                    py: .5,
+                    background: 'rgba(0, 0, 0, .5)',
+                    color: '#fff',
+                    borderRadius: 1
+                }}>{type?.name}</Box>}
                 <CardContent sx={{
                     display: "flex",
                     flexDirection: "column",

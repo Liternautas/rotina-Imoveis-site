@@ -5,12 +5,16 @@ import { Delete, Edit } from "@mui/icons-material";
 import { maskPrice } from "@/src/helpers/mask";
 import { useRouter } from "next/router";
 import { ISalesContract } from "@/src/interfaces";
+import { formatDate } from "@/src/helpers/date";
+import { CardPropertyTable } from "../Cards/CardPropertyTable";
+import { useContracts } from "@/src/contexts/ContractsContext";
 
 export function TableSalesAdmin({ contracts, action = true }) {
     const router = useRouter();
     const [results, setResults] = useState<ISalesContract[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const {removeSales} = useContracts();
 
     interface Column {
         id: 'id' | 'property' | 'buyer' | 'seller' | 'date' | 'price' | 'actions';
@@ -34,11 +38,15 @@ export function TableSalesAdmin({ contracts, action = true }) {
         setPage(0);
     };
 
+    const handleRemove = async (id: number) => {
+        await removeSales(id);
+    }
+
     useEffect(() => {
         { contracts && setResults(contracts) }
     }, [contracts]);
 
-    if(contracts.length === 0 || !contracts) return (
+    if (contracts.length === 0 || !contracts) return (
         <Alert severity="info">Você ainda não possui contratos de compras de imóveis!</Alert>
     )
 
@@ -59,7 +67,7 @@ export function TableSalesAdmin({ contracts, action = true }) {
                                             {column.label}
                                         </TableCell>
                                     )
-                                } else if(!(column.id === 'actions')) {
+                                } else if (!(column.id === 'actions')) {
                                     return (
                                         <TableCell
                                             key={column.id}
@@ -83,22 +91,26 @@ export function TableSalesAdmin({ contracts, action = true }) {
                                             const value = row[column.id];
                                             switch (column.id) {
                                                 case 'actions':
-                                                    if (action) return (
-                                                        <TableCell>
-                                                            <Box>
-                                                                <DialogIcon
-                                                                    title="Remover usuário"
-                                                                    description="Deseja mesmo remover esse usuário?"
-                                                                    onSubmit={() => /* handleRemove(row.id) */null}
-                                                                >
-                                                                    <Delete />
-                                                                </DialogIcon>
-                                                                <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
-                                                                    <Edit />
-                                                                </IconButton>
-                                                            </Box>
-                                                        </TableCell>
-                                                    )
+                                                    if (action) {
+                                                        return (
+                                                            <TableCell>
+                                                                <Box>
+                                                                    <DialogIcon
+                                                                        title="Remover contrato"
+                                                                        description="Deseja mesmo remover esse contrato?"
+                                                                        onSubmit={() => handleRemove(row.id)}
+                                                                    >
+                                                                        <Delete />
+                                                                    </DialogIcon>
+                                                                    <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
+                                                                        <Edit />
+                                                                    </IconButton>
+                                                                </Box>
+                                                            </TableCell>
+                                                        )
+                                                    } else {
+                                                        return null;
+                                                    }
                                                 case 'id':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
@@ -110,7 +122,7 @@ export function TableSalesAdmin({ contracts, action = true }) {
                                                 case 'property':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.property.code}
+                                                            <CardPropertyTable property={row.property}/>
                                                         </TableCell>
                                                     )
                                                 case 'buyer':
@@ -128,9 +140,10 @@ export function TableSalesAdmin({ contracts, action = true }) {
                                                 case 'date':
                                                     const date = new Date(row.date);
                                                     date.setHours(date.getHours() + 3);
+                                                    console.log(date.toLocaleDateString());
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {date.toLocaleDateString()}
+                                                            {formatDate(date)}
                                                         </TableCell>
                                                     )
                                                 case 'price':

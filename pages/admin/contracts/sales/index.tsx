@@ -3,10 +3,13 @@ import { Sales } from "@/src/ui/screens/Admin/Contracts/sales";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
-export default function ContractsPage({contracts}) {
+export default function ContractsPage({ contracts }) {
     return (
-        <Sales contracts={contracts}/>
+        <ContractsProvider>
+            <Sales contracts={contracts} />
+        </ContractsProvider>
     )
 }
 

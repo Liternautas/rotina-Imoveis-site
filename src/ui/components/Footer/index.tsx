@@ -37,10 +37,10 @@ export default function Footer() {
                                 mb: 3
                             }}>Acesso rápido</Title>
                             <Links>
-                                <Link href={""}>Sobre nós</Link>
+                                <Link href={"/sobre"}>Sobre nós</Link>
                                 <Link href={""}>Serviços que oferecemos</Link>
-                                <Link href={""}>Imóveis disponíveis</Link>
-                                <Link href={""}>Entre em contato</Link>
+                                <Link href={"/imoveis/filter?adType=venda"}>Imóveis disponíveis</Link>
+                                <Link href={"/contato"}>Entre em contato</Link>
                             </Links>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
@@ -51,9 +51,9 @@ export default function Footer() {
                                 mb: 3
                             }}>Contate-nos</Title>
                             <Links>
-                                <Link href={""}>contato@rotinaimoveis.com.br</Link>
-                                <Link href={""}>Av. José Maria Viêira, 560 - Santa Helena II, Catalão - GO</Link>
-                                <Link href={""}>(64) 0000-0000</Link>
+                                <Link href={"/"}>contato@rotinaimoveis.com.br</Link>
+                                <Link href={"/"}>Av. José Maria Viêira, 560 - Santa Helena II, Catalão - GO</Link>
+                                <Link href={"/"}>(64) 0000-0000</Link>
                             </Links>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>

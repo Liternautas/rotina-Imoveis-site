@@ -20,7 +20,7 @@ import { useAuth } from "@/src/contexts/AuthContext";
 import { useRouter } from "next/router";
 
 export function Aside({ children }) {
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const router = useRouter();

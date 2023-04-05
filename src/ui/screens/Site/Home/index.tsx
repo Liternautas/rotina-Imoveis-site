@@ -6,10 +6,7 @@ import { Navigation, Pagination } from "swiper";
 
 import styles from './styles.module.scss';
 import { Title } from "./styles";
-
-const BannerHome = dynamic(() => import('@/src/ui/components/Banners/BannerHome'), {
-    loading: () => null,
-});
+import BannerHome from "@/src/ui/components/Banners/BannerHome";
 
 const PropertiesSection = dynamic(() => import('@/src/ui/components/Sections/PropertiesSection'), {
     loading: () => null,

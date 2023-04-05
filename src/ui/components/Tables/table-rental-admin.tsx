@@ -39,7 +39,7 @@ export function TableRentalAdmin({ contracts, action = true }) {
         { contracts && setResults(contracts) }
     }, [contracts]);
 
-    if(contracts.length === 0 || !contracts) return (
+    if(!contracts || contracts.length === 0) return (
         <Alert severity="info">Você ainda não possui contratos de locações de imóveis!</Alert>
     )
 
