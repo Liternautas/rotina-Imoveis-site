@@ -4,7 +4,7 @@ import {parseCookies} from "nookies";
 export function getApi(ctx?: any) {
     const { 'imob.token': token } = parseCookies(ctx);
     const api = axios.create({
-        baseURL: 'http://localhost:8080/'
+        baseURL: process.env.NEXT_PUBLIC_BASE_URL
     })
     if (token) api.defaults.headers['Authorization'] = `Bearer ${token}`;
     return api;

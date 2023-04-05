@@ -5,7 +5,7 @@ export const getImageUrl = (path: string) => {
         return '/no-image.png';
     }
     //return path?.startsWith('storage') ? `https://rotina-imoveis.herokuapp.com/${path}` : path;
-    return path?.startsWith('storage') ? `http://localhost:8080/${path}` : path;
+    return path?.startsWith('storage') ? `${process.env.NEXT_PUBLIC_BASE_URL}${path}` : path;
 }
 
 export const normalize = (value: string) => slugify(value, {lower: true});
