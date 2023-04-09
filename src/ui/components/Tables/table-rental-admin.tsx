@@ -5,15 +5,16 @@ import { Delete, Edit } from "@mui/icons-material";
 import { maskPrice } from "@/src/helpers/mask";
 import { useRouter } from "next/router";
 import { IRentalContract } from "@/src/interfaces";
+import { CardPropertyTable } from "../Cards/CardPropertyTable";
 
-export function TableRentalAdmin({ contracts, action = true }) {
+export function TableRentalAdmin({ contracts, action = true, file = false }) {
     const router = useRouter();
     const [results, setResults] = useState<IRentalContract[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     interface Column {
-        id: 'id' | 'property' | 'locator' | 'tenant' | 'start' | 'end' | 'price' | 'actions';
+        id: 'id' | 'property' | 'locator' | 'tenant' | 'start' | 'end' | 'price' | 'actions' | 'file';
         label: string;
         minWidth?: number;
         align?: 'right';
@@ -22,8 +23,8 @@ export function TableRentalAdmin({ contracts, action = true }) {
 
     const columns: readonly Column[] = [
         { id: 'property', label: 'Propriedade', minWidth: 200 },
-        { id: 'locator', label: 'Comprador', minWidth: 170 },
-        { id: 'tenant', label: 'Vendedor', minWidth: 170 },
+        { id: 'tenant', label: 'Inquilino', minWidth: 170 },
+        { id: 'locator', label: 'Corretor', minWidth: 170 },
         { id: 'start', label: 'Início', minWidth: 100 },
         { id: 'end', label: 'Fim', minWidth: 100 },
         { id: 'price', label: 'Preço', minWidth: 100 },
@@ -39,7 +40,7 @@ export function TableRentalAdmin({ contracts, action = true }) {
         { contracts && setResults(contracts) }
     }, [contracts]);
 
-    if(!contracts || contracts.length === 0) return (
+    if (!contracts || contracts.length === 0) return (
         <Alert severity="info">Você ainda não possui contratos de locações de imóveis!</Alert>
     )
 
@@ -84,22 +85,24 @@ export function TableRentalAdmin({ contracts, action = true }) {
                                             const value = row[column.id];
                                             switch (column.id) {
                                                 case 'actions':
-                                                    return (
-                                                        <TableCell>
-                                                            <Box>
-                                                                <DialogIcon
-                                                                    title="Remover usuário"
-                                                                    description="Deseja mesmo remover esse usuário?"
-                                                                    onSubmit={() => /* handleRemove(row.id) */null}
-                                                                >
-                                                                    <Delete />
-                                                                </DialogIcon>
-                                                                <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
-                                                                    <Edit />
-                                                                </IconButton>
-                                                            </Box>
-                                                        </TableCell>
-                                                    )
+                                                    if (action) {
+                                                        return (
+                                                            <TableCell>
+                                                                <Box>
+                                                                    <DialogIcon
+                                                                        title="Remover usuário"
+                                                                        description="Deseja mesmo remover esse usuário?"
+                                                                        onSubmit={() => /* handleRemove(row.id) */null}
+                                                                    >
+                                                                        <Delete />
+                                                                    </DialogIcon>
+                                                                    <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
+                                                                        <Edit />
+                                                                    </IconButton>
+                                                                </Box>
+                                                            </TableCell>
+                                                        )
+                                                    } else return null;
                                                 case 'id':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
@@ -111,7 +114,7 @@ export function TableRentalAdmin({ contracts, action = true }) {
                                                 case 'property':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.property.code}
+                                                            <CardPropertyTable property={row.property} />
                                                         </TableCell>
                                                     )
                                                 case 'locator':

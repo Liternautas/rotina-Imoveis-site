@@ -136,6 +136,13 @@ export function Aside({ children }) {
                             open={open}
                             onPress={() => router.push('/admin/contracts/rentals')}
                         />
+                        <AsideButton
+                            link='/admin/contracts/boletos'
+                            text={"Boletos"}
+                            Icon={ArrowRight}
+                            open={open}
+                            onPress={() => router.push('/admin/contracts/boletos')}
+                        />
                     </AsideButtonCollapse>
                 </List>
             </>

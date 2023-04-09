@@ -1,22 +1,15 @@
-import { IRentalContract } from "@/src/interfaces";
+import {useRouter} from "next/router";
 import { Search } from "@mui/icons-material";
-import { Container, Box, Typography, Paper, InputBase, IconButton, Button } from "@mui/material";
-import { useRouter } from "next/router";
-import {useEffect, useState} from "react";
-import { useContracts } from "@/src/contexts/ContractsContext";
-import { TableRentalAdmin } from "@/src/ui/components/Tables/table-rental-admin";
+import { Box, Button, Container, IconButton, InputBase, Paper, Typography } from "@mui/material";
+import { TableInvoiceAdmin } from "@/src/ui/components/Tables/table-invoice-admin";
+import { IInvoice } from "@/src/interfaces";
 
 interface Props {
-    contracts: IRentalContract[];
+    invoices: IInvoice[];
 }
 
-export function Rentals({contracts}: Props) {
-    const {rentals, setRentals} = useContracts();
+export function Invoices({invoices}: Props) {
     const router = useRouter();
-
-    useEffect(() => {
-        { contracts && setRentals(contracts) }
-    }, [contracts]);
 
     return (
         <Container maxWidth="xl">
@@ -25,7 +18,7 @@ export function Rentals({contracts}: Props) {
                 justifyContent: 'space-between',
                 mb: 2
             }}>
-                <Typography variant="h6" fontWeight={600}>Contratos de aluguel</Typography>
+                <Typography variant="h6" fontWeight={600}>Faturas</Typography>
                 <Box sx={{
                     display: 'flex',
                     gap: 1
@@ -46,10 +39,16 @@ export function Rentals({contracts}: Props) {
                     </Paper>
 
                     {/* Modal Create */}
-                    <Button variant="contained" onClick={() => router.push('/admin/contracts/rentals/create')}>Cadastrar</Button>
+                    <Button 
+                    variant="contained" 
+                    sx={{
+                        color: '#fff'
+                    }}
+                    onClick={() => router.push('/admin/contracts/boletos/create')}
+                    >Cadastrar</Button>
                 </Box>
             </Box>
-            <TableRentalAdmin contracts={rentals}/>
+            <TableInvoiceAdmin invoices={invoices} action={true}/>
         </Container>
-    )
+    )    
 }

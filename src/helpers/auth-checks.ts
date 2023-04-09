@@ -5,6 +5,7 @@ export function checkCustomer(token: string, userData: string) {
         return false;
     }
     const user: IUser = JSON.parse(userData);
+    console.log(user);
     if(user.role != 'customer') {
         return false;
     }

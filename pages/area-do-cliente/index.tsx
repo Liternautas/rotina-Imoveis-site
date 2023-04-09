@@ -7,10 +7,10 @@ import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import UserProvider from "@/src/contexts/UserContext";
 
-export default function CustomerAreaPage({user}) {
+export default function CustomerAreaPage({user, invoices}) {
     return (
         <UserProvider>
-            <CustomerArea user={user}/>
+            <CustomerArea user={user} invoices={invoices}/>
         </UserProvider>
     )
 }
@@ -30,11 +30,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     
     const userNormalize:IUser = JSON.parse(userData);
 
+    console.log(userNormalize.id);
     const {user} = await api.get(`users/${userNormalize.id}`).then(res => res.data);
+    const {results} = await api.get(`invoices?tenantId=${userNormalize.id}`).then(res => res.data);
 
     return {
         props: {
-            user: user
+            user: user,
+            invoices: results ?? []
         }
     }
 }

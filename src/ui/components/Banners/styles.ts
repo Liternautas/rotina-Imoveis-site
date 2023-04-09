@@ -21,7 +21,6 @@ export const BackgroundHome = styled(Box)`
 
     width: 100%;
     height: 100%;
-    min-height: 60vh;
     background: url(/banner.png);
     background-size: cover;
     border-radius: 16px;

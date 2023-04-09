@@ -18,6 +18,7 @@ export interface IUser {
     role?: string;
     rentalContracts?: IRentalContract[];
     rentalContractsLocator?: IRentalContract[];
+    rentalContractsTenant?: IRentalContract[];
     salesContracts?: ISalesContract[];
     salesContractsBuyer?: ISalesContract[];
 }
@@ -134,4 +135,16 @@ export interface IRentalContract {
     owner?: IUser;
     tenant?: IUser;
     locator?: IUser;
+    invoices?: IInvoice[];
+}
+
+export interface IInvoice {
+    id?: string;
+    status?: string;
+    expiration?: Date;
+    reference?: Date;
+    price?: string;
+    path?: string;
+    rentalContract?: IRentalContract;
+    property?: IProperty;
 }

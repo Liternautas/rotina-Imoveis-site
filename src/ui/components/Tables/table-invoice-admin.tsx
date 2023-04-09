@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { Alert, Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { DialogIcon } from "../DialogIcon";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Download, Edit } from "@mui/icons-material";
 import { maskPrice } from "@/src/helpers/mask";
 import { useRouter } from "next/router";
+import { IInvoice } from "@/src/interfaces";
+import { CardPropertyTable } from "../Cards/CardPropertyTable";
 
-export function TableInvoiceAdmin({invoices, action=true}) {
+export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
     const router = useRouter();
-    const [results, setResults] = useState<Array<any>>([]);
+    const [results, setResults] = useState<IInvoice[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     interface Column {
-        id: 'id' | 'property' | 'expiration' | 'tenant' | 'status' | 'price' | 'actions';
+        id: 'id' | 'property' | 'expiration' | 'tenant' | 'locator' | 'status' | 'price' | 'actions' | 'file';
         label: string;
         minWidth?: number;
         align?: 'right';
@@ -21,9 +23,12 @@ export function TableInvoiceAdmin({invoices, action=true}) {
 
     const columns: readonly Column[] = [
         { id: 'property', label: 'Propriedade', minWidth: 200 },
-        { id: 'expiration', label: 'Validade', minWidth: 200 },
-        { id: 'price', label: 'Preco', minWidth: 200 },
-        { id: 'status', label: 'Status do pagamento', minWidth: 200 },
+        { id: 'tenant', label: 'Inquilino', minWidth: 200 },
+        { id: 'expiration', label: 'Validade', minWidth: 148 },
+        { id: 'price', label: 'Preco', minWidth: 148 },
+        { id: 'status', label: 'Status', minWidth: 148 },
+        { id: 'actions', label: '', minWidth: 100 },
+        { id: 'file', label: '', minWidth: 48 },
     ];
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +40,7 @@ export function TableInvoiceAdmin({invoices, action=true}) {
         { invoices && setResults(invoices) }
     }, [invoices]);
 
-    if(invoices.length === 0 || !invoices) return (
+    if (invoices.length === 0 || !invoices) return (
         <Alert severity="info">Você não possui faturas em aberto!</Alert>
     )
 
@@ -47,26 +52,41 @@ export function TableInvoiceAdmin({invoices, action=true}) {
                     <TableHead>
                         <TableRow>
                             {columns.map((column) => {
-                                if (action && column.id === 'actions') {
-                                    return (
-                                        <TableCell
-                                            key={column.id}
-                                            align={column.align}
-                                            style={{ minWidth: column.minWidth, background: '#222', color: '#fff' }}
-                                        >
-                                            {column.label}
-                                        </TableCell>
-                                    )
-                                } else if (!(column.id === 'actions')) {
-                                    return (
-                                        <TableCell
-                                            key={column.id}
-                                            align={column.align}
-                                            style={{ minWidth: column.minWidth, background: '#222', color: '#fff' }}
-                                        >
-                                            {column.label}
-                                        </TableCell>
-                                    )
+                                switch (column.id) {
+                                    case 'actions':
+                                        if (action) {
+                                            return (
+                                                <TableCell
+                                                    key={column.id}
+                                                    align={column.align}
+                                                    style={{ minWidth: column.minWidth, background: '#222', color: '#fff' }}
+                                                >
+                                                    {column.label}
+                                                </TableCell>
+                                            )
+                                        } else return null;
+                                    case 'file':
+                                        if (file) {
+                                            return (
+                                                <TableCell
+                                                    key={column.id}
+                                                    align={column.align}
+                                                    style={{ minWidth: column.minWidth, background: '#222', color: '#fff' }}
+                                                >
+                                                    {column.label}
+                                                </TableCell>
+                                            )
+                                        } else return null;
+                                    default:
+                                        return (
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                style={{ minWidth: column.minWidth, background: '#222', color: '#fff' }}
+                                            >
+                                                {column.label}
+                                            </TableCell>
+                                        )
                                 }
                             })}
                         </TableRow>
@@ -81,22 +101,36 @@ export function TableInvoiceAdmin({invoices, action=true}) {
                                             const value = row[column.id];
                                             switch (column.id) {
                                                 case 'actions':
-                                                    return (
-                                                        <TableCell>
-                                                            <Box>
-                                                                <DialogIcon
-                                                                    title="Remover usuário"
-                                                                    description="Deseja mesmo remover esse usuário?"
-                                                                    onSubmit={() => /* handleRemove(row.id) */null}
-                                                                >
-                                                                    <Delete />
-                                                                </DialogIcon>
-                                                                <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
-                                                                    <Edit />
-                                                                </IconButton>
-                                                            </Box>
-                                                        </TableCell>
-                                                    )
+                                                    if (action) {
+                                                        return (
+                                                            <TableCell>
+                                                                <Box>
+                                                                    <DialogIcon
+                                                                        title="Remover usuário"
+                                                                        description="Deseja mesmo remover esse usuário?"
+                                                                        onSubmit={() => /* handleRemove(row.id) */null}
+                                                                    >
+                                                                        <Delete />
+                                                                    </DialogIcon>
+                                                                    <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
+                                                                        <Edit />
+                                                                    </IconButton>
+                                                                </Box>
+                                                            </TableCell>
+                                                        )
+                                                    } else return null;
+                                                case 'file':
+                                                    if (file) {
+                                                        return (
+                                                            <TableCell>
+                                                                <Box>
+                                                                    <IconButton>
+                                                                        <Download />
+                                                                    </IconButton>
+                                                                </Box>
+                                                            </TableCell>
+                                                        )
+                                                    } else return null;
                                                 case 'id':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
@@ -108,7 +142,7 @@ export function TableInvoiceAdmin({invoices, action=true}) {
                                                 case 'property':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.property.code}
+                                                            <CardPropertyTable property={row.rentalContract.property} />
                                                         </TableCell>
                                                     )
                                                 case 'status':
@@ -120,7 +154,7 @@ export function TableInvoiceAdmin({invoices, action=true}) {
                                                 case 'tenant':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.tenant.name}
+                                                            {row.rentalContract.tenant.name}
                                                         </TableCell>
                                                     )
                                                 case 'expiration':

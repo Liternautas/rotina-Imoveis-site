@@ -75,7 +75,7 @@ const ContractsProvider = ({ children }) => {
 
             if (success && contract) {
                 notification.execute('success', 'Contrato de Aluguel criado com sucesso.');
-                router.push('/admin/contracts/rental');
+                router.push('/admin/contracts/rentals');
             } else {
                 throw new Error(message);
             }

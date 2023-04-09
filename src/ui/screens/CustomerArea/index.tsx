@@ -5,14 +5,15 @@ import { TableSalesAdmin } from "../../components/Tables/table-sales-admin";
 import { TableRentalAdmin } from "../../components/Tables/table-rental-admin";
 import { TableInvoiceAdmin } from "../../components/Tables/table-invoice-admin";
 import { useUser } from "@/src/contexts/UserContext";
-import { IUser } from "@/src/interfaces";
+import { IInvoice, IUser } from "@/src/interfaces";
 import { getImageUrl } from "@/src/helpers/functions";
 
 interface Props {
     user: IUser;
+    invoices: IInvoice[];
 }
 
-export function CustomerArea({ user }: Props) {
+export function CustomerArea({ user, invoices }: Props) {
     const { update, uploadAvatar } = useUser();
     const fileInputRef = useRef(null);
     const [value, setValue] = useState(0);
@@ -151,7 +152,7 @@ export function CustomerArea({ user }: Props) {
                         flexDirection: 'column',
                         gap: 2
                     }}>
-                        <TableRentalAdmin contracts={[]} action={false} />
+                        <TableRentalAdmin contracts={user.rentalContractsTenant} action={false} />
                     </Box>
                 }
                 {
@@ -162,7 +163,7 @@ export function CustomerArea({ user }: Props) {
                         flexDirection: 'column',
                         gap: 2
                     }}>
-                        <TableInvoiceAdmin invoices={[]} action={false} />
+                        <TableInvoiceAdmin invoices={invoices} action={false} file={true} />
                     </Box>
                 }
                 {
