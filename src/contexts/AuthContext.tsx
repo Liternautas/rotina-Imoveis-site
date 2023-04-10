@@ -60,7 +60,6 @@ const AuthProvider = ({children}) => {
                 cookies.set('imob.user', JSON.stringify(user));
                 cookies.set('imob.token', token);
                 api.defaults.headers['Authorization'] = `Bearer ${token}`;
-                alert(user.name);
                 router.push('/area-do-cliente');
             } else {
                 throw new Error('Email e/ou senha incorretas.');

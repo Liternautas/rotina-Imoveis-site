@@ -1,4 +1,4 @@
-import { getImageUrl } from "@/src/helpers/functions";
+import { getImageUrl, normalize } from "@/src/helpers/functions";
 import { maskPrice } from "@/src/helpers/mask";
 import { AdType, IProperty } from "@/src/interfaces";
 import { BedOutlined, DirectionsCarOutlined, ShowerOutlined, SquareFootOutlined } from "@mui/icons-material";
@@ -11,12 +11,14 @@ interface Props {
 }
 
 export function CardPropertyH({ property, isLink }: Props) {
+    const {adType, type, address, code} = property;
+
     return (
         <>
             {isLink === false ?
                 <CardComponent property={property} />
                 :
-                <Link href={'/imovel/teste'}>
+                <Link href={`imovel/${adType === 'aluguel' ? `${type.slug}-para-alugar` : `${type.slug}-a-venda`}-em-${normalize(address.city.name)}-${normalize(address.district.name)}/${code}`}>
                     <CardComponent property={property} />
                 </Link>
             }
