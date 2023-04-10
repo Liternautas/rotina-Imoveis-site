@@ -2,7 +2,7 @@ import { useInvoices } from "@/src/contexts/InvoicesContext";
 import { maskPrice } from "@/src/helpers/mask";
 import { useForm } from "@/src/hooks/useForm";
 import { useSelect } from "@/src/hooks/useSelect";
-import { IRentalContract } from "@/src/interfaces";
+import { IInvoice, IRentalContract } from "@/src/interfaces";
 import { CardPropertyH } from "@/src/ui/components/Cards/CardPropertyH";
 import { CardPropertyTable } from "@/src/ui/components/Cards/CardPropertyTable";
 import { CardRentalContract } from "@/src/ui/components/Cards/CardRentalContract";
@@ -12,6 +12,7 @@ import { useEffect, useState, useRef } from "react";
 
 interface Props {
     contracts: IRentalContract[];
+    invoice: IInvoice;
 }
 
 const style = {
@@ -26,8 +27,8 @@ const style = {
     p: 1.5,
 };
 
-export function InvoiceCreate({ contracts }: Props) {
-    const {create, file, setFile, } = useInvoices();
+export function InvoiceUpdate({ contracts, invoice }: Props) {
+    const { update, file, setFile, } = useInvoices();
 
     const [open, setOpen] = useState(false);
     const [contract, setContract] = useState<IRentalContract>(null);
@@ -50,20 +51,27 @@ export function InvoiceCreate({ contracts }: Props) {
         fileInputRef.current.click();
     };
     const handleSubmit = async () => {
-        await create({
+        await update({
+            id: invoice.id,
             expiration: new Date(expiration.value),
             reference: new Date(reference.value),
             price: price.value,
-            rentalContract: {
-                id: contract.id
-            },
         });
     }
     useEffect(() => {
-        if (contract) {
+        if (contract && !invoice) {
             price.setValue(maskPrice(contract.price));
         }
     }, [contract]);
+
+    useEffect(() => {
+        if (invoice) {
+            setContract(invoice.rentalContract);
+            price.setValue(maskPrice(invoice.price));
+            expiration.setValue(invoice.expiration);
+            reference.setValue(invoice.reference);
+        }
+    }, [invoice]);
 
     return (
         <Container maxWidth="xl">
@@ -72,41 +80,9 @@ export function InvoiceCreate({ contracts }: Props) {
                 justifyContent: 'space-between',
                 mb: 2
             }}>
-                <Typography variant="h6" fontWeight={600}>Cadastrar fatura</Typography>
+                <Typography variant="h6" fontWeight={600}>Atualizar fatura</Typography>
             </Box>
             <Box>
-                <Button
-                    variant="outlined"
-                    onClick={handleOpen}
-                    sx={{
-                        display: 'flex',
-                        gap: 1,
-                        height: 48
-                    }}>
-                    <DocumentScannerOutlined />
-                    Vincular Contrato
-                </Button>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
-                            Selecione um contrato
-                        </Typography>
-                        <Box sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 1
-                        }}>
-                            {contracts.map(item => (
-                                <CardRentalContract contract={item} onChange={() => handleChange(item)} />
-                            ))}
-                        </Box>
-                    </Box>
-                </Modal>
                 {contract &&
                     <Box sx={{
                         mt: 3
@@ -211,19 +187,40 @@ export function InvoiceCreate({ contracts }: Props) {
                             <UploadFileOutlined />
                             Vincular Fatura
                         </Button>}
-                        <Button
-                            variant="contained"
-                            onClick={handleSubmit}
+                        <Box
                             sx={{
                                 display: 'flex',
                                 gap: 1,
-                                height: 48,
                                 mt: 3,
-                                color: '#fff',
                                 fontWeight: 600
-                            }}>
-                            Salvar Fatura
-                        </Button>
+                            }}
+                        >
+                            <Button
+                                variant="outlined"
+                                onClick={() => {}}
+                                sx={{
+                                    display: 'flex',
+                                    gap: 1,
+                                    height: 48,
+                                    mt: 3,
+                                    fontWeight: 600
+                                }}>
+                                Quitar Fatura
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleSubmit}
+                                sx={{
+                                    display: 'flex',
+                                    gap: 1,
+                                    height: 48,
+                                    mt: 3,
+                                    color: '#fff',
+                                    fontWeight: 600
+                                }}>
+                                Salvar Fatura
+                            </Button>
+                        </Box>
                     </Box>
                 }
             </Box>

@@ -140,7 +140,6 @@ export function TableSalesAdmin({ contracts, action = true }) {
                                                 case 'date':
                                                     const date = new Date(row.date);
                                                     date.setHours(date.getHours() + 3);
-                                                    console.log(date.toLocaleDateString());
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
                                                             {formatDate(date)}

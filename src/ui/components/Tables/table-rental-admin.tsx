@@ -6,6 +6,7 @@ import { maskPrice } from "@/src/helpers/mask";
 import { useRouter } from "next/router";
 import { IRentalContract } from "@/src/interfaces";
 import { CardPropertyTable } from "../Cards/CardPropertyTable";
+import { formatDate } from "@/src/helpers/date";
 
 export function TableRentalAdmin({ contracts, action = true, file = false }) {
     const router = useRouter();
@@ -134,7 +135,7 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                     date.setHours(date.getHours() + 3);
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {date.toLocaleDateString()}
+                                                            {formatDate(date)}
                                                         </TableCell>
                                                     )
                                                 case 'end':
@@ -142,7 +143,7 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                     end.setHours(end.getHours() + 3);
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {end.toLocaleDateString()}
+                                                            {formatDate(end)}
                                                         </TableCell>
                                                     )
                                                 case 'price':

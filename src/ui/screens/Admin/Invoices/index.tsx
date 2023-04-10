@@ -3,13 +3,20 @@ import { Search } from "@mui/icons-material";
 import { Box, Button, Container, IconButton, InputBase, Paper, Typography } from "@mui/material";
 import { TableInvoiceAdmin } from "@/src/ui/components/Tables/table-invoice-admin";
 import { IInvoice } from "@/src/interfaces";
+import { useInvoices } from "@/src/contexts/InvoicesContext";
+import { useEffect } from "react";
 
 interface Props {
     invoices: IInvoice[];
 }
 
 export function Invoices({invoices}: Props) {
+    const {results, setResults} = useInvoices();
     const router = useRouter();
+
+    useEffect(() => {
+        {invoices && setResults(invoices)}
+    }, [invoices]);
 
     return (
         <Container maxWidth="xl">
@@ -48,7 +55,7 @@ export function Invoices({invoices}: Props) {
                     >Cadastrar</Button>
                 </Box>
             </Box>
-            <TableInvoiceAdmin invoices={invoices} action={true}/>
+            <TableInvoiceAdmin invoices={results} action={true}/>
         </Container>
     )    
 }

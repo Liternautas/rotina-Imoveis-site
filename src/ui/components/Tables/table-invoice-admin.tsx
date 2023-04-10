@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react";
-import { Alert, Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Alert, Box, IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { DialogIcon } from "../DialogIcon";
-import { Delete, Download, Edit } from "@mui/icons-material";
+import { Cancel, CancelOutlined, Check, Delete, DeleteOutline, Download, Edit, EditOutlined, MoreVert } from "@mui/icons-material";
 import { maskPrice } from "@/src/helpers/mask";
 import { useRouter } from "next/router";
 import { IInvoice } from "@/src/interfaces";
 import { CardPropertyTable } from "../Cards/CardPropertyTable";
+import { InvoiceStatus, useInvoices } from "@/src/contexts/InvoicesContext";
+import { formatDate } from "@/src/helpers/date";
+import { DialogComponent } from "../DialogComponent";
+import { ModalPayInvoice } from "../modals/ModalPayInvoice";
+import { MenuComponent } from "../MenuComponent";
 
 export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
+    const { remove, chanceStatus, payInvoice } = useInvoices();
     const router = useRouter();
     const [results, setResults] = useState<IInvoice[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [openActions, setOpenActions] = useState(false);
+
+
 
     interface Column {
-        id: 'id' | 'property' | 'expiration' | 'tenant' | 'locator' | 'status' | 'price' | 'actions' | 'file';
+        id: 'id' | 'property' | 'expiration' | 'tenant' | 'locator' | 'status' | 'price' | 'actions' | 'file' | 'payment';
         label: string;
         minWidth?: number;
         align?: 'right';
@@ -24,12 +33,23 @@ export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
     const columns: readonly Column[] = [
         { id: 'property', label: 'Propriedade', minWidth: 200 },
         { id: 'tenant', label: 'Inquilino', minWidth: 200 },
-        { id: 'expiration', label: 'Validade', minWidth: 148 },
+        { id: 'expiration', label: 'Validade', minWidth: 100 },
+        { id: 'payment', label: 'Pagamento', minWidth: 100 },
         { id: 'price', label: 'Preco', minWidth: 148 },
-        { id: 'status', label: 'Status', minWidth: 148 },
-        { id: 'actions', label: '', minWidth: 100 },
+        { id: 'status', label: 'Status', minWidth: 100 },
+        { id: 'actions', label: '', minWidth: 48 },
         { id: 'file', label: '', minWidth: 48 },
     ];
+
+    const downloadArquivo = async (path: string) => {
+        const link = document.createElement('a');
+        link.href = process.env.NEXT_PUBLIC_BASE_URL + path;
+        link.setAttribute('download', 'segunda-via.pdf');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+        document.body.appendChild(link);
+        link.click();
+    };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
@@ -105,16 +125,10 @@ export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
                                                         return (
                                                             <TableCell>
                                                                 <Box>
-                                                                    <DialogIcon
-                                                                        title="Remover usuário"
-                                                                        description="Deseja mesmo remover esse usuário?"
-                                                                        onSubmit={() => /* handleRemove(row.id) */null}
-                                                                    >
-                                                                        <Delete />
-                                                                    </DialogIcon>
-                                                                    <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
-                                                                        <Edit />
-                                                                    </IconButton>
+                                                                    <MenuComponent id={row.id}>
+                                                                        <MoreVert />
+                                                                    </MenuComponent>
+
                                                                 </Box>
                                                             </TableCell>
                                                         )
@@ -124,7 +138,7 @@ export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
                                                         return (
                                                             <TableCell>
                                                                 <Box>
-                                                                    <IconButton>
+                                                                    <IconButton onClick={() => downloadArquivo(row.path)}>
                                                                         <Download />
                                                                     </IconButton>
                                                                 </Box>
@@ -148,7 +162,26 @@ export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
                                                 case 'status':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.status}
+                                                            {row.status === 'pendente' &&
+                                                                <Alert icon={false} severity="warning">
+                                                                    Pendente
+                                                                </Alert>
+                                                            }
+                                                            {row.status === 'pago' &&
+                                                                <Alert icon={false} severity="success">
+                                                                    Pago
+                                                                </Alert>
+                                                            }
+                                                            {row.status === 'vencida' &&
+                                                                <Alert icon={false} severity="error">
+                                                                    Vencida
+                                                                </Alert>
+                                                            }
+                                                            {row.status === 'cancelada' &&
+                                                                <Alert icon={false} severity="error">
+                                                                    Cancelada
+                                                                </Alert>
+                                                            }
                                                         </TableCell>
                                                     )
                                                 case 'tenant':
@@ -162,7 +195,15 @@ export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
                                                     date.setHours(date.getHours() + 3);
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {date.toLocaleDateString()}
+                                                            {formatDate(date)}
+                                                        </TableCell>
+                                                    )
+                                                case 'payment':
+                                                    const payment = new Date(row.payment);
+                                                    payment?.setHours(payment.getHours() + 3);
+                                                    return (
+                                                        <TableCell key={column.id} align={column.align}>
+                                                            {row.payment && formatDate(payment)}
                                                         </TableCell>
                                                     )
                                                 case 'price':

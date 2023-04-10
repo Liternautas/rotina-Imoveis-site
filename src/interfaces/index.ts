@@ -142,6 +142,7 @@ export interface IInvoice {
     id?: string;
     status?: string;
     expiration?: Date;
+    payment?: Date;
     reference?: Date;
     price?: string;
     path?: string;
