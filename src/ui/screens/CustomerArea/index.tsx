@@ -62,7 +62,13 @@ export function CustomerArea({ user, invoices }: Props) {
                 minHeight: '70vh'
             }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        variant="scrollable"
+                        scrollButtons="auto"
+                        aria-label="basic tabs example"
+                    >
                         <Tab label="Dados pessoais" />
                         <Tab label="Compras" />
                         <Tab label="Locações" />
@@ -79,7 +85,8 @@ export function CustomerArea({ user, invoices }: Props) {
                         gap: 2
                     }}>
                         <Box sx={{
-                            width: 400,
+                            width: '100%',
+                            maxWidth: 400,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'flex-start'
@@ -126,11 +133,11 @@ export function CustomerArea({ user, invoices }: Props) {
                                 Selecionar foto
                             </Button>
                         </Box>
-                        <TextField id="outlined-basic" sx={{ width: 400 }} label="Nome" variant="outlined" value={name.value} onChange={e => name.onChange(e)} fullWidth />
-                        <TextField id="outlined-basic" sx={{ width: 400 }} label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} fullWidth />
-                        <TextField id="outlined-basic" sx={{ width: 400 }} label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} fullWidth />
-                        <TextField id="outlined-basic" sx={{ width: 400 }} label="CPF" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
-                        <Button variant="contained" sx={{ width: 400, color: '#fff', height: 48 }} onClick={handleSubmit}>Salvar</Button>
+                        <TextField id="outlined-basic" label="Nome" variant="outlined" value={name.value} onChange={e => name.onChange(e)} fullWidth />
+                        <TextField id="outlined-basic" label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} fullWidth />
+                        <TextField id="outlined-basic" label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} fullWidth />
+                        <TextField id="outlined-basic" label="CPF" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
+                        <Button variant="contained" sx={{ width: "100%", color: '#fff', height: 48 }} onClick={handleSubmit}>Salvar</Button>
                     </Box>
                 }
                 {

@@ -24,7 +24,7 @@ export function HeadComponent({ title, description, image, urlCanonical }: Props
             {image && <meta property="og:image" content={getImageUrl(image)}></meta>}
             {urlCanonical && <meta property="og:url" content={urlCanonical}></meta>}
             <meta property="og:site_name" content="Kelly Imóveis"></meta>
-            <link rel="shortcut icon" href="/icone.png" />
+            <link rel="shortcut icon" href="/icon.png" />
 
             {!title && <title>Rotina Imóveis - Encontre o seu lar ideal</title>}
             {!title && <meta name="og:title" content={'Rotina Imóveis - Encontre o seu lar ideal'} />}

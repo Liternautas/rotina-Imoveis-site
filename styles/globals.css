@@ -1,52 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: 'Open Sans', sans-serif !important;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif !important;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif !important;
-    overflow-y: auto !important;
+  font-family: "Open Sans", sans-serif !important;
+  overflow-y: auto !important;
 }
 
 ::-webkit-scrollbar {
   width: 8px;
-  }
+  height: 8px;
+}
 
-  /* Track */
-  ::-webkit-scrollbar-track {
-  background: #48454A;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
 
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #f1f1f1;
-    border: 2px solid #48454A;
-    border-radius: 4px;
-  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
 
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-  background: #f1f1f1;
-  }
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
 
-  .rnc__base  {
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
+.rnc__base {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
-  svg text {
-    fill: #fff !important;
-  }
+svg text {
+  fill: #fff !important;
+}
 
-  .swiper {
-    position: unset !important;
-  }
+.swiper {
+  position: unset !important;
+}
 
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}

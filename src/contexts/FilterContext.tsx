@@ -23,6 +23,8 @@ interface FilterContextProps {
     type: useSelectProps;
     adType: useSelectProps;
     results: IProperty[];
+    total: number;
+    setTotal(n: number): void;
     setResults(properties: IProperty[]): void;
 }
 
@@ -69,10 +71,11 @@ const FilterProvider = ({children}) => {
     const findProperties = useCallback(async ({adType, cityId, districtId, page, typeId, maxPrice, minPrice}: FindPropertiesProps) => {
         try {
             setLoading(true);
-            const {results} = await api.get(getPathByRoute({adType, cityId, districtId, page, typeId, maxPrice, minPrice})).then(res => res.data);
+            const {results, count} = await api.get(getPathByRoute({adType, cityId, districtId, page, typeId, maxPrice, minPrice})).then(res => res.data);
 
             if(results) {
                 setResults(results);
+                setTotal(count);
             }
         } catch (error) {
             
@@ -97,6 +100,8 @@ const FilterProvider = ({children}) => {
             type,
             adType,
             results,
+            setTotal,
+            total,
             setResults
         }}>
             {children}

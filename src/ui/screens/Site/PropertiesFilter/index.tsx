@@ -12,8 +12,8 @@ interface Props {
     total: number;
 }
 
-export function PropertiesFilter({ properties, total }: Props) {
-    const {results} = useFilter();
+export function PropertiesFilter({ properties }: Props) {
+    const {results, total} = useFilter();
     const [page, setPage] = useState(1);
     const [open, setOpen] = useState(false);
 
@@ -55,6 +55,10 @@ export function PropertiesFilter({ properties, total }: Props) {
                             <Button
                                 variant="outlined"
                                 sx={{
+                                    display: {
+                                        xs: 'flex',
+                                        md: 'none',
+                                    },
                                     minWidth: 'fit-content',
                                     padding: .5
                                 }}

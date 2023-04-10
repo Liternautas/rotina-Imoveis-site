@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Image from "next/image";
 import Link from "next/link";
 
-import Logo from "../../../../public/logo.png"
+import Logo from "../../../../public/logo.svg"
 import { AppBar, DrawerMobile } from "./styles";
 import { useRouter } from "next/router";
 
@@ -24,9 +24,9 @@ export default function Header() {
                 }}>
                     <Link href={'/'} style={{
                         display: 'flex',
-                        height: '100%'
+                        height: 48
                     }}>
-                        <Image src={Logo} alt="" />
+                        <Image src={Logo} alt="" quality={100} />
                     </Link>
                     <Box sx={{
                         display: {
