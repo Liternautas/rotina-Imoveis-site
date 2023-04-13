@@ -1,4 +1,4 @@
-import { AppBar as AppBarMui, Drawer as MuiDrawer } from "@mui/material";
+import { AppBar as AppBarMui, Drawer as MuiDrawer, Link } from "@mui/material";
 import {styled} from "@mui/material/styles";
 
 export const AppBar = styled(AppBarMui)`
@@ -30,4 +30,12 @@ export const DrawerMobile = styled(MuiDrawer)`
     @media (min-width: 1080px) {
         display: none;
     }
+`
+interface PropsLink {
+    active?: boolean;
+}
+
+export const LinkItem = styled(Link)<PropsLink>`
+    color: ${({theme, active}) => active && theme.palette.primary.main} !important;
+    font-weight: 600 !important;
 `

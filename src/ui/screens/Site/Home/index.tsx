@@ -24,11 +24,11 @@ const CardInfo = dynamic(() => import('@/src/ui/components/Cards/CardInfo'), {
     loading: () => null,
 });
 
-export function Home({ properties }) {
+export function Home({ properties, banners }) {
     return (
         <Box sx={{
-            mt: '64px',
-            pt: 3,
+            mt: '72px',
+            background: `#fafafa`
         }}>
             <BannerHome />
             <Container>
@@ -74,7 +74,7 @@ export function Home({ properties }) {
                 </Box>
                 <PropertiesSection properties={properties} />
                 <DistrictsSection />
-                <ReleasesSection />
+                <ReleasesSection banners={banners} />
             </Container>
         </Box>
     )

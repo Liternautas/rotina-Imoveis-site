@@ -1,8 +1,9 @@
+import { useEffect, useState, useRef } from "react";
 import { useUser } from "@/src/contexts/UserContext";
 import { useForm } from "@/src/hooks/useForm";
 import { IUser } from "@/src/interfaces";
-import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography, Avatar } from "@mui/material";
+import { getImageUrl } from "@/src/helpers/functions";
 
 interface Props {
     user: IUser;
@@ -42,13 +43,23 @@ const roles: IRole[] = [
 ]
 
 export function CollaboratorsUpdate({ user }: Props) {
-    const { update } = useUser();
-
+    const { update, uploadAvatar } = useUser();
+    const fileInputRef = useRef(null);
     const email = useForm();
     const name = useForm();
     const password = useForm();
     const phone = useForm('phone');
     const [role, setRole] = useState<IRole>();
+    const [avatar, setAvatar] = useState(null);
+
+    const handleUploadAvatar = async ({ target }) => {
+        await uploadAvatar(user.id, target.files[0]);
+        setAvatar(target.files[0]);
+    }
+
+    const handleButtonClick = () => {
+        fileInputRef.current.click();
+    };
 
     const handleSubmit = async () => {
         await update({
@@ -85,6 +96,55 @@ export function CollaboratorsUpdate({ user }: Props) {
                 gap: 2,
                 maxWidth: 400
             }}>
+                <Box sx={{
+                            width: '100%',
+                            maxWidth: 400,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start'
+                        }}>
+                            {avatar &&
+                                <Avatar
+                                    src={avatar && URL.createObjectURL(avatar)}
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mb: 1
+                                    }} onClick={handleButtonClick}>
+                                    {name.value.substring(0, 1)}
+                                </Avatar>}
+                            {user.avatar && !avatar &&
+                                <Avatar
+                                    src={getImageUrl(user.avatar)}
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mb: 1
+                                    }} onClick={handleButtonClick}>
+                                    {name.value.substring(0, 1)}
+                                </Avatar>}
+                            {!avatar && !user.avatar &&
+                                <Avatar
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mb: 1
+                                    }} onClick={handleButtonClick}>
+                                    {name.value.substring(0, 1)}
+                                </Avatar>}
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                onChange={handleUploadAvatar}
+                            />
+                            <Button
+                                variant="outlined"
+                                onClick={handleButtonClick}
+                            >
+                                Selecionar foto
+                            </Button>
+                        </Box>
                 <TextField id="outlined-basic" label="Nome" variant="outlined" value={name.value} onChange={e => name.onChange(e)} />
                 <TextField id="outlined-basic" label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} />
                 <TextField id="outlined-basic" label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} />

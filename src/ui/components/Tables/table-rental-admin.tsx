@@ -97,7 +97,7 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                                     >
                                                                         <Delete />
                                                                     </DialogIcon>
-                                                                    <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
+                                                                    <IconButton onClick={() => router.push(`/admin/contracts/rentals/edit/${row.id}`)}>
                                                                         <Edit />
                                                                     </IconButton>
                                                                 </Box>

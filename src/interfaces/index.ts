@@ -117,6 +117,7 @@ export type IAddress = {
 export interface ISalesContract {
     id?: number;
     price?: string;
+    commission?: string;
     paymentForm?: string;
     property?: IProperty;
     owner?: IUser;
@@ -148,4 +149,45 @@ export interface IInvoice {
     path?: string;
     rentalContract?: IRentalContract;
     property?: IProperty;
+}
+
+export interface IBannerType {
+    id?: number;
+    name: string;
+    banners?: IBanner[];
+    width?: number;
+    height?: number;
+}
+
+export interface IBanner {
+    id?: number;
+    name?: string;
+    link?: string;
+    path?: string;
+    active?: boolean;
+    bannerType?: IBannerType;
+}
+
+export interface ILead {
+    id?: number;
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+    realtor?: IUser;
+    property?: IProperty;
+    type?: string;
+
+    //financing
+    nance?: Date;
+    document?: string;
+    monthlyIncome?: string;
+    married?: boolean;
+    propertyPrice?: string;
+    prohibited?: string;
+    financingTime?: string;
+
+    //visit
+    time?: Date;
+    date?: Date;
 }

@@ -19,13 +19,13 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #ddd;
+  background: #ccc;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #fff;
-  border: 2px solid #ddd;
+  border: 2px solid #ccc;
   border-radius: 4px;
 }
 

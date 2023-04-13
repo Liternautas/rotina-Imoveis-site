@@ -3,6 +3,7 @@ import { IInvoice } from "../interfaces";
 import { api } from "../services/api";
 import { useRouter } from "next/router";
 import { useNotification } from "../hooks/useNotification";
+import { Loading } from "../ui/components/Loading";
 
 export type InvoiceStatus = 'pendente' | 'pago' | 'vencida' | 'cancelada';
 
@@ -183,6 +184,7 @@ const InvoicesProvider = ({children}) => {
             chanceStatus,
             payInvoice
         }}>
+            <Loading open={loading}/>
             {children}
         </InvoicesContext.Provider>
     )

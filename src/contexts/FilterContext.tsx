@@ -7,6 +7,7 @@ import { adTypes, types } from "../utils/data";
 import { useRouter } from "next/router";
 import { cities, districts } from "../utils/address";
 import { api } from "../services/api";
+import { Loading } from "../ui/components/Loading";
 
 interface FindPropertiesProps {
     cityId?: number | string,
@@ -25,6 +26,8 @@ interface FilterContextProps {
     results: IProperty[];
     total: number;
     setTotal(n: number): void;
+    page: number;
+    setPage(n: number): void;
     setResults(properties: IProperty[]): void;
 }
 
@@ -32,7 +35,7 @@ const FilterContext = createContext({} as FilterContextProps);
 
 const FilterProvider = ({children}) => {
     const router = useRouter();
-    const {adType: adTypeQuery, type: typeQuery, cityId, districtId} = router.query;
+    const {adType: adTypeQuery, type: typeQuery, cityId, districtId, page: pageQuery} = router.query;
 
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -60,11 +63,7 @@ const FilterProvider = ({children}) => {
         { typeId ? path = path + `&typeId=${typeId}` : null }
         { cityId ? path = path + `&cityId=${cityId}` : null }
         { districtId ? path = path + `&districtId=${districtId}` : null }
-        /* { maxPrice ? path = path + `&maxPrice=${maxPrice.toString().replace(/[^0-9]/g, '')}` : null }
-        
-        
-        
-        { page ? path = path + `&page=${page}` : null } */
+        { page ? path = path + `&page=${page}` : null }
         return path;
     }
 
@@ -80,19 +79,19 @@ const FilterProvider = ({children}) => {
         } catch (error) {
             
         } finally {
-
+            setLoading(false);
         }
     }, [adTypeQuery, cityId, districtId, typeQuery]);
 
     useEffect(() => {
         const typeSelected = types.find(item => item.slug === typeQuery) as OptionSelectProps;
-
         {cityId && city.onChange(cities.find(item => item.id === +cityId) as OptionSelectProps)};
         {districtId && district.onChange(districts.find(item => item.id === +districtId) as OptionSelectProps)};
         {typeQuery && type.onChange(typeSelected)};
         {adTypeQuery && adType.onChange(adTypes.find(item => item.enum === adTypeQuery) as OptionSelectProps)};
-        findProperties({adType: adTypeQuery?.toString(), cityId: +cityId, districtId: +districtId, page: +page, typeId: typeSelected?.id });
-    }, [adTypeQuery, cityId, districtId, typeQuery]);
+        {pageQuery && setPage(+pageQuery)};
+        findProperties({adType: adTypeQuery?.toString(), cityId: +cityId, districtId: +districtId, page: +pageQuery, typeId: typeSelected?.id });
+    }, [adTypeQuery, cityId, districtId, typeQuery, pageQuery]);
 
     return (
         <FilterContext.Provider value={{
@@ -102,8 +101,11 @@ const FilterProvider = ({children}) => {
             results,
             setTotal,
             total,
-            setResults
+            setResults,
+            page,
+            setPage
         }}>
+            <Loading open={loading}/>
             {children}
         </FilterContext.Provider>
     )

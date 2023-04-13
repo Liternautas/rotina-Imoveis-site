@@ -3,21 +3,30 @@ import { IProperty } from "@/src/interfaces";
 import { FilterListOutlined, Search } from "@mui/icons-material";
 import { Box, Button, Container, Divider, Grid, IconButton, InputBase, Pagination, Paper, Stack, styled, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
+import { useProperty } from "@/src/contexts/PropertyContext";
 
 interface Props {
     properties: IProperty[];
+    total: number;
 }
 
-export function Properties({ properties }: Props) {
-    const [page, setPage] = useState(1);
+export function Properties({ properties, total: initialTotal }: Props) {
+    const {total, setTotal, results, setResults, page, handlePage} = useProperty();
     const router = useRouter();
     const GlobalStyles = createGlobalStyle`
         body {
             overflow-y: auto !important;
         }
     `
+
+    useEffect(() => {
+        if(properties) {
+            setResults(properties);
+            setTotal(initialTotal);
+        }
+    }, [properties]);
 
     return (
         <Container maxWidth="xl">
@@ -60,8 +69,11 @@ export function Properties({ properties }: Props) {
                     </Button>
                 </Box>
             </Box>
+            <Stack spacing={2} sx={{ my: 3 }}>
+                <Pagination count={Math.ceil(total / 15)} variant="outlined" shape="rounded" page={page} onChange={(e, page) => handlePage(page)} />
+            </Stack>
             <Grid container spacing={{ xs: 2, md: 3 }}>
-                {properties?.map(property => (
+                {results?.map(property => (
                     <Grid item xs={12} sm={6} md={4}>
                         <CardAdmin property={property} />
                     </Grid>
@@ -69,7 +81,7 @@ export function Properties({ properties }: Props) {
                 }
             </Grid>
             <Stack spacing={2} sx={{ mt: 3 }}>
-                <Pagination count={Math.ceil(1 / 15)} variant="outlined" shape="rounded" page={page} onChange={(e, page) => setPage(page)} />
+                <Pagination count={Math.ceil(total / 15)} variant="outlined" shape="rounded" page={page} onChange={(e, page) => handlePage(page)} />
             </Stack>
         </Container>
     )

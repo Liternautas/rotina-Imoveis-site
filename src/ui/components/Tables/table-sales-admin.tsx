@@ -102,7 +102,7 @@ export function TableSalesAdmin({ contracts, action = true }) {
                                                                     >
                                                                         <Delete />
                                                                     </DialogIcon>
-                                                                    <IconButton onClick={() => router.push(`/admin/collaborators/edit/${row.id}`)}>
+                                                                    <IconButton onClick={() => router.push(`/admin/contracts/sales/edit/${row.id}`)}>
                                                                         <Edit />
                                                                     </IconButton>
                                                                 </Box>

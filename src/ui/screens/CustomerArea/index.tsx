@@ -82,7 +82,8 @@ export function CustomerArea({ user, invoices }: Props) {
                         my: 2,
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 2
+                        gap: 2,
+                        maxWidth: 400,
                     }}>
                         <Box sx={{
                             width: '100%',

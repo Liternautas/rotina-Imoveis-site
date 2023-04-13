@@ -18,7 +18,7 @@ export function CardPropertyH({ property, isLink }: Props) {
             {isLink === false ?
                 <CardComponent property={property} />
                 :
-                <Link href={`imovel/${adType === 'aluguel' ? `${type.slug}-para-alugar` : `${type.slug}-a-venda`}-em-${normalize(address.city.name)}-${normalize(address.district.name)}/${code}`}>
+                <Link href={`/imovel/${adType === 'aluguel' ? `${type.slug}-para-alugar` : `${type.slug}-a-venda`}-em-${normalize(address.city.name)}-${normalize(address.district.name)}/${code}`}>
                     <CardComponent property={property} />
                 </Link>
             }

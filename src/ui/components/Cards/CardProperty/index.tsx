@@ -19,11 +19,15 @@ export function CardProperty({ property }: Props) {
         <Link href={`imovel/${adType === 'aluguel' ? `${type.slug}-para-alugar` : `${type.slug}-a-venda`}-em-${normalize(address.city.name)}-${normalize(address.district.name)}/${code}`}>
             <Card sx={{
                 w: '276px',
+                height: '328px',
                 minWidth: '276px',
-                boxShadow: 'none'
+                boxShadow: 'none',
+                border: '.5px solid #eee',
+                display: 'flex',
+                flexDirection: 'column'
             }}>
                 <CardMedia
-                    sx={{ height: 190, borderRadius: 1 }}
+                    sx={{ height: 190 }}
                     image={getImageUrl(property.images[0])}
                 />
                 <Box sx={{
@@ -51,50 +55,54 @@ export function CardProperty({ property }: Props) {
                 <CardContent sx={{
                     display: "flex",
                     flexDirection: "column",
+                    justifyContent: 'space-between',
                     gap: 1,
-                    padding: '0 8px',
-                    marginTop: 1
+                    padding: '8px !important',
+                    marginTop: 1,
+                    flex: 1
                 }}>
-                    <Typography sx={{
-                        fontSize: 20,
-                        fontWeight: 600,
-                        lineHeight: '140%'
-                    }}>{property.address.district.name ?? property.type.name}, {property.address.city.name}</Typography>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between'
-                    }}>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <SquareFootOutlined sx={{ color: "primary.main" }} />
-                            <Typography sx={{
-                                fontSize: 14,
-                                fontWeight: 600,
-                                color: 'secondary.main',
-                            }}>{property.totalArea}m²</Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <BedOutlined sx={{ color: "primary.main" }} />
-                            <Typography sx={{
-                                fontSize: 14,
-                                fontWeight: 600,
-                                color: 'secondary.main',
-                            }}>{property.numberRooms}</Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <ShowerOutlined sx={{ color: "primary.main" }} />
-                            <Typography sx={{
-                                fontSize: 14,
-                                fontWeight: 600,
-                                color: 'secondary.main',
-                            }}>{property.numberBathroom}</Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <DirectionsCarOutlined sx={{ color: "primary.main" }} />
-                            <Typography sx={{
-                                fontSize: 14,
-                                fontWeight: 600,
-                                color: 'secondary.main',
-                            }}>{property.numberGarage}</Typography>
+                    <Box>
+                        <Typography sx={{
+                            fontSize: 20,
+                            fontWeight: 600,
+                            lineHeight: '140%'
+                        }}>{property.address.district.name ?? property.type.name}, {property.address.city.name}</Typography>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <SquareFootOutlined sx={{ color: "primary.main" }} />
+                                <Typography sx={{
+                                    fontSize: 14,
+                                    fontWeight: 600,
+                                    color: 'secondary.main',
+                                }}>{property.totalArea}m²</Typography>
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <BedOutlined sx={{ color: "primary.main" }} />
+                                <Typography sx={{
+                                    fontSize: 14,
+                                    fontWeight: 600,
+                                    color: 'secondary.main',
+                                }}>{property.numberRooms}</Typography>
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <ShowerOutlined sx={{ color: "primary.main" }} />
+                                <Typography sx={{
+                                    fontSize: 14,
+                                    fontWeight: 600,
+                                    color: 'secondary.main',
+                                }}>{property.numberBathroom}</Typography>
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <DirectionsCarOutlined sx={{ color: "primary.main" }} />
+                                <Typography sx={{
+                                    fontSize: 14,
+                                    fontWeight: 600,
+                                    color: 'secondary.main',
+                                }}>{property.numberGarage}</Typography>
+                            </Box>
                         </Box>
                     </Box>
                     <Typography sx={{

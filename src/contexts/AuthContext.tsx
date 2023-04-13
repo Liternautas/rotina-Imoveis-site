@@ -5,6 +5,7 @@ import { useNotification } from "../hooks/useNotification";
 import { IUser } from "../interfaces";
 import { api } from "../services/api";
 import { destroyCookie } from "nookies";
+import { Loading } from "../ui/components/Loading";
 
 interface AuthProps {
     user: IUser;
@@ -73,8 +74,8 @@ const AuthProvider = ({children}) => {
 
     const signOut = async () => {
         setUser(null);
-        destroyCookie(undefined, 'mobilar.user');
-        destroyCookie(undefined, 'mobilar.token');
+        destroyCookie(undefined, 'imob.user');
+        destroyCookie(undefined, 'imob.token');
         router.push('/')
     }
 
@@ -91,6 +92,7 @@ const AuthProvider = ({children}) => {
             signUp,
             user
         }}>
+            <Loading open={loading}/>
             {children}
         </AuthContext.Provider>
     )

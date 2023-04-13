@@ -7,12 +7,18 @@ import { Navigation, Pagination } from "swiper";
 import styles from './styles.module.scss';
 import { useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
+import { IBanner } from "@/src/interfaces";
+import { getImageUrl } from "@/src/helpers/functions";
 
 const CardRelease = dynamic(() => import('../../Cards/CardRelease'), {
     loading: () => null,
 });
 
-export function ReleasesSection() {
+interface Props {
+    banners: IBanner[];
+}
+
+export function ReleasesSection({ banners }: Props) {
     const [state, setState] = useState('start');
 
     return (
@@ -26,24 +32,17 @@ export function ReleasesSection() {
                 modules={[Navigation, Pagination]}
                 slidesPerView={'auto'}
                 onSlideChange={(swiper) => {
-                    {swiper.isBeginning && setState('start')}
-                    {swiper.isEnd && setState('end')}
-                    {!swiper.isBeginning && !swiper.isEnd && setState('progress')}
+                    { swiper.isBeginning && setState('start') }
+                    { swiper.isEnd && setState('end') }
+                    { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                 }}
             >
-                <SwiperSlide className={styles.swiperSlide}>
-                    <CardRelease image="/release.png" />
-                </SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}>
-                    <CardRelease image="/release.png" />
-                </SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}>
-                    <CardRelease image="/release.png"  />
-                </SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}>
-                    <CardRelease image="/release.png" />
-                </SwiperSlide>
-                <SwiperButtons state={state}/>
+                {banners.map(banner => (
+                    <SwiperSlide className={styles.swiperSlide}>
+                        <CardRelease image={getImageUrl(banner.path)} />
+                    </SwiperSlide>
+                ))}
+                <SwiperButtons state={state} />
             </Swiper>
         </Box>
     )

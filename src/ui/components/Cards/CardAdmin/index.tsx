@@ -15,10 +15,10 @@ export function CardAdmin({property}: Props) {
 
     return (
         <Card sx={{position: 'relative'}} onClick={() => router.push(`/admin/properties/update/${id}`)}>
-            {images && images.length > 0 && <CardMedia
+            <CardMedia
                 sx={{ height: 190 }}
                 image={getImageUrl(images[0])}
-            />}
+            />
             <Box sx={{
                 position: 'absolute',
                 top: 8,

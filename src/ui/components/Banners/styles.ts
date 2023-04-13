@@ -2,28 +2,30 @@ import { Typography, Container as ContainerMui, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 
-export const Container = styled(ContainerMui)`
+export const Container = styled(Box)`
     width: 100%;
     min-height: 496px;
-    height: auto;
-    padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
+    height: 80vh;
     position: relative;
 
     display: flex;
     flex-direction: column;
+    background: rgba(0, 0, 0, .5);
+    @media (max-width: 720px) {
+        background: #fff;
+        height: auto;
+    }
 `
 export const BackgroundHome = styled(Box)`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
 
     width: 100%;
     height: 100%;
-    background: url(/banner.png);
+    background: url(/banner02.jpg);
     background-size: cover;
-    border-radius: 16px;
 
     @media (max-width: 720px) {
         display: none;
@@ -34,12 +36,14 @@ export const Title = styled(Typography)`
     font-weight: 700;
     max-width: 790px;
     margin-bottom: 32px;
+    color: #fff;
+    text-align: center;
     span {
         color: ${({theme}) => theme.palette.primary.main};
     }
     @media (max-width: 720px) {
         font-size: 24px;
-        text-align: center;
+        color: #121212;
     }
 `
 export const Form = styled(Box)`

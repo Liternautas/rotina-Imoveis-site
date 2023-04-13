@@ -15,7 +15,6 @@ export const ContentWrapper = styled(Box)`
     padding-top: 24px;
     max-height: 80vh;
     overflow: auto;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;

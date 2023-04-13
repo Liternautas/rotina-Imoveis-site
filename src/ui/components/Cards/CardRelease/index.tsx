@@ -23,17 +23,19 @@ export function CardRelease({ image, link }: Props) {
     return (
         <Card
             ref={ref}
-            sx={{ position: 'relative' }} 
+            sx={{ position: 'relative' }}
             onClick={() => link && router.push(link)}
-            style={{ 
+            style={{
                 boxShadow: 'none',
-                minWidth: 276
+                minWidth: 276,
+                maxWidth: 300
             }}
         >
-            {image && <CardMedia
-                sx={{ height: heigth }}
-                image={image}
-            />}
+            {image &&
+                <CardMedia
+                    sx={{ height: heigth }}
+                    image={image}
+                />}
         </Card>
     )
 }

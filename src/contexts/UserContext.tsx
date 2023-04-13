@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useNotification } from "../hooks/useNotification";
 import { IUser, Role } from "../interfaces";
 import { api } from "../services/api";
+import { Loading } from "../ui/components/Loading";
 
 interface UserContextProps {
     findAll(customers?: boolean): Promise<void>;
@@ -139,6 +140,7 @@ const UserProvider = ({ children }) => {
             remove,
             uploadAvatar
         }}>
+            <Loading open={loading}/>
             {children}
         </UserContext.Provider>
     )

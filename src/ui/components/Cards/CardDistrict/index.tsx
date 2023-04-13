@@ -12,11 +12,11 @@ export function CardDistrict({image, subtitle, title}: Props) {
             boxShadow: "none",
             position: "relative",
             overflow: "hidden",
-            borderRadius: '24px 0 24px 0',
+            borderRadius: 1,
             minWidth: 276
         }}>
             {image && <CardMedia
-                sx={{ height: 190, borderRadius: '24px 0 24px 0' }}
+                sx={{ height: 190, borderRadius: 1 }}
                 image={image}
             />}
             <CardContent style={{
@@ -34,15 +34,17 @@ export function CardDistrict({image, subtitle, title}: Props) {
                 background: "linear-gradient(112.9deg, #2F4F4F 0%, rgba(32, 52, 52, 0.8) 48.96%, #111818 100%)"
             }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{
-                    fontSize: '18px',
-                    fontWeight: 700,
+                    fontSize: '16px',
+                    fontWeight: 500,
                     marginBottom: 0
                 }}>
                     Loteamento Ipanema
                 </Typography>
                 <Typography variant="subtitle1" sx={{
-                    lineHeight: '140%'
-                }}>10</Typography>
+                    fontSize: '18px',
+                    fontWeight: 700,
+                    marginBottom: 0
+                }}>10 propriedades</Typography>
             </CardContent>
         </Card>
     )

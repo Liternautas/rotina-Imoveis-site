@@ -40,6 +40,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { ReactNotifications } from 'react-notifications-component';
 import { HeadComponent } from '@/src/ui/components/HeadComponent';
 import { AlertTerms } from '@/src/ui/components/AlertTerms';
+import { Loading } from '@/src/ui/components/Loading';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -52,6 +53,19 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   const router = useRouter();
   const { asPath } = router;
   const [muiLoaded, setMuiLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    router.events.on("routeChangeStart", () => setLoading(true));
+    router.events.on("routeChangeComplete", () => setLoading(false));
+    router.events.on("routeChangeError", () => setLoading(false));
+
+    return () => {
+        router.events.off("routeChangeStart", () => setLoading(true));
+        router.events.off("routeChangeComplete", () => setLoading(false));
+        router.events.off("routeChangeError", () => setLoading(false));
+    };
+}, [router.events]);
 
   useEffect(() => {
     emotionCache && setMuiLoaded(true);
@@ -74,6 +88,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         <CssBaseline />
         <AuthProvider>
           <FilterProvider>
+            <Loading open={loading}/>
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') && asPath != '/area-do-cliente/login' ? <Header /> : null}
             {asPath.startsWith('/admin') ?
               <AdminTemplate>

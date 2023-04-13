@@ -1,5 +1,5 @@
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useState } from "react";
 import { maskCep, maskNumber, maskPrice } from "../helpers/mask";
 import { useAddress, useAddressProps } from "../hooks/useAddress";
 import { useBoolean, useBooleanProps } from "../hooks/useBoolean";
@@ -11,6 +11,7 @@ import { OptionSelectProps, useSelect, useSelectProps } from "../hooks/useSelect
 import { IDetail, IProperty } from "../interfaces";
 import { api } from "../services/api";
 import { adTypes, types } from "../utils/data";
+import { Loading } from "../ui/components/Loading";
 
 interface PropertyContextProps {
     address: useAddressProps;
@@ -46,11 +47,23 @@ interface PropertyContextProps {
 
     details: any;
     setDetails: any;
+
+    results:IProperty[];
+    setResults(p: IProperty[]): void;
+    page: number;
+    setPage(n: number): void;
+    total: number;
+    setTotal(n: number): void;
+    handlePage(page: number): void;
 }
 
 const PropertyContext = createContext({} as PropertyContextProps);
 
 const PropertyProvider = ({ children }) => {
+    const [results, setResults] = useState<IProperty[]>([]);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+
     const router = useRouter();
     const {id} = router.query;
 
@@ -86,7 +99,6 @@ const PropertyProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(false);
     const notification = useNotification();
-    const cookies = useCookies();
 
     useEffect(() => {
         type.setOptions(types);
@@ -96,6 +108,27 @@ const PropertyProvider = ({ children }) => {
     useEffect(() => {
         if(id) findOne(Number(id));
     }, [id]);
+
+    const handlePage = useCallback((page: number) => {
+        setPage(page);
+        findProperties(page);
+    }, []);
+
+    const findProperties = async (page?: number) => {
+        try {
+            setLoading(true);
+            const { success, results, count } = await api.get(`properties?page=${page ?? 1}`).then(res => res.data);
+
+            if(success) {
+                setResults(results);
+                setTotal(count);
+            }
+        } catch (error) {
+            notification.execute('danger', error.mensage);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     function findInOptions(param: string, options) {
         let optionSelected;
@@ -112,6 +145,8 @@ const PropertyProvider = ({ children }) => {
 
     const findOne = async (id: number) => {
         try {
+            setLoading(true);
+
             const res = await api.get(`properties/${id}`).then(res => res.data);
             if(res.success && res.property) {
                 const property: IProperty = res.property;
@@ -142,6 +177,8 @@ const PropertyProvider = ({ children }) => {
             }
         } catch (error) {
             notification.execute('danger', error.mensage);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -216,6 +253,8 @@ const PropertyProvider = ({ children }) => {
             setImages(res.images);
         } catch (error) {
             notification.execute('danger', error.mensage);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -228,6 +267,8 @@ const PropertyProvider = ({ children }) => {
             setImages(res.images);
         } catch (error) {
             notification.execute('danger', error.mensage);
+        } finally {
+            setLoading(false);
         }
     }
     
@@ -245,6 +286,8 @@ const PropertyProvider = ({ children }) => {
             }
         } catch (error) {
             notification.execute('danger', error.mensage);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -283,8 +326,17 @@ const PropertyProvider = ({ children }) => {
             removeImage,
 
             details,
-            setDetails
+            setDetails,
+            
+            page,
+            results,
+            setPage,
+            setResults,
+            setTotal,
+            total,
+            handlePage
         }}>
+            <Loading open={loading}/>
             {children}
         </PropertyContext.Provider>
     )

@@ -3,6 +3,7 @@ import { IRentalContract, ISalesContract } from "../interfaces";
 import { useNotification } from "../hooks/useNotification";
 import { api } from "../services/api";
 import { useRouter } from "next/router";
+import { Loading } from "../ui/components/Loading";
 
 interface ContractsContextProps {
     sales: ISalesContract[];
@@ -159,6 +160,7 @@ const ContractsProvider = ({ children }) => {
             setRentals,
             setSales
         }}>
+            <Loading open={loading}/>
             {children}
         </ContractsContext.Provider>
     )

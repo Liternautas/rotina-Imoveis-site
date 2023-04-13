@@ -53,6 +53,10 @@ export function PropertyCreate({details, owners, realtors}: Props) {
         }
     }, [owners]);
 
+    useEffect(() => {
+        {router.asPath.startsWith('/admin/properties/update/') && setActiveStep(2)}
+    }, []);
+
     return (
         <Container>
             {/* Steps */}
@@ -108,7 +112,7 @@ export function PropertyCreate({details, owners, realtors}: Props) {
                     sx={{ mt: 3, mb: 2, background: '#daa520', color: '#fff', fontWeight: 500, height: 48 }}
                     onClick={async () => {
                         activeStep === 0 && setActiveStep(1);
-                        activeStep === 1 && await create().then(res => setActiveStep(2)); 
+                        activeStep === 1 && await create(); 
                         activeStep === 2 && setActiveStep(3);
                         activeStep === 3 && await create().then(res => router.push('/admin/properties'));
                     }}

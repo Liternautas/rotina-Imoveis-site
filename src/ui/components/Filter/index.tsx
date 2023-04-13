@@ -8,17 +8,16 @@ import { FilterContainer } from "./styles";
 
 export function Filter() {
     const router = useRouter();
-    const {address, type, adType} = useFilter();
+    const {address, type, adType, page} = useFilter();
     const {city, district} = address;
 
     const handleSubmit = async () => {
         let path = `/imoveis/filter?`;
-        path = path + `adType=${adType.value.id <= 1 ? 'venda' : 'aluguel'}`;
+        path = path + `adType=${+adType.value.id <= 1 ? 'venda' : 'aluguel'}`;
         {type.value ? path = path + `&type=${normalize(type.value.name)}` : null}
         {city.value ? path = path + `&cityId=${city.value.id}` : null}
         {district.value ? path = path + `&districtId=${district.value.id}` : null}
         router.push(path);
-
     }
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {

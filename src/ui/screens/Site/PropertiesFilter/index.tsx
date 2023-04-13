@@ -6,6 +6,8 @@ import { Filter1Outlined, FilterAltOutlined, FilterOutlined } from "@mui/icons-m
 import { Box, Button, Container, Grid, IconButton, Pagination, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { DrawerMobile, Results } from "./styles";
+import { useRouter } from "next/router";
+import { normalize } from "@/src/helpers/functions";
 
 interface Props {
     properties: IProperty[];
@@ -13,9 +15,21 @@ interface Props {
 }
 
 export function PropertiesFilter({ properties }: Props) {
-    const {results, total} = useFilter();
-    const [page, setPage] = useState(1);
+    const {results, total, page, setPage, type, adType, address} = useFilter();
+    const {city, district} = address;
+    const router = useRouter();
     const [open, setOpen] = useState(false);
+
+    const handleSubmit = async (page?: number) => {
+        let path = `/imoveis/filter?`;
+        path = path + `adType=${+adType.value.id <= 1 ? 'venda' : 'aluguel'}`;
+        {type.value ? path = path + `&type=${normalize(type.value.name)}` : null}
+        {city.value ? path = path + `&cityId=${city.value.id}` : null}
+        {district.value ? path = path + `&districtId=${district.value.id}` : null}
+        {district.value ? path = path + `&districtId=${district.value.id}` : null}
+        {page ? path = path + `&page=${page}` : null}
+        router.push(path);
+    }
 
     return (
         <Box sx={{
@@ -67,11 +81,14 @@ export function PropertiesFilter({ properties }: Props) {
                                 <FilterAltOutlined />
                             </Button>
                         </Box>
+                        <Stack spacing={2} sx={{ my: 3 }}>
+                            <Pagination count={Math.ceil(total / 15)} variant="outlined" shape="rounded" page={page} onChange={(e, page) => handleSubmit(page)} />
+                        </Stack>
                         <Results>
                             {results.map(property => <CardPropertyH property={property} />)}
                         </Results>
                         <Stack spacing={2} sx={{ mt: 3 }}>
-                            <Pagination count={Math.ceil(total / 15)} variant="outlined" shape="rounded" page={page} onChange={(e, page) => setPage(page)} />
+                            <Pagination count={Math.ceil(total / 15)} variant="outlined" shape="rounded" page={page} onChange={(e, page) => handleSubmit(page)} />
                         </Stack>
                     </Grid>
                 </Grid>

@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import GridViewIcon from '@mui/icons-material/GridView';
-import { ArrowRight, DocumentScannerOutlined, HomeOutlined, LanguageOutlined, ManageAccountsOutlined, Paid, PaidOutlined, PersonOutline } from "@mui/icons-material";
+import { ArrowRight, DocumentScannerOutlined, HomeOutlined, LanguageOutlined, ManageAccountsOutlined, Paid, PaidOutlined, PermContactCalendar, PermContactCalendarOutlined, PersonOutline } from "@mui/icons-material";
 
 //styles
 import { AppBar, DrawerHeader, DrawerMobile, Drawer } from "./styles";
@@ -18,6 +18,11 @@ import { UserAvatar } from "../UserAvatar";
 import { AsideButtonCollapse } from "../AsideButtonCollapse";
 import { useAuth } from "@/src/contexts/AuthContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
+
+import Logo from "../../../../public/logo.svg";
+
 
 export function Aside({ children }) {
     const { user, signOut } = useAuth();
@@ -41,9 +46,14 @@ export function Aside({ children }) {
                         flexGrow: 1,
                         px: 2.5
                     }}>
-                        {open && <Typography variant="h6" noWrap component="div">
-                            Imobiliária
-                        </Typography>}
+                        {open &&
+                            <Link href={'/'} style={{
+                                display: 'flex',
+                                height: 40
+                            }}>
+                                <Image src={Logo} alt="" quality={100} style={{ height: 40, width: 'fit-content'}} />
+                            </Link>
+                        }
                     </Box>}
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -61,13 +71,13 @@ export function Aside({ children }) {
                 </List>
                 <Divider />
                 <List>
-                    <AsideButton
+                    {/* <AsideButton
                         link='/admin/deals'
                         onPress={() => router.push('/admin/deals')}
                         text={"Negócios"}
                         Icon={PaidOutlined}
                         open={open}
-                    />
+                    /> */}
                     <AsideButton
                         link='/admin/properties'
                         onPress={() => router.push('/admin/properties')}
@@ -89,6 +99,13 @@ export function Aside({ children }) {
                         Icon={PersonOutline}
                         open={open}
                     />
+                    <AsideButton
+                        link='/admin/leads'
+                        onPress={() => router.push('/admin/leads')}
+                        text={"Leads"}
+                        Icon={PermContactCalendarOutlined}
+                        open={open}
+                    />
                     <AsideButtonCollapse
                         text={"Gerenciamento do site"}
                         Icon={LanguageOutlined}
@@ -106,6 +123,8 @@ export function Aside({ children }) {
                             open={open}
                         />
                         <AsideButton
+                            link='/admin/banners'
+                            onPress={() => router.push('/admin/banners')}
                             text={"Banners do site"}
                             Icon={ArrowRight}
                             open={open}
@@ -173,7 +192,7 @@ export function Aside({ children }) {
                     <Box style={{
                         flexGrow: 1
                     }}>
-                        {!open && <Typography variant="h6" noWrap component="div" sx={{color: '#fff'}}>
+                        {!open && <Typography variant="h6" noWrap component="div" sx={{ color: '#fff' }}>
                             Imobiliária
                         </Typography>}
                     </Box>

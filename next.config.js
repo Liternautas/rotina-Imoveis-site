@@ -6,6 +6,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['localhost', 'storage.googleapis.com']
+  },
   /* compiler: {
     styledComponents: true,
   },

@@ -4,8 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Image from "next/image";
 import Link from "next/link";
 
-import Logo from "../../../../public/logo.svg"
-import { AppBar, DrawerMobile } from "./styles";
+import Logo from "../../../../public/logo.svg";
+import { AppBar, DrawerMobile, LinkItem } from "./styles";
 import { useRouter } from "next/router";
 
 export default function Header() {
@@ -37,11 +37,31 @@ export default function Header() {
                         alignItems: "center",
                         gap: 3
                     }}>
-                        <Link href={'/'}>Início</Link>
-                        <Link href={'/sobre'}>Sobre</Link>
-                        <Link href={'/imoveis/filter?adType=aluguel'}>Alugar</Link>
-                        <Link href={'/imoveis/filter?adType=venda'}>Comprar</Link>
-                        <Link href={'/contato'}>Contato</Link>
+                        <Link href={'/'}>
+                            <LinkItem active={router.asPath === '/'}>
+                                Início
+                            </LinkItem>
+                        </Link>
+                        <Link href={'/sobre'}>
+                            <LinkItem active={router.asPath === '/sobre'}>
+                                Sobre
+                            </LinkItem>
+                        </Link>
+                        <Link href={'/imoveis/filter?adType=aluguel'}>
+                            <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=aluguel')}>
+                                Alugar
+                            </LinkItem>
+                        </Link>
+                        <Link href={'/imoveis/filter?adType=venda'}>
+                            <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=venda')}>
+                                Comprar
+                            </LinkItem>
+                        </Link>
+                        <Link href={'/contato'}>
+                            <LinkItem active={router.asPath === '/contato'}>
+                                Contato
+                            </LinkItem>
+                        </Link>
                     </Box>
                     <Box sx={{
                         flexGrow: 1,
