@@ -29,7 +29,8 @@ export function Home({ properties, banners }) {
         <Box sx={{
             mt: '72px',
             background: `#fafafa`
-        }}>
+        }}
+        component={'section'}>
             <BannerHome />
             <Container>
                 <PropertiesSection properties={properties} />
@@ -38,7 +39,7 @@ export function Home({ properties, banners }) {
                     py: 3
                 }}>
                     <Box position={'relative'}>
-                        <Title variant="h4">Encontre o imóvel ideal para seu estilo de vida</Title>
+                        <Title variant="h2">Encontre o imóvel ideal para seu estilo de vida</Title>
                     </Box>
                     <Swiper
                         modules={[Navigation, Pagination]}

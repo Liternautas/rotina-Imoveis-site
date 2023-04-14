@@ -69,6 +69,7 @@ const FilterProvider = ({children}) => {
 
     const findProperties = useCallback(async ({adType, cityId, districtId, page, typeId, maxPrice, minPrice}: FindPropertiesProps) => {
         try {
+            setResults([]);
             setLoading(true);
             const {results, count} = await api.get(getPathByRoute({adType, cityId, districtId, page, typeId, maxPrice, minPrice})).then(res => res.data);
 

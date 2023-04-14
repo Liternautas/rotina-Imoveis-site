@@ -21,11 +21,14 @@ export function PropertiesSection({ properties }: Props) {
     const [state, setState] = useState('start');
 
     return (
-        <Box sx={{
-            py: 3
-        }}>
+        <Box
+            sx={{
+                py: 3
+            }}
+            component={'section'}
+        >
             <Box position={'relative'}>
-                <Title variant="h4">Imóveis mais populares da sua região</Title>
+                <Title variant="h2">Imóveis mais populares da sua região</Title>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}

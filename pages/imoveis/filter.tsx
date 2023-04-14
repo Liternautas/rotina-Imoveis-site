@@ -1,10 +1,16 @@
+import Head from "next/head";
 import { api } from "@/src/services/api";
 import { PropertiesFilter } from "@/src/ui/screens/Site/PropertiesFilter";
 import { GetServerSideProps } from "next";
 
-export default function FilterPage({properties, total}) {
+export default function FilterPage({ properties, total }) {
     return (
-        <PropertiesFilter properties={properties} total={total}/>
+        <>
+            <Head>
+                <meta name='robots' content='index, follow' />
+            </Head>
+            <PropertiesFilter properties={properties} total={total} />
+        </>
     )
 }
 

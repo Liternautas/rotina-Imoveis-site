@@ -15,7 +15,7 @@ export function Contact() {
                 sx: 0,
                 md: 6
             },
-            minHeight: '100vh',
+            minHeight: '70vh',
             display: 'flex',
             flexDirection: 'column',
             gap: 8

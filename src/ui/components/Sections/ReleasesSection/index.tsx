@@ -22,11 +22,14 @@ export function ReleasesSection({ banners }: Props) {
     const [state, setState] = useState('start');
 
     return (
-        <Box sx={{
-            py: 3
-        }}>
+        <Box
+            sx={{
+                py: 3
+            }}
+            component={'section'}
+        >
             <Box position={'relative'}>
-                <Title variant="h4">Conheça os nossos lançamentos</Title>
+                <Title variant="h2">Conheça os nossos lançamentos</Title>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}

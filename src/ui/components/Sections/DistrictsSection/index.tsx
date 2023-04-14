@@ -12,19 +12,22 @@ export function DistrictsSection() {
     const [state, setState] = useState('start');
 
     return (
-        <Box sx={{
-            py: 3
-        }}>
+        <Box
+            sx={{
+                py: 3
+            }}
+            component={'section'}
+        >
             <Box position={'relative'}>
-                <Title variant="h4">Explore por bairros mais populares</Title>
+                <Title variant="h2">Explore por bairros mais populares</Title>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}
                 slidesPerView={'auto'}
                 onSlideChange={(swiper) => {
-                    {swiper.isBeginning && setState('start')}
-                    {swiper.isEnd && setState('end')}
-                    {!swiper.isBeginning && !swiper.isEnd && setState('progress')}
+                    { swiper.isBeginning && setState('start') }
+                    { swiper.isEnd && setState('end') }
+                    { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                 }}
             >
                 <SwiperSlide className={styles.swiperSlide}>
@@ -39,7 +42,7 @@ export function DistrictsSection() {
                 <SwiperSlide className={styles.swiperSlide}>
                     <CardDistrict image="/image08.png" subtitle="" title="" />
                 </SwiperSlide>
-                <SwiperButtons state={state}/>
+                <SwiperButtons state={state} />
             </Swiper>
         </Box>
     )

@@ -33,17 +33,13 @@ export function CardInfo({image, subtitle, title}: Props) {
                 borderRadius: 1,
                 color: '#fff'
             }}>
-                <Typography gutterBottom variant="h6" component="div" sx={{
+                <Typography gutterBottom variant="h2" sx={{
                     fontSize: '18px',
                     fontWeight: 700,
                     marginBottom: 0,
                 }}>
                     {title}
                 </Typography>
-                {/* <Typography variant="subtitle1" sx={{
-                    lineHeight: '140%',
-                    color: '#f9f9f9'
-                }}>{subtitle}</Typography> */}
             </CardContent>
         </Card>
     )

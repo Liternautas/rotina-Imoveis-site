@@ -31,9 +31,9 @@ export function CardDistrict({image, subtitle, title}: Props) {
                 width: "100%",
                 height: "100%",
                 color: '#fff',
-                background: "linear-gradient(112.9deg, #2F4F4F 0%, rgba(32, 52, 52, 0.8) 48.96%, #111818 100%)"
+                background: "linear-gradient(112.9deg, #000 0%, rgba(32, 52, 52, 0.8) 48.96%, #111818 100%)"
             }}>
-                <Typography gutterBottom variant="h6" component="div" sx={{
+                <Typography gutterBottom variant="h2" sx={{
                     fontSize: '16px',
                     fontWeight: 500,
                     marginBottom: 0

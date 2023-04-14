@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.rotinaimoveis.com.br/
+
+# Sitemaps
+Sitemap: https://www.rotinaimoveis.com.br/sitemap.xml

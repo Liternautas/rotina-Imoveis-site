@@ -66,7 +66,7 @@ export function CardProperty({ property }: Props) {
                             fontSize: 20,
                             fontWeight: 600,
                             lineHeight: '140%'
-                        }}>{property.address.district.name ?? property.type.name}, {property.address.city.name}</Typography>
+                        }} variant="h2">{property.address.district.name ?? property.type.name}, {property.address.city.name}</Typography>
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'space-between'
@@ -109,7 +109,7 @@ export function CardProperty({ property }: Props) {
                         fontSize: 20,
                         fontWeight: 600,
                         color: 'secondary.main'
-                    }}>R$ {maskPrice(property.price)}</Typography>
+                    }} variant="subtitle1">R$ {maskPrice(property.price)}</Typography>
                 </CardContent>
             </Card>
         </Link>

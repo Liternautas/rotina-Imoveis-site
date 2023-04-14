@@ -2,10 +2,17 @@ import { IUser } from "@/src/interfaces";
 import { Sales } from "@/src/ui/screens/Admin/Contracts/sales";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
+import { Alert } from "@mui/material";
 import { parseCookies } from "nookies";
 import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
-export default function ContractsPage({ contracts }) {
+export default function ContractsPage({ contracts, error }) {
+    if(error) {
+        return (
+            <Alert severity="error">{error}</Alert>
+        )
+    }
+
     return (
         <ContractsProvider>
             <Sales contracts={contracts} />
@@ -14,23 +21,31 @@ export default function ContractsPage({ contracts }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const { 'imob.token': token, 'imob.user': user } = parseCookies(ctx);
-    if (!token || !user) {
-        return {
-            redirect: {
-                destination: `/login`,
-                permanent: false,
+    try {
+        const { 'imob.token': token, 'imob.user': user } = parseCookies(ctx);
+        if (!token || !user) {
+            return {
+                redirect: {
+                    destination: `/login`,
+                    permanent: false,
+                }
             }
         }
-    }
 
-    api.defaults.headers['Authorization'] = `Bearer ${token}`;
+        api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-    const { results } = await api.get('sales-contracts').then(res => res.data);
+        const { results } = await api.get('sales-contracts').then(res => res.data);
 
-    return {
-        props: {
-            contracts: results ?? [],
+        return {
+            props: {
+                contracts: results ?? [],
+            }
+        }
+    } catch (error) {
+        return {
+            props: {
+                error: 'Acesso negado.',
+            }
         }
     }
 }

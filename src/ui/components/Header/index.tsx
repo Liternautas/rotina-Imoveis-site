@@ -37,27 +37,27 @@ export default function Header() {
                         alignItems: "center",
                         gap: 3
                     }}>
-                        <Link href={'/'}>
+                        <Link href={'/'} title="Início">
                             <LinkItem active={router.asPath === '/'}>
                                 Início
                             </LinkItem>
                         </Link>
-                        <Link href={'/sobre'}>
+                        <Link href={'/sobre'} title="Sobre a Rotina Imóveis">
                             <LinkItem active={router.asPath === '/sobre'}>
                                 Sobre
                             </LinkItem>
                         </Link>
-                        <Link href={'/imoveis/filter?adType=aluguel'}>
+                        <Link href={'/imoveis/filter?adType=aluguel'} title="Imóveis para alugar">
                             <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=aluguel')}>
                                 Alugar
                             </LinkItem>
                         </Link>
-                        <Link href={'/imoveis/filter?adType=venda'}>
+                        <Link href={'/imoveis/filter?adType=venda'} title="Imóveis para comprar">
                             <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=venda')}>
                                 Comprar
                             </LinkItem>
                         </Link>
-                        <Link href={'/contato'}>
+                        <Link href={'/contato'} title="Entre em contato">
                             <LinkItem active={router.asPath === '/contato'}>
                                 Contato
                             </LinkItem>
@@ -116,11 +116,31 @@ export default function Header() {
                             gap: 3,
                             p: 2
                         }}>
-                            <Link href={'/'}>Início</Link>
-                            <Link href={'/'}>Alugar</Link>
-                            <Link href={'/'}>Comprar</Link>
-                            <Link href={'/'}>Descobrir</Link>
-                            <Link href={'/'}>Financiamento</Link>
+                            <Link href={'/'} title="Início">
+                                <LinkItem active={router.asPath === '/'}>
+                                    Início
+                                </LinkItem>
+                            </Link>
+                            <Link href={'/sobre'} title="Sobre a Rotina Imóveis">
+                                <LinkItem active={router.asPath === '/sobre'}>
+                                    Sobre
+                                </LinkItem>
+                            </Link>
+                            <Link href={'/imoveis/filter?adType=aluguel'} title="Imóveis para alugar">
+                                <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=aluguel')}>
+                                    Alugar
+                                </LinkItem>
+                            </Link>
+                            <Link href={'/imoveis/filter?adType=venda'} title="Imóveis para comprar">
+                                <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=venda')}>
+                                    Comprar
+                                </LinkItem>
+                            </Link>
+                            <Link href={'/contato'} title="Entre em contato">
+                                <LinkItem active={router.asPath === '/contato'}>
+                                    Contato
+                                </LinkItem>
+                            </Link>
                         </Box>
                         <Box sx={{
                             flexGrow: 1,
