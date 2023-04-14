@@ -6,7 +6,7 @@ import { IInvoice, IRentalContract } from "@/src/interfaces";
 import { CardPropertyH } from "@/src/ui/components/Cards/CardPropertyH";
 import { CardPropertyTable } from "@/src/ui/components/Cards/CardPropertyTable";
 import { CardRentalContract } from "@/src/ui/components/Cards/CardRentalContract";
-import { DocumentScannerOutlined, UploadFileOutlined, Remove, Delete } from "@mui/icons-material";
+import { DocumentScannerOutlined, UploadFileOutlined, Remove, Delete, Download } from "@mui/icons-material";
 import { Card, CardContent, Box, Button, Container, InputAdornment, Modal, TextField, Typography, IconButton } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 
@@ -66,6 +66,7 @@ export function InvoiceUpdate({ contracts, invoice }: Props) {
 
     useEffect(() => {
         if (invoice) {
+            console.log(invoice);
             setContract(invoice.rentalContract);
             price.setValue(maskPrice(invoice.price));
             expiration.setValue(invoice.expiration);
@@ -175,6 +176,17 @@ export function InvoiceUpdate({ contracts, invoice }: Props) {
                             style={{ display: 'none' }}
                             onChange={handleUpload}
                         />
+                        {invoice.path &&
+                            <Button variant="outlined" sx={{
+                                display: 'flex',
+                                gap: 1,
+                                height: 48,
+                                mt: 3
+                            }}>
+                                <Download />
+                                Baixar fatura
+                            </Button>
+                        }
                         {!file && <Button
                             variant="outlined"
                             onClick={handleButtonClick}
@@ -197,7 +209,7 @@ export function InvoiceUpdate({ contracts, invoice }: Props) {
                         >
                             <Button
                                 variant="outlined"
-                                onClick={() => {}}
+                                onClick={() => { }}
                                 sx={{
                                     display: 'flex',
                                     gap: 1,

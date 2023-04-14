@@ -1,5 +1,5 @@
-import { AppBar as AppBarMui, Drawer as MuiDrawer, Link } from "@mui/material";
-import {styled} from "@mui/material/styles";
+import { AppBar as AppBarMui, Drawer as MuiDrawer, Link, Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 export const AppBar = styled(AppBarMui)`
     box-shadow: 0 0 4px rgba(0, 0, 0, .15);
@@ -18,7 +18,7 @@ export const AppBar = styled(AppBarMui)`
         transition: .2s;
 
         :hover {
-            color: ${({theme}) => theme.palette.primary.main};
+            color: ${({ theme }) => theme.palette.primary.main};
         }
     }
 `
@@ -35,7 +35,16 @@ interface PropsLink {
     active?: boolean;
 }
 
-export const LinkItem = styled(Link)<PropsLink>`
-    color: ${({theme, active}) => active && theme.palette.primary.main} !important;
+export const LinkItem = styled(Link) <PropsLink>`
+    color: ${({ theme, active }) => active && theme.palette.primary.main} !important;
     font-weight: 600 !important;
+`
+export const ButtonCustomer = styled(Button)`
+    background: ${({theme}) => theme.palette.secondary.main};
+    color: #fff;
+    height: 48px;
+
+    :hover {
+        background: ${({theme}) => theme.palette.secondary.dark};
+    }
 `

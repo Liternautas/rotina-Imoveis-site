@@ -19,6 +19,8 @@ export function CardInfo({image, subtitle, title}: Props) {
             <CardContent sx={{
                 display: "flex",
                 flexDirection: "column",
+                alignItems: 'center',
+                justifyContent: 'center',
                 padding: 0,
                 marginTop: 0,
                 position: 'absolute',
@@ -27,20 +29,21 @@ export function CardInfo({image, subtitle, title}: Props) {
                 p: 1,
                 bgcolor: 'rgba(0, 0, 0, .5)',
                 height: 190,
+                width: '100%',
                 borderRadius: 1,
                 color: '#fff'
             }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{
                     fontSize: '18px',
                     fontWeight: 700,
-                    marginBottom: 0
+                    marginBottom: 0,
                 }}>
                     {title}
                 </Typography>
-                <Typography variant="subtitle1" sx={{
+                {/* <Typography variant="subtitle1" sx={{
                     lineHeight: '140%',
                     color: '#f9f9f9'
-                }}>{subtitle}</Typography>
+                }}>{subtitle}</Typography> */}
             </CardContent>
         </Card>
     )

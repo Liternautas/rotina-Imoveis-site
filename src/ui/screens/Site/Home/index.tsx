@@ -32,6 +32,8 @@ export function Home({ properties, banners }) {
         }}>
             <BannerHome />
             <Container>
+                <PropertiesSection properties={properties} />
+                <ReleasesSection banners={banners} />
                 <Box sx={{
                     py: 3
                 }}>
@@ -72,9 +74,7 @@ export function Home({ properties, banners }) {
                         </SwiperSlide>
                     </Swiper>
                 </Box>
-                <PropertiesSection properties={properties} />
                 <DistrictsSection />
-                <ReleasesSection banners={banners} />
             </Container>
         </Box>
     )

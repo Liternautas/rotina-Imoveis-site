@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Logo from "../../../../public/logo.svg";
-import { AppBar, DrawerMobile, LinkItem } from "./styles";
+import { AppBar, ButtonCustomer, DrawerMobile, LinkItem } from "./styles";
 import { useRouter } from "next/router";
 
 export default function Header() {
@@ -24,7 +24,7 @@ export default function Header() {
                 }}>
                     <Link href={'/'} style={{
                         display: 'flex',
-                        height: 48
+                        height: 56
                     }}>
                         <Image src={Logo} alt="" quality={100} />
                     </Link>
@@ -71,7 +71,12 @@ export default function Header() {
                         },
                         justifyContent: 'flex-end'
                     }}>
-                        <Button variant="outlined" onClick={() => router.push('/area-do-cliente')}>Area do cliente</Button>
+                        <ButtonCustomer
+                            variant="contained"
+                            onClick={() => router.push('/area-do-cliente')}
+                        >
+                            Area do cliente
+                        </ButtonCustomer>
                     </Box>
                     <IconButton
                         sx={{
@@ -124,7 +129,7 @@ export default function Header() {
                             justifyContent: 'flex-end',
                             p: 2
                         }}>
-                            <Button variant="outlined" onClick={() => router.push('/area-do-cliente')}>Area do cliente</Button>
+                            <Button variant="contained" onClick={() => router.push('/area-do-cliente')}>Area do cliente</Button>
                         </Box>
                     </DrawerMobile>
                 </Toolbar>
