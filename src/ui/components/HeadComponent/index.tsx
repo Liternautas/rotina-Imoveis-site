@@ -8,9 +8,10 @@ interface Props {
     description?: string;
     image?: string;
     urlCanonical?: string;
+    children?: any
 }
 
-export function HeadComponent({ title, description, image, urlCanonical }: Props) {
+export function HeadComponent({ title, description, image, urlCanonical, children }: Props) {
     const [url, setUrl] = useState('');
 
     useEffect(() => {
@@ -35,6 +36,7 @@ export function HeadComponent({ title, description, image, urlCanonical }: Props
             {!description &&  <meta property="og:description" content={'A Rotina Imóveis é a sua imobiliária de confiança em Catalão, Goiás. Encontre as melhores opções de imóveis para venda e aluguel com atendimento personalizado e suporte em todas as etapas da negociação.'}></meta>}
             {!image && <meta property="og:image" content={getImageUrl(null)}></meta>}
             {!urlCanonical && url && <meta property="og:url" content={url} />}
+            {children}
         </Head>
     )
 }
