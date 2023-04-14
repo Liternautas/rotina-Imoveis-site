@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 export const Container = styled(Box)`
     width: 100%;
     min-height: 496px;
-    height: 80vh;
+    min-height: 80vh;
     position: relative;
 
     display: flex;

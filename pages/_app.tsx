@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
-import {Backdrop, CircularProgress} from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const CssBaseline = dynamic(() => import('@mui/material/CssBaseline'), {
   loading: () => null,
@@ -61,11 +62,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     router.events.on("routeChangeError", () => setLoading(false));
 
     return () => {
-        router.events.off("routeChangeStart", () => setLoading(true));
-        router.events.off("routeChangeComplete", () => setLoading(false));
-        router.events.off("routeChangeError", () => setLoading(false));
+      router.events.off("routeChangeStart", () => setLoading(true));
+      router.events.off("routeChangeComplete", () => setLoading(false));
+      router.events.off("routeChangeError", () => setLoading(false));
     };
-}, [router.events]);
+  }, [router.events]);
 
   useEffect(() => {
     emotionCache && setMuiLoaded(true);
@@ -84,11 +85,29 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   return (
     <CacheProvider value={emotionCache}>
       <HeadComponent />
+      <Script
+        id="my-script"
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-V5N0W25XXP"
+      />
+      <Script
+        id="my-script-html"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+
+                            gtag('config', 'G-V5N0W25XXP');
+                    `
+        }}
+      />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
           <FilterProvider>
-            <Loading open={loading}/>
+            <Loading open={loading} />
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') && asPath != '/area-do-cliente/login' ? <Header /> : null}
             {asPath.startsWith('/admin') ?
               <AdminTemplate>
