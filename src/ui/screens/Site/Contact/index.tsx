@@ -11,10 +11,7 @@ export function Contact() {
     return (
         <Container sx={{
             mt: '64px',
-            py: {
-                sx: 0,
-                md: 6
-            },
+            py: 6,
             minHeight: '70vh',
             display: 'flex',
             flexDirection: 'column',
@@ -22,6 +19,7 @@ export function Contact() {
         }}>
             <Box sx={{
                 display: 'flex',
+                flexWrap: 'wrap',
                 flex: 1,
                 gap: 4
             }}>
@@ -123,7 +121,8 @@ export function Contact() {
                         width="600"
                         height="450"
                         style={{
-                            border: 0
+                            border: 0,
+                            maxWidth: '100%'
                         }}
                         loading="lazy"></iframe>
                 </Box>

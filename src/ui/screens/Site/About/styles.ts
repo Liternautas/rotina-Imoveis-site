@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const Title = styled(Typography)`
@@ -18,5 +18,21 @@ export const Title = styled(Typography)`
         width: 100%;
         background: #FFF4D3;
         z-index: -1;
+    }
+`
+export const Section = styled(Box)`
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    img {
+        max-width: 100%;
+    }
+
+    @media (max-width: 720px) {
+        > div {
+            align-items: flex-start;
+        }
     }
 `

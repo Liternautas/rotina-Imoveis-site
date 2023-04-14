@@ -6,12 +6,13 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { FilterContainer } from "./styles";
 
-export function Filter() {
+export function Filter({close}) {
     const router = useRouter();
     const {address, type, adType, page} = useFilter();
     const {city, district} = address;
 
     const handleSubmit = async () => {
+        close();
         let path = `/imoveis/filter?`;
         path = path + `adType=${+adType.value.id <= 1 ? 'venda' : 'aluguel'}`;
         {type.value ? path = path + `&type=${normalize(type.value.name)}` : null}
@@ -19,7 +20,7 @@ export function Filter() {
         {district.value ? path = path + `&districtId=${district.value.id}` : null}
         router.push(path);
     }
-
+    
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         adType.onChange({
             id: newValue + 1

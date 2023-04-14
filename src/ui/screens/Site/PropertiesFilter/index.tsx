@@ -46,7 +46,7 @@ export function PropertiesFilter({ properties }: Props) {
                             md: 'flex'
                         }
                     }}>
-                        <Filter />
+                        <Filter close={() => setOpen(false)}/>
                     </Grid>
                     <Grid item xs={12} md={8.5} sx={{
                         mb: 2
@@ -108,7 +108,7 @@ export function PropertiesFilter({ properties }: Props) {
                     }
                 }}
                 onClose={() => setOpen(false)}>
-                <Filter />
+                <Filter close={() => setOpen(false)}/>
             </DrawerMobile>
         </Box>
     )

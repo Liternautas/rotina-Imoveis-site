@@ -116,27 +116,27 @@ export default function Header() {
                             gap: 3,
                             p: 2
                         }}>
-                            <Link href={'/'} title="Início">
+                            <Link href={'/'} title="Início" onClick={() => setOpen(false)}>
                                 <LinkItem active={router.asPath === '/'}>
                                     Início
                                 </LinkItem>
                             </Link>
-                            <Link href={'/sobre'} title="Sobre a Rotina Imóveis">
+                            <Link href={'/sobre'} title="Sobre a Rotina Imóveis" onClick={() => setOpen(false)}>
                                 <LinkItem active={router.asPath === '/sobre'}>
                                     Sobre
                                 </LinkItem>
                             </Link>
-                            <Link href={'/imoveis/filter?adType=aluguel'} title="Imóveis para alugar">
+                            <Link href={'/imoveis/filter?adType=aluguel'} title="Imóveis para alugar" onClick={() => setOpen(false)}>
                                 <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=aluguel')}>
                                     Alugar
                                 </LinkItem>
                             </Link>
-                            <Link href={'/imoveis/filter?adType=venda'} title="Imóveis para comprar">
+                            <Link href={'/imoveis/filter?adType=venda'} title="Imóveis para comprar" onClick={() => setOpen(false)}>
                                 <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=venda')}>
                                     Comprar
                                 </LinkItem>
                             </Link>
-                            <Link href={'/contato'} title="Entre em contato">
+                            <Link href={'/contato'} title="Entre em contato" onClick={() => setOpen(false)}>
                                 <LinkItem active={router.asPath === '/contato'}>
                                     Contato
                                 </LinkItem>
