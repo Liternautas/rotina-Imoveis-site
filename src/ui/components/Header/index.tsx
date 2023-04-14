@@ -129,7 +129,12 @@ export default function Header() {
                             justifyContent: 'flex-end',
                             p: 2
                         }}>
-                            <Button variant="contained" onClick={() => router.push('/area-do-cliente')}>Area do cliente</Button>
+                            <ButtonCustomer
+                                variant="contained"
+                                onClick={() => router.push('/area-do-cliente')}
+                            >
+                                Area do cliente
+                            </ButtonCustomer>
                         </Box>
                     </DrawerMobile>
                 </Toolbar>
