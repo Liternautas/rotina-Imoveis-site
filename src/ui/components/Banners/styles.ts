@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 
 export const Container = styled(Box)`
     width: 100%;
-    min-height: 496px;
     min-height: 80vh;
     position: relative;
 
@@ -14,6 +13,7 @@ export const Container = styled(Box)`
     @media (max-width: 720px) {
         background: #fff;
         height: auto;
+        min-height: 400px;
     }
 `
 export const BackgroundHome = styled(Box)`
@@ -28,7 +28,7 @@ export const BackgroundHome = styled(Box)`
     background-size: cover;
 
     @media (max-width: 720px) {
-        display: none;
+       display: none;
     }
 `
 export const Title = styled(Typography)`
@@ -44,21 +44,5 @@ export const Title = styled(Typography)`
     @media (max-width: 720px) {
         font-size: 24px;
         color: #121212;
-    }
-`
-export const Form = styled(Box)`
-    width: 100%;
-    max-width: 400px;
-    min-height: 200px;
-    padding: 12px;
-    background: #fff;
-    border-radius: 8px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem; 
-
-    @media (max-width: 720px) {
-        padding: 0;
     }
 `
