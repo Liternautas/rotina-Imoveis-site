@@ -41,7 +41,7 @@ export default function Footer() {
                                 <Link href={""}>Serviços que oferecemos</Link>
                                 <Link href={"/imoveis/filter?adType=venda"}>Imóveis disponíveis</Link>
                                 <Link href={"/contato"}>Entre em contato</Link>
-                                <Link href={"/politica-privacidade"}>Política de Privacidade</Link>
+                                <Link href={"/politica-privacidade"}>Polí   tica de Privacidade</Link>
                             </Links>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>

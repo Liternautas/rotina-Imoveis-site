@@ -75,7 +75,7 @@ export function Home({ properties, banners }) {
                         </SwiperSlide>
                     </Swiper>
                 </Box>
-                <DistrictsSection />
+                {/* <DistrictsSection /> */}
             </Container>
         </Box>
     )

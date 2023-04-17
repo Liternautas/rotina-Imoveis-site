@@ -14,11 +14,13 @@ interface AuthProps {
     signInCustomer(email: string, password: string): Promise<void>;
     signOut(): Promise<void>;
     signUp(data: IUser): Promise<void>;
+    forgotPassword(email: string): Promise<void>;
+    resetPassword(password: string, repeat_password: string): Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthProps);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState<IUser>(null);
     const [loading, setLoading] = useState(false);
     const notification = useNotification();
@@ -35,8 +37,8 @@ const AuthProvider = ({children}) => {
     const signIn = async (email: string, password: string) => {
         try {
             setLoading(true);
-            const {user, token} = await api.post('auth', {email, password}).then(res => res.data);
-            if(user && token) {
+            const { user, token } = await api.post('auth', { email, password }).then(res => res.data);
+            if (user && token) {
                 setUser(user);
                 cookies.set('imob.user', JSON.stringify(user));
                 cookies.set('imob.token', token);
@@ -55,8 +57,8 @@ const AuthProvider = ({children}) => {
     const signInCustomer = async (email: string, password: string) => {
         try {
             setLoading(true);
-            const {user, token} = await api.post('auth/customer', {email, password}).then(res => res.data);
-            if(user && token) {
+            const { user, token } = await api.post('auth/customer', { email, password }).then(res => res.data);
+            if (user && token) {
                 setUser(user);
                 cookies.set('imob.user', JSON.stringify(user));
                 cookies.set('imob.token', token);
@@ -83,6 +85,54 @@ const AuthProvider = ({children}) => {
 
     }
 
+    const forgotPassword = async (email: string) => {
+        try {
+            setLoading(true);
+
+            const res = await api.post('users/forgot-password', {
+                email
+            }).then(res => res.data);
+
+            if(res.success) {
+                const {red} = router.query;
+                notification.execute('success', res.message);
+                {red ? router.push(`/${red}`) : router.push(`/${red}`)}
+            }
+        } catch (error) {
+            notification.execute('danger', error.mensage);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const resetPassword = async (password: string, repeat_password: string) => {
+        try {
+            setLoading(true);
+            const {user, token} = router.query;
+
+            if(!user || !token) {
+                throw new Error('Link de recuperação de senha inválido.');
+            }
+            
+            const res = await api.post('users/reset-password', {
+                password,
+                repeat_password,
+                user_id: user,
+                token
+            }).then(res => res.data);
+
+            if(res.success) {
+                const {red} = router.query;
+                notification.execute('success', res.message);
+                {red ? router.push(`/${red}`) : router.push(`/login`)}
+            }
+        } catch (error) {
+            notification.execute('danger', error.mensage)
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <AuthContext.Provider value={{
             loading,
@@ -90,9 +140,11 @@ const AuthProvider = ({children}) => {
             signInCustomer,
             signOut,
             signUp,
-            user
+            user,
+            forgotPassword,
+            resetPassword
         }}>
-            <Loading open={loading}/>
+            <Loading open={loading} />
             {children}
         </AuthContext.Provider>
     )
@@ -104,6 +156,6 @@ const useAuth = () => {
     return context;
 }
 
-export {useAuth, AuthProvider}
+export { useAuth, AuthProvider }
 
 export default AuthProvider;

@@ -1,28 +1,87 @@
 import { useUser } from "@/src/contexts/UserContext";
 import { useForm } from "@/src/hooks/useForm";
 import { Close } from "@mui/icons-material";
-import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, Modal, TextField, Typography, Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Content, ContentWrapper, Footer, Item } from "./styles";
+import { IProperty } from "@/src/interfaces";
+import { adTypes } from "@/src/utils/data";
+import { findNameInOptions } from "@/src/helpers/functions";
+import { maskPrice } from "@/src/helpers/mask";
+import { api } from "@/src/services/api";
 
-export function ModalContact() {
+interface Props {
+    property: IProperty;
+}
+
+export function ModalContact({ property }: Props) {
     const [step, setStep] = useState(0);
-    const [day, setDay] = useState(0);
-    const [time, setTime] = useState(0);
     const { create } = useUser();
 
     const email = useForm();
     const name = useForm();
     const phone = useForm('phone');
+    const message = useForm();
+    const [error, setError] = useState(null);
 
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleSubmit = async () => {
-        handleClose();
+    const generateMessage = () => {
+        let message = '';
+        let type = property.type;
+        let adType = findNameInOptions(property.adType, adTypes);
+        if (property) {
+            message = `Olá, Gostaria de ter mais informações do imóvel de Cód. ${property.code}; ${type.name} ${adType === 'Venda' ? `à ${adType}` : `para ${adType}`} de R$ ${maskPrice(property.price)} em ${property.address?.district?.name ?? property.address?.city?.name}, que encontrei no seu site. Aguardo seu contato. Obrigado!`
+        } else {
+            message = `Olá, Gostaria de ter mais informações do imóvel \n`
+        }
+        return message;
     }
+
+    const generateLink = () => {
+        let message = '';
+        let linkText = '';
+        message = `${generateMessage()} \n`
+        message = message + `Nome: ${name.value} \nTelefone: ${phone.value} \nEmail: ${email.value}`
+        let text = window.encodeURIComponent(message);
+        linkText = `https://api.whatsapp.com/send?phone=${!property.pickup ? `55${property.pickup.phone.replace(/[^0-9]/g, '')}` : `55${property.owner.phone.replace(/[^0-9]/g, '')}`}&text=${text}`;
+
+        const link = document.createElement('a');
+        link.href = linkText;
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+        document.body.appendChild(link);
+        link.click();
+    }
+
+    const handleSubmitLead = async () => {
+        if (name.validate() && phone.validate() && email.validate() && message.validate()) {
+            await api.post('leads', {
+                name: name.value,
+                email: email.value,
+                phone: phone.value,
+                message: message.value,
+                realtor: {
+                    id: property?.pickup?.id ?? null
+                },
+                property: {
+                    id: property?.id ?? null
+                }
+            }).then(() => {
+                generateLink();
+                close();
+            });
+        } else {
+            setError('Insira todos os dados.');
+        }
+    }
+
+    useEffect(() => {
+        message.setValue(generateMessage());
+    }, []);
 
     useEffect(() => {
         setStep(0);
@@ -69,38 +128,42 @@ export function ModalContact() {
                         </IconButton>
                     </Box>
                     <Content>
-                        <TextField id="outlined-basic" label="Nome*" variant="outlined" />
-                        <TextField id="outlined-basic" label="Telefone*" variant="outlined" />
-                        <TextField id="outlined-basic" label="Email*" variant="outlined" />
                         <TextField
-                            id="outlined-basic"
+                            id="name"
+                            label="Nome*"
+                            variant="outlined"
+                            value={name.value}
+                            onChange={name.onChange}
+                        />
+                        <TextField
+                            id="phone"
+                            label="Telefone*"
+                            variant="outlined"
+                            value={phone.value}
+                            onChange={phone.onChange}
+                        />
+                        <TextField
+                            id="email"
+                            label="Email*"
+                            variant="outlined"
+                            value={email.value}
+                            onChange={email.onChange}
+                        />
+                        <TextField
+                            id="message"
                             label="Mensagem*"
                             variant="outlined"
                             multiline
                             rows={4}
+                            value={message.value}
+                            onChange={message.onChange}
                         />
+                        {error && <Alert severity="error">{error}</Alert>}
                     </Content>
                     <Footer>
-                        <Box sx={{
-                            flex: 1
-                        }}>
-
-                        </Box>
-                        {step === 1 && <Button
-                            onClick={() => {
-                                step === 1 ? setStep(0) : handleSubmit()
-                            }}
-                            variant="outlined"
-                            sx={{
-                                fontWeight: 600
-                            }}
-                        >
-                            Voltar
-                        </Button>}
+                        <Box sx={{ flex: 1 }}></Box>
                         <Button
-                            onClick={() => {
-                                step === 0 ? setStep(1) : handleSubmit()
-                            }}
+                            onClick={handleSubmitLead}
                             variant="contained"
                             sx={{
                                 color: "#fff",

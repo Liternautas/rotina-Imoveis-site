@@ -29,10 +29,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
     
     const userNormalize:IUser = JSON.parse(userData);
-
-    console.log(userNormalize.id);
+    api.defaults.headers['Authorization'] = `Bearer ${token}`;
     const {user} = await api.get(`users/${userNormalize.id}`).then(res => res.data);
-    const {results} = await api.get(`invoices?tenantId=${userNormalize.id}`).then(res => res.data);
+    const {results} = await api.get(`invoices/me`).then(res => res.data);
 
     return {
         props: {

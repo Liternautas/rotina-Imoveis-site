@@ -7,8 +7,11 @@ import Link from "next/link";
 import Logo from "../../../../public/logo.svg";
 import { AppBar, ButtonCustomer, DrawerMobile, LinkItem } from "./styles";
 import { useRouter } from "next/router";
+import { UserAvatar } from "../UserAvatar";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 export default function Header() {
+    const { user } = useAuth();
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
@@ -71,12 +74,16 @@ export default function Header() {
                         },
                         justifyContent: 'flex-end'
                     }}>
-                        <ButtonCustomer
-                            variant="contained"
-                            onClick={() => router.push('/area-do-cliente')}
-                        >
-                            Area do cliente
-                        </ButtonCustomer>
+                        {
+                            user ?
+                                <UserAvatar user={user} /> :
+                                <ButtonCustomer
+                                    variant="contained"
+                                    onClick={() => router.push('/area-do-cliente')}
+                                >
+                                    Area do cliente
+                                </ButtonCustomer>
+                        }
                     </Box>
                     <IconButton
                         sx={{
@@ -149,12 +156,16 @@ export default function Header() {
                             justifyContent: 'flex-end',
                             p: 2
                         }}>
-                            <ButtonCustomer
-                                variant="contained"
-                                onClick={() => router.push('/area-do-cliente')}
-                            >
-                                Area do cliente
-                            </ButtonCustomer>
+                            {
+                                user ?
+                                    <UserAvatar user={user} /> :
+                                    <ButtonCustomer
+                                        variant="contained"
+                                        onClick={() => router.push('/area-do-cliente')}
+                                    >
+                                        Area do cliente
+                                    </ButtonCustomer>
+                            }
                         </Box>
                     </DrawerMobile>
                 </Toolbar>

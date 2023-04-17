@@ -1,9 +1,15 @@
 import { useUser } from "@/src/contexts/UserContext";
 import { useForm } from "@/src/hooks/useForm";
 import { Close } from "@mui/icons-material";
-import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Alert, IconButton, Modal, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Content, ContentWrapper, Footer, Item } from "./styles";
+import { findDays } from "@/src/helpers/date";
+import { ILead, IProperty } from "@/src/interfaces";
+import { api } from "@/src/services/api";
+import { findNameInOptions } from "@/src/helpers/functions";
+import { adTypes } from "@/src/utils/data";
+import { maskPrice } from "@/src/helpers/mask";
 
 const times = [
     {
@@ -47,61 +53,109 @@ const times = [
         name: '17h'
     },
 ]
-const days = [
-    {
-        id: 1,
-        name: '30',
-        text: 'QUI.'
-    },
-    {
-        id: 2,
-        name: '31',
-        text: 'SEX.'
-    },
-    {
-        id: 3,
-        name: '01',
-        text: 'SAB.'
-    },
-    {
-        id: 4,
-        name: '02',
-        text: 'DOM.'
-    },
-    {
-        id: 5,
-        name: '03',
-        text: 'SEG.'
-    },
-    {
-        id: 6,
-        name: '04',
-        text: 'TER.'
-    },
-    {
-        id: 7,
-        name: '05',
-        text: 'QUA.'
-    },
-]
 
-export function ModalScheduling() {
+interface Props {
+    property: IProperty;
+}
+
+export function ModalScheduling({property}: Props) {
     const [step, setStep] = useState(0);
-    const [day, setDay] = useState(0);
-    const [time, setTime] = useState(0);
-    const { create } = useUser();
+    const [day, setDay] = useState(null);
+    const [time, setTime] = useState(null);
+    const [error, setError] = useState(null);
+    const days = findDays();
 
     const email = useForm();
     const name = useForm();
     const phone = useForm('phone');
+    const message = useForm();
 
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const generateMessage = () => {
+        let message = '';
+        let type = property.type;
+        let adType = findNameInOptions(property.adType, adTypes);
+        if (property) {
+            message = `Olá, Gostaria de agendar uma visita no dia ${days[day-1].name} ${days[day-1].enum} - ${times[time].name}, no imóvel de Cód. ${property.code}; ${type.name} ${adType === 'Venda' ? `à ${adType}` : `para ${adType}`} de R$ ${maskPrice(property.price)} em ${property.address?.district?.name ?? property.address?.city?.name}, que encontrei no seu site. Aguardo seu contato. Obrigado!`
+        } else {
+            message = `Olá, Gostaria de agendar uma visita em um imóvel \n`
+        }
+        return message;
+    }
+
+    const generateLink = () => {
+        let message = '';
+        let linkText = '';
+        message = `${generateMessage()} \n`
+        message = message + `Nome: ${name.value} \nTelefone: ${phone.value} \nEmail: ${email.value}`
+        let text = window.encodeURIComponent(message);
+        linkText = `https://api.whatsapp.com/send?phone=${!property.pickup ? `55${property.pickup.phone.replace(/[^0-9]/g, '')}` : `55${property.owner.phone.replace(/[^0-9]/g, '')}`}&text=${text}`;
+
+        const link = document.createElement('a');
+        link.href = linkText;
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+        document.body.appendChild(link);
+        link.click();
+    }
+
+    const handleSubmitLead = async () => {
+        if (name.validate() && phone.validate() && email.validate()) {
+            const [hour] = times[time].name.split('h');
+            const date = days[day-1].date;
+            date.setHours(Number(hour) - 4, 0, 0, 0);
+            const lead: ILead = {
+                name: name.value,
+                email: email.value,
+                phone: phone.value,
+                message: message.value,
+                date: date,
+                time: date,
+                type: 'visita'
+            }
+            await api.post('leads', {
+                ...lead,
+                realEstate: {
+                    id: process.env.NEXT_PUBLIC_REAL_ESTATE_ID
+                },
+                realtor: {
+                    id: property?.pickup?.id ?? null
+                },
+                property: {
+                    id: property?.id ?? null
+                }
+            }).then(() => {
+                generateLink();
+                close();
+            });
+        }
+    }
+
     const handleSubmit = async () => {
-        handleClose();
+        switch (step) {
+            case 0:
+                if (day && time) {
+                    setStep(1);
+                    { error && setError(null) }
+                } else {
+                    setError('Insira todos os dados.');
+                }
+                break;
+            case 1:
+                if (email.validate() && name.validate() && phone.validate()) {
+                    { error && setError(null) }
+                    await handleSubmitLead();
+                    handleClose();
+                } else {
+                    alert(days[day].name + ' ' + times[time].name);
+                    setError('Insira todos os dados.');
+                }
+                break;
+        }
     }
 
     useEffect(() => {
@@ -162,7 +216,7 @@ export function ModalScheduling() {
                                                 active={day === item.id}
                                                 onClick={() => setDay(item.id)}>
                                                 <strong>{item.name}</strong>
-                                                <span>{item.text}</span>
+                                                <span>{item.enum}</span>
                                             </Item>
                                         ))
                                     }
@@ -186,12 +240,41 @@ export function ModalScheduling() {
                                     }
                                 </Box>
                             </Box>
+                            {error && <Alert severity="error">{error}</Alert>}
                         </Content>
                         :
                         <Content>
-                            <TextField id="outlined-basic" label="Nome*" variant="outlined" />
-                            <TextField id="outlined-basic" label="Telefone*" variant="outlined" />
-                            <TextField id="outlined-basic" label="Email*" variant="outlined" />
+                            <TextField
+                                id="name"
+                                label="Nome*"
+                                variant="outlined"
+                                value={name.value}
+                                onChange={name.onChange}
+                            />
+                            <TextField
+                                id="phone"
+                                label="Telefone*"
+                                variant="outlined"
+                                value={phone.value}
+                                onChange={phone.onChange}
+                            />
+                            <TextField
+                                id="email"
+                                label="Email*"
+                                variant="outlined"
+                                value={email.value}
+                                onChange={email.onChange}
+                            />
+                            <TextField
+                                id="message"
+                                label="Mensagem*"
+                                variant="outlined"
+                                multiline
+                                rows={4}
+                                value={message.value}
+                                onChange={message.onChange}
+                            />
+                            {error && <Alert severity="error">{error}</Alert>}
                         </Content>
                     }
                     <Footer>
@@ -202,7 +285,8 @@ export function ModalScheduling() {
                         </Box>
                         {step === 1 && <Button
                             onClick={() => {
-                                step === 1 ? setStep(0) : handleSubmit()
+                                step === 1 ? setStep(0) : null;
+                                setError(null);
                             }}
                             variant="outlined"
                             sx={{
@@ -212,9 +296,7 @@ export function ModalScheduling() {
                             Voltar
                         </Button>}
                         <Button
-                            onClick={() => {
-                                step === 0 ? setStep(1) : handleSubmit()
-                            }}
+                            onClick={handleSubmit}
                             variant="contained"
                             sx={{
                                 color: "#fff",

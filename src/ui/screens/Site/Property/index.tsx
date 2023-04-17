@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { maskPrice } from "@/src/helpers/mask";
 import { IProperty } from "@/src/interfaces";
 import { Gallery } from "@/src/ui/components/Gallery";
@@ -8,23 +9,43 @@ import { Avatar, Box, Button, Container, Divider, Grid, Typography } from "@mui/
 import { Aside, Description, Footer, Subtitle, Title } from "./styles";
 import { ModalScheduling } from '@/src/ui/components/modals/ModalScheduling';
 import { ModalContact } from '@/src/ui/components/modals/ModalContact';
+import { getImmobileTitleCard, normalize } from "@/src/helpers/functions";
+
+interface IShareData {
+    title: string;
+    text: string;
+    url: string;
+}
 
 interface Props {
     property: IProperty;
     properties: IProperty[];
 }
 
-export function Property({properties, property}: Props) {
-    const {type, adType, address, code, numberBathroom, numberGarage, numberRooms, numberSuite, description, details, condominium, exemptIptu, favorites, id, images, iptu, owner, pickup, price, totalArea, usefulArea} = property;
+export function Property({ properties, property }: Props) {
+    const { type, adType, address, code, numberBathroom, numberGarage, numberRooms, numberSuite, description, details, condominium, exemptIptu, favorites, id, images, iptu, owner, pickup, price, totalArea, usefulArea } = property;
     const characteristics = details.filter(detail => detail.type === 'characteristics');
     const furniture = details.filter(detail => detail.type === 'furniture');
     const security = details.filter(detail => detail.type === 'security');
     const extras = details.filter(detail => detail.type === 'extras');
     const priceFinal = Number(condominium) + Number(price) + Number(iptu);
+    const [shareData, setShareData] = useState<IShareData>(null);
 
-    if(!property) {
-        return <div style={{height: '60vh'}}></div>;
+    if (!property) {
+        return <div style={{ height: '60vh' }}></div>;
     }
+
+    useEffect(() => {
+        if (property) {
+            var url = window.location.hostname;
+            setShareData({
+                text: getImmobileTitleCard(property) + ', ' + property.address.city?.name + ' - ' + property.address.state?.name + ' - Rotina Imóveis',
+                title: getImmobileTitleCard(property) + ', ' + property.address.city?.name + ' - ' + property.address.state?.name + ' - Rotina Imóveis',
+                url: url + `/imovel/${property.adType}/${normalize(property.address.city?.name)}/${normalize(property.address.district?.name) ?? ''}/${property.code}`,
+            })
+        }
+    }, [property]);
+
     return (
         <Box sx={{
             mt: '64px',
@@ -41,14 +62,14 @@ export function Property({properties, property}: Props) {
                     <Grid item md={8}>
                         <Title>{type.name} {adType === 'aluguel' ? `para alugar` : `à venda`} {address.district && `no ${address.district.name}`}</Title>
                         <Subtitle>{address.city.name}, {address.state.name}</Subtitle>
-                        <Gallery images={images}/>
+                        <Gallery images={images} />
                         <Description>{description}</Description>
                         <Box sx={{
                             display: 'flex',
                             gap: 1
                         }}>
                             <Button variant="outlined" sx={{ display: "flex", gap: 1 }}><FavoriteBorderOutlined /> Favoritar</Button>
-                            <Button variant="outlined" sx={{ display: "flex", gap: 1 }}><ShareOutlined /> Compartilhar</Button>
+                            <Button variant="outlined" sx={{ display: "flex", gap: 1 }} onClick={async () => await navigator.share(shareData)}><ShareOutlined /> Compartilhar</Button>
                         </Box>
                         <Divider sx={{
                             mt: 4
@@ -197,16 +218,13 @@ export function Property({properties, property}: Props) {
                                 gap: 1.5,
                                 mt: 2
                             }}>
-                                <ModalContact />
-                                <ModalScheduling />
-                                {/* <Button variant="outlined" fullWidth sx={{
-                                    height: 48
-                                }}>Simular financiamento</Button> */}
+                                <ModalContact property={property} />
+                                <ModalScheduling property={property} />
                             </Box>
                         </Aside>
                     </Grid>
                 </Grid>
-                <PropertiesSection properties={properties}/>
+                <PropertiesSection properties={properties} />
             </Container>
             <Footer>
                 <Box sx={{
