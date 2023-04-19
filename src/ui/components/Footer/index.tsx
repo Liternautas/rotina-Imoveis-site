@@ -89,8 +89,13 @@ export default function Footer() {
             }}>
                 <Container sx={{
                     display: "flex",
+                    flexWrap: "wrap",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: {
+                        md: "space-between",
+                        xs: "center"
+                    },
+                    gap: 1,
                     padding: 2
                 }}>
                     <Typography sx={{

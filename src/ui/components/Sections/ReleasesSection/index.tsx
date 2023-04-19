@@ -33,7 +33,7 @@ export function ReleasesSection({ banners }: Props) {
                 flexDirection: "column",
                 alignItems: "center"
             }}>
-                <Title variant="h2">Conheça os nossos lançamentos</Title>
+                <Title variant="h2">Nossos lançamentos</Title>
                 <Subtitle variant="subtitle1">Conheça as novas propriedades em breve disponíveis para venda ou aluguel</Subtitle>
             </Box>
             <Swiper

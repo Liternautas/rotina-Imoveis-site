@@ -4,12 +4,14 @@ import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 import { IUser } from "@/src/interfaces";
 import { useAuth } from "@/src/contexts/AuthContext";
 import { theme } from "@/styles/theme";
+import { useRouter } from "next/router";
 
 interface Props {
     user: IUser;
 }
 
 export function UserAvatar({ user }: Props) {
+    const router = useRouter();
     const { signOut } = useAuth();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -73,7 +75,7 @@ export function UserAvatar({ user }: Props) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={() => user.role === 'customer' ?  router.push('/area-do-cliente') : router.push('/admin')}>
                     <Avatar src={user.avatar} sx={{ width: 32, height: 32 }}>{user.name?.substring(0, 1)}</Avatar>
                     {user.name}
                 </MenuItem>
