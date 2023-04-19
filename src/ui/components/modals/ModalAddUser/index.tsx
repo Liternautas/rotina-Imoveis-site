@@ -16,7 +16,7 @@ const style = {
     pt: 3
 };
 
-const roles = [
+export const roles = [
     {
         name: 'Administrador',
         enum: 'admin'

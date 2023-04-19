@@ -9,6 +9,7 @@ import { useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
 import { IBanner, IUser } from "@/src/interfaces";
 import { getImageUrl } from "@/src/helpers/functions";
+import { roles } from "../../modals/ModalAddUser";
 
 const CardRealtor = dynamic(() => import('../../Cards/CardRealtor'), {
     loading: () => null,
@@ -33,8 +34,8 @@ export function CollaboratorsSection({ realtors }: Props) {
                 flexDirection: "column",
                 alignItems: "center"
             }}>
-                <Title variant="h2">Nossa equipe de corretores</Title>
-                <Subtitle variant="subtitle1">Conheça nossa equipe de corretores dedicados a encontrar a melhor solução para suas necessidades imobiliárias.</Subtitle>
+                <Title variant="h2">Nossa equipe</Title>
+                <Subtitle variant="subtitle1">Conheça nossa equipe de pessoas dedicadas a encontrar a melhor solução para suas necessidades imobiliárias.</Subtitle>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -48,7 +49,7 @@ export function CollaboratorsSection({ realtors }: Props) {
             >
                 {realtors?.map(user => (
                     <SwiperSlide className={styles.swiperSlide}>
-                        <CardRealtor image={getImageUrl(user.avatar)} title={user.name}/>
+                        <CardRealtor image={getImageUrl(user.avatar)} title={user.name} subtitle={roles.find(item => item.enum === user.role).name} />
                     </SwiperSlide>
                 ))}
                 <SwiperButtons state={state} />

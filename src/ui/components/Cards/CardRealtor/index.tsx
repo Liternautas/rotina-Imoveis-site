@@ -6,9 +6,10 @@ interface Props {
     image: string;
     link?: string;
     title?: string;
+    subtitle?: string;
 }
 
-export function CardRelease({ image, link, title }: Props) {
+export function CardRelease({ image, link, title, subtitle }: Props) {
     const ref = useRef(null);
     const [heigth, setHeight] = useState(190);
     const router = useRouter();
@@ -44,6 +45,11 @@ export function CardRelease({ image, link, title }: Props) {
                     fontWeight: 600,
                     textAlign: 'center'
                 }}>{title}</Typography>
+                <Typography variant="h6" sx={{
+                    fontSize: 14,
+                    fontWeight: 500,
+                    textAlign: 'center'
+                }}>{subtitle}</Typography>
             </CardContent>
         </Card>
     )

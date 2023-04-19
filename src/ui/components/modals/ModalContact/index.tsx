@@ -47,7 +47,7 @@ export function ModalContact({ property }: Props) {
         message = `${generateMessage()} \n`
         message = message + `Nome: ${name.value} \nTelefone: ${phone.value} \nEmail: ${email.value}`
         let text = window.encodeURIComponent(message);
-        linkText = `https://api.whatsapp.com/send?phone=${!property.pickup ? `55${property.pickup.phone.replace(/[^0-9]/g, '')}` : `55${property.owner.phone.replace(/[^0-9]/g, '')}`}&text=${text}`;
+        linkText = `https://api.whatsapp.com/send?phone=${property.pickup ? `55${property.pickup.phone.replace(/[^0-9]/g, '')}` : `55556481680018`}&text=${text}`;
 
         const link = document.createElement('a');
         link.href = linkText;
@@ -96,12 +96,31 @@ export function ModalContact({ property }: Props) {
                 onClick={handleOpen}
                 variant="contained"
                 sx={{
+                    display: {
+                        xs: 'none',
+                        md: 'flex'
+                    },
                     color: '#fff',
                     fontWeight: 600,
                     height: 48
                 }}
             >
                 Entrar em contato
+            </Button>
+            <Button
+                onClick={handleOpen}
+                variant="contained"
+                sx={{
+                    display: {
+                        xs: 'flex',
+                        md: 'none'
+                    },
+                    color: '#fff',
+                    fontWeight: 600,
+                    height: 48
+                }}
+            >
+                Contato
             </Button>
             <Modal
                 open={open}
@@ -167,7 +186,8 @@ export function ModalContact({ property }: Props) {
                             variant="contained"
                             sx={{
                                 color: "#fff",
-                                fontWeight: 600
+                                fontWeight: 600,
+                                height: 40
                             }}
                         >
                             Continuar

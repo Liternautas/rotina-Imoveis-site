@@ -18,6 +18,13 @@ export const ContentWrapper = styled(Box)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
+    @media (max-width: 720px) {
+        width: 100vw;
+        max-height: 100vh;
+        height: 100vh;
+        border-radius: 0;
+    }
 `
 export const Content = styled(Box)`
     margin: 16px 0;

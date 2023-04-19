@@ -93,7 +93,7 @@ export function ModalScheduling({property}: Props) {
         message = `${generateMessage()} \n`
         message = message + `Nome: ${name.value} \nTelefone: ${phone.value} \nEmail: ${email.value}`
         let text = window.encodeURIComponent(message);
-        linkText = `https://api.whatsapp.com/send?phone=${!property.pickup ? `55${property.pickup.phone.replace(/[^0-9]/g, '')}` : `55${property.owner.phone.replace(/[^0-9]/g, '')}`}&text=${text}`;
+        linkText = `https://api.whatsapp.com/send?phone=${property.pickup ? `55${property.pickup.phone.replace(/[^0-9]/g, '')}` : `556481680018`}&text=${text}`;
 
         const link = document.createElement('a');
         link.href = linkText;

@@ -9,7 +9,7 @@ import { Avatar, Box, Button, Container, Divider, Grid, Typography } from "@mui/
 import { Aside, Description, Footer, Subtitle, Title } from "./styles";
 import { ModalScheduling } from '@/src/ui/components/modals/ModalScheduling';
 import { ModalContact } from '@/src/ui/components/modals/ModalContact';
-import { getImmobileTitleCard, normalize } from "@/src/helpers/functions";
+import { getImageUrl, getImmobileTitleCard, normalize } from "@/src/helpers/functions";
 
 interface IShareData {
     title: string;
@@ -28,7 +28,7 @@ export function Property({ properties, property }: Props) {
     const furniture = details.filter(detail => detail.type === 'furniture');
     const security = details.filter(detail => detail.type === 'security');
     const extras = details.filter(detail => detail.type === 'extras');
-    const priceFinal = Number(condominium) + Number(price) + Number(iptu);
+    const priceFinal = Number(condominium) + Number(price);
     const [shareData, setShareData] = useState<IShareData>(null);
 
     if (!property) {
@@ -173,15 +173,6 @@ export function Property({ properties, property }: Props) {
                                     <Typography>Condomínio:</Typography>
                                     <Typography>R$ {maskPrice(condominium)}</Typography>
                                 </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    gap: 1
-                                }}>
-                                    <Typography>IPTU:</Typography>
-                                    <Typography>R$ {maskPrice(iptu)}</Typography>
-                                </Box>
                                 <Divider />
                                 <Box sx={{
                                     display: 'flex',
@@ -201,7 +192,7 @@ export function Property({ properties, property }: Props) {
                                 gap: 1,
                                 mt: 2
                             }}>
-                                <Avatar>{pickup.name.substring(0, 1)}</Avatar>
+                                <Avatar src={getImageUrl(pickup.avatar)}>{pickup.name.substring(0, 1)}</Avatar>
                                 <Box>
                                     <Typography>{pickup.name}</Typography>
                                     <Typography sx={{
@@ -235,7 +226,7 @@ export function Property({ properties, property }: Props) {
                     <Typography>Venda:</Typography>
                     <Typography variant="h6">R$ 500.000,00</Typography>
                 </Box>
-                <Button variant="outlined">Contato</Button>
+                <ModalContact property={property} />
             </Footer>
         </Box>
     )
