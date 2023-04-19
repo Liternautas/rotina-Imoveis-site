@@ -133,7 +133,6 @@ const ContractsProvider = ({ children }) => {
 
             if (success && result) {
                 notification.execute('success', 'Contrato de Aluguel atualizado com sucesso.');
-                router.push('/admin/contracts/rentals');
             } else {
                 throw new Error(message);
             }
