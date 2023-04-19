@@ -4,11 +4,14 @@ import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { PropertyProvider } from "@/src/contexts/PropertyContext";
+import FilterProvider from "@/src/contexts/FilterContext";
 
-export default function PropertiesPage({ properties, total }) {
+export default function PropertiesPage({ properties, total, realtors }) {
     return (
         <PropertyProvider>
-            <Properties properties={properties} total={total}/>
+            <FilterProvider>
+                <Properties properties={properties} total={total} realtors={realtors}/>
+            </FilterProvider>
         </PropertyProvider>
     )
 }
@@ -27,11 +30,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     api.defaults.headers['Authorization'] = `Bearer ${token}`
 
     const { results, count } = await api.get('properties').then(res => res.data);
+    const realtors = await api.get('users/realtors').then(res => res.data);
 
     return {
         props: {
             properties: results ?? [],
-            total: count ?? 0
+            total: count ?? 0,
+            realtors: realtors.results ?? []
         }
     }
 }

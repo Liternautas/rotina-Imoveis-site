@@ -8,7 +8,7 @@ export const Title = styled(Typography)`
     position: relative;
     width: fit-content;
 
-    ::after {
+    ::before {
         content: '';
         position: absolute;
         left: 0;

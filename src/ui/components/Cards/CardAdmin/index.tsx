@@ -9,14 +9,19 @@ interface Props {
     property: IProperty;
 }
 
-export function CardAdmin({property}: Props) {
+export function CardAdmin({ property }: Props) {
     const router = useRouter();
-    const {adType, type, address, description, exemptIptu, favorites, id, images, iptu, numberBathroom, numberGarage, numberRooms, totalArea, usefulArea, code, price} = property;
+    const { adType, type, address, description, exemptIptu, favorites, id, images, iptu, numberBathroom, numberGarage, numberRooms, totalArea, usefulArea, code, price } = property;
 
     return (
-        <Card sx={{position: 'relative'}} onClick={() => router.push(`/admin/properties/update/${id}`)}>
+        <Card sx={{
+            position: 'relative',
+            minHeight: 406
+        }} onClick={() => router.push(`/admin/properties/update/${id}`)}>
             <CardMedia
-                sx={{ height: 190 }}
+                sx={{
+                    height: 190,
+                }}
                 image={getImageUrl(images[0])}
             />
             <Box sx={{
@@ -57,7 +62,7 @@ export function CardAdmin({property}: Props) {
                 flexDirection: "column",
                 gap: 2
             }}>
-                <Typography gutterBottom variant="h6" component="div" sx={{mb: 0}}>
+                <Typography gutterBottom variant="h6" component="div" sx={{ mb: 0 }}>
                     {address.district?.name}
                 </Typography>
                 <Typography gutterBottom variant="subtitle2" component="div">
@@ -67,22 +72,22 @@ export function CardAdmin({property}: Props) {
                     display: 'flex',
                     justifyContent: 'space-between'
                 }}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    {totalArea > 0 && <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <SquareFootOutlined />
                         <Typography>{totalArea}m²</Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    </Box>}
+                    {numberRooms > 0 && <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <BedOutlined />
                         <Typography>{numberRooms}</Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    </Box>}
+                    {numberBathroom > 0 && <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <ShowerOutlined />
                         <Typography>{numberBathroom}</Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    </Box>}
+                    {numberGarage > 0 && <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <DirectionsCarOutlined />
                         <Typography>{numberGarage}</Typography>
-                    </Box>
+                    </Box>}
                 </Box>
                 <Typography variant="h5" sx={{
                     fontWeight: 600,

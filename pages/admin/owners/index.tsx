@@ -8,7 +8,7 @@ import { parseCookies } from "nookies";
 export default function CustomersPage({ users }) {
     return (
         <UserProvider>
-            <Collaborators users={users} title="Clientes"/>
+            <Collaborators users={users} title={"Proprietários"}/>
         </UserProvider>
     )
 }
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     api.defaults.headers['Authorization'] = `Bearer ${token}`
     const userFormated: IUser = JSON.parse(user);
 
-    const { results } = await api.get('users/customers').then(res => res.data);
+    const { results } = await api.get('users/owners').then(res => res.data);
 
     return {
         props: {

@@ -7,18 +7,18 @@ import { Navigation, Pagination } from "swiper";
 import styles from './styles.module.scss';
 import { useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
-import { IBanner } from "@/src/interfaces";
+import { IBanner, IUser } from "@/src/interfaces";
 import { getImageUrl } from "@/src/helpers/functions";
 
-const CardRelease = dynamic(() => import('../../Cards/CardRelease'), {
+const CardRealtor = dynamic(() => import('../../Cards/CardRealtor'), {
     loading: () => null,
 });
 
 interface Props {
-    banners: IBanner[];
+    realtors: IUser[];
 }
 
-export function ReleasesSection({ banners }: Props) {
+export function CollaboratorsSection({ realtors }: Props) {
     const [state, setState] = useState('start');
 
     return (
@@ -33,21 +33,22 @@ export function ReleasesSection({ banners }: Props) {
                 flexDirection: "column",
                 alignItems: "center"
             }}>
-                <Title variant="h2">Conheça os nossos lançamentos</Title>
-                <Subtitle variant="subtitle1">Conheça as novas propriedades em breve disponíveis para venda ou aluguel</Subtitle>
+                <Title variant="h2">Nossa equipe de corretores</Title>
+                <Subtitle variant="subtitle1">Conheça nossa equipe de corretores dedicados a encontrar a melhor solução para suas necessidades imobiliárias.</Subtitle>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}
                 slidesPerView={'auto'}
+                id={styles.swiper}
                 onSlideChange={(swiper) => {
                     { swiper.isBeginning && setState('start') }
                     { swiper.isEnd && setState('end') }
                     { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                 }}
             >
-                {banners.map(banner => (
+                {realtors?.map(user => (
                     <SwiperSlide className={styles.swiperSlide}>
-                        <CardRelease image={getImageUrl(banner.path)} />
+                        <CardRealtor image={getImageUrl(user.avatar)} title={user.name}/>
                     </SwiperSlide>
                 ))}
                 <SwiperButtons state={state} />
@@ -56,4 +57,4 @@ export function ReleasesSection({ banners }: Props) {
     )
 }
 
-export default ReleasesSection;
+export default CollaboratorsSection;

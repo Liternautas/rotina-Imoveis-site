@@ -8,7 +8,7 @@ import { parseCookies } from "nookies";
 export default function CollaboratorsPage({users}) {
     return (
         <UserProvider>
-            <Collaborators users={users}/>
+            <Collaborators users={users} title="Colaboradores"/>
         </UserProvider>
     )
 }

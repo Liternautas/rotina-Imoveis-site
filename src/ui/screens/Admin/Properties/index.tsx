@@ -1,19 +1,23 @@
 import { CardAdmin } from "@/src/ui/components/Cards/CardAdmin";
-import { IProperty } from "@/src/interfaces";
+import { IProperty, IUser } from "@/src/interfaces";
 import { FilterListOutlined, Search } from "@mui/icons-material";
 import { Box, Button, Container, Divider, Grid, IconButton, InputBase, Pagination, Paper, Stack, styled, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import { useProperty } from "@/src/contexts/PropertyContext";
+import { ModalFilter } from "@/src/ui/components/modals/ModalFilter";
+import { useFilter } from "@/src/contexts/FilterContext";
 
 interface Props {
     properties: IProperty[];
     total: number;
+    realtors?: IUser[];
 }
 
-export function Properties({ properties, total: initialTotal }: Props) {
-    const {total, setTotal, results, setResults, page, handlePage} = useProperty();
+export function Properties({ properties, total: initialTotal, realtors }: Props) {
+    const {total, setTotal, results, setResults, page, handlePage, pickup} = useFilter();
+    const [open, setOpen] = useState(false);
     const router = useRouter();
     const GlobalStyles = createGlobalStyle`
         body {
@@ -22,11 +26,16 @@ export function Properties({ properties, total: initialTotal }: Props) {
     `
 
     useEffect(() => {
-        if(properties) {
+        if (properties) {
             setResults(properties);
             setTotal(initialTotal);
         }
     }, [properties]);
+    useEffect(() => {
+        if (realtors) {
+            pickup.setOptions(realtors)
+        }
+    }, [realtors]);
 
     return (
         <Container maxWidth="xl">
@@ -51,11 +60,20 @@ export function Properties({ properties, total: initialTotal }: Props) {
                             placeholder="Código do imóvel"
                             inputProps={{ 'aria-label': 'search google maps' }}
                         />
-                        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                        <IconButton
+                            type="button"
+                            sx={{ p: '10px' }}
+                            aria-label="search"
+                        >
                             <Search />
                         </IconButton>
                         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                        <IconButton sx={{ p: '10px' }} aria-label="directions">
+                        <ModalFilter open={open} close={() => setOpen(false)}/>
+                        <IconButton
+                            sx={{ p: '10px' }}
+                            aria-label="directions"
+                            onClick={() => setOpen(true)}
+                        >
                             <FilterListOutlined />
                         </IconButton>
                     </Paper>

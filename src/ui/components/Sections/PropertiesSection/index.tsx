@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
-import { Title } from "./styles";
+import { Subtitle, Title } from "./styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 
@@ -15,9 +15,11 @@ import { IProperty } from "@/src/interfaces";
 
 interface Props {
     properties: IProperty[];
+    title?: string;
+    subtitle?: string;
 }
 
-export function PropertiesSection({ properties }: Props) {
+export function PropertiesSection({ properties, subtitle, title }: Props) {
     const [state, setState] = useState('start');
 
     return (
@@ -27,8 +29,13 @@ export function PropertiesSection({ properties }: Props) {
             }}
             component={'section'}
         >
-            <Box position={'relative'}>
-                <Title variant="h2">Imóveis mais populares da sua região</Title>
+            <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <Title variant="h2">{title ?? 'Imóveis em Destaque'}</Title>
+                <Subtitle variant="subtitle1">{subtitle ?? 'Descubra as melhores propriedades para venda ou aluguel'}</Subtitle>
             </Box>
             <Swiper
                 modules={[Navigation, Pagination]}

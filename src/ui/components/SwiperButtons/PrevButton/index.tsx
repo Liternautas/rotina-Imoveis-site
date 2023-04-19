@@ -9,7 +9,7 @@ interface Props {
 export function PrevButton({disabled}: Props) {
     const swiper = useSwiper();
     return (
-        <Button disabled={disabled && true} variant="contained" onClick={() => swiper.slidePrev()} aria-label="Prev Button">
+        <Button disabled={disabled || swiper.isLocked} variant="contained" onClick={() => swiper.slidePrev()} aria-label="Prev Button">
             <ChevronLeft />
         </Button>
     );

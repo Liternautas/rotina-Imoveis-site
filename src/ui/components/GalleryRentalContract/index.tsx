@@ -3,9 +3,10 @@ import { Alert, Box, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import { CardGalleryImage } from "../Cards/CardGalleryImage";
 import { FormUploadImage } from "./styles";
+import { useContracts } from "@/src/contexts/ContractsContext";
 
-export function Gallery() {
-    const { images, setImages, uploadImages, orderImages, removeImage } = useProperty();
+export function GalleryRentalContract() {
+    const { images, setImages, uploadImages, orderImages, removeImage } = useContracts();
 
     const dragItem = useRef<any>(null);
     const dragOverItem = useRef<any>(null);
@@ -40,13 +41,13 @@ export function Gallery() {
         }}>
             <Box>
                 <Typography sx={{ m: 0 }} variant="h6">Galeria de imagens</Typography>
-                <Typography>Uma boa galeria de imagens é a chave para mostrar todo o potencial do seu imóvel! Adicione fotos de alta qualidade e em diferentes ângulos para permitir que os interessados tenham uma visão completa do espaço. Não deixe que uma oportunidade seja perdida por falta de imagens boas - mostre todo o potencial da sua propriedade!</Typography>
+                <Typography>Adicione fotos de alta qualidade!</Typography>
             </Box>
             <FormUploadImage>
                 <input type="file" name="file" id="file" onChange={handleUploadImage} />
                 <label htmlFor="file">Fazer upload</label>
             </FormUploadImage>
-            {images.length === 0 && <Alert severity="info">Esta propriedade ainda não possui nenhuma imagem.</Alert>}
+            {images.length === 0 && <Alert severity="info">Este contrato ainda não possui nenhuma imagem.</Alert>}
             {images.map((item, index) => (
                 <div
                     key={index}

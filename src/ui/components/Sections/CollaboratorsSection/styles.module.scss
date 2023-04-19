@@ -1,0 +1,16 @@
+.button {
+    background: orange;
+    color: #fff;
+}
+#swiper {
+    width: fit-content;
+    max-width: 100%;
+}
+.swiperSlide {
+    flex: 1;
+    margin-right: 16px;
+
+    &:last-child {
+        margin-right: 0 !important;
+    }
+}

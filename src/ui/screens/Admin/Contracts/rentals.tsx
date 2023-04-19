@@ -40,13 +40,13 @@ export function Rentals({contracts}: Props) {
                             placeholder="Código do imóvel"
                             inputProps={{ 'aria-label': 'search google maps' }}
                         />
-                        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                        <IconButton type="button" aria-label="search">
                             <Search />
                         </IconButton>
                     </Paper>
 
                     {/* Modal Create */}
-                    <Button variant="contained" onClick={() => router.push('/admin/contracts/rentals/create')}>Cadastrar</Button>
+                    <Button variant="contained" sx={{ color: '#fff', p: '10px' }} onClick={() => router.push('/admin/contracts/rentals/create')}>Cadastrar</Button>
                 </Box>
             </Box>
             <TableRentalAdmin contracts={rentals}/>

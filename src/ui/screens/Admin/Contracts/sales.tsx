@@ -48,7 +48,7 @@ export function Sales({ contracts }: Props) {
                     </Paper>
 
                     {/* Modal Create */}
-                    <Button variant="contained" onClick={() => router.push('/admin/contracts/sales/create')}>Cadastrar</Button>
+                    <Button variant="contained" sx={{ color: '#fff', p: '10px' }} onClick={() => router.push('/admin/contracts/sales/create')}>Cadastrar</Button>
                 </Box>
             </Box>
             <TableSalesAdmin contracts={sales}/>

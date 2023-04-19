@@ -137,6 +137,16 @@ export interface IRentalContract {
     tenant?: IUser;
     locator?: IUser;
     invoices?: IInvoice[];
+    cpf: string;
+    rg: string;
+    profession: string;
+    nationality: string;
+    duration: number;
+    paymentLimit: number;
+    maritalStatus: string;
+    document?: string;
+    images?: Array<string>;
+    address?: IAddress;
 }
 
 export interface IInvoice {

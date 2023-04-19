@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 
 import styles from './styles.module.scss';
-import { Title } from "./styles";
+import { Subtitle, Title } from "./styles";
 import BannerHome from "@/src/ui/components/Banners/BannerHome";
 
 const PropertiesSection = dynamic(() => import('@/src/ui/components/Sections/PropertiesSection'), {
@@ -13,6 +13,10 @@ const PropertiesSection = dynamic(() => import('@/src/ui/components/Sections/Pro
 });
 
 const DistrictsSection = dynamic(() => import('@/src/ui/components/Sections/DistrictsSection'), {
+    loading: () => null,
+});
+
+const CollaboratorsSection = dynamic(() => import('@/src/ui/components/Sections/CollaboratorsSection'), {
     loading: () => null,
 });
 
@@ -24,22 +28,31 @@ const CardInfo = dynamic(() => import('@/src/ui/components/Cards/CardInfo'), {
     loading: () => null,
 });
 
-export function Home({ properties, banners }) {
+export function Home({ properties, banners, realtors }) {
     return (
         <Box sx={{
             mt: '72px',
-            background: `#fafafa`
         }}
-        component={'section'}>
+            component={'section'}>
             <BannerHome />
             <Container>
                 <PropertiesSection properties={properties} />
                 <ReleasesSection banners={banners} />
+                <PropertiesSection 
+                title="Imóveis recém-chegados" 
+                subtitle="Descubra nossas últimas adições em imóveis, prontas para se tornarem seu novo lar."
+                properties={properties} 
+                />
                 <Box sx={{
                     py: 3
                 }}>
-                    <Box position={'relative'}>
-                        <Title variant="h2">Encontre o imóvel ideal para seu estilo de vida</Title>
+                    <Box sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}>
+                        <Title variant="h2">Encontre seu Imóvel Ideal</Title>
+                        <Subtitle variant="subtitle1">Descubra a propriedade perfeita para o seu estilo de vida</Subtitle>
                     </Box>
                     <Swiper
                         modules={[Navigation, Pagination]}
@@ -75,7 +88,7 @@ export function Home({ properties, banners }) {
                         </SwiperSlide>
                     </Swiper>
                 </Box>
-                {/* <DistrictsSection /> */}
+                <CollaboratorsSection realtors={realtors}/>
             </Container>
         </Box>
     )

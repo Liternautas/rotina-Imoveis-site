@@ -41,7 +41,7 @@ export default function Footer() {
                                 <Link href={""}>Serviços que oferecemos</Link>
                                 <Link href={"/imoveis/filter?adType=venda"}>Imóveis disponíveis</Link>
                                 <Link href={"/contato"}>Entre em contato</Link>
-                                <Link href={"/politica-privacidade"}>Polí   tica de Privacidade</Link>
+                                <Link href={"/politica-privacidade"}>Política de Privacidade</Link>
                             </Links>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
@@ -53,8 +53,8 @@ export default function Footer() {
                             }}>Contate-nos</Title>
                             <Links>
                                 <Link href={"/"}>contato@rotinaimoveis.com.br</Link>
-                                <Link href={"/"}>Av. José Maria Viêira, 560 - Santa Helena II, Catalão - GO</Link>
-                                <Link href={"/"}>(64) 0000-0000</Link>
+                                <a href={"/https://goo.gl/maps/z1NHCSDmBj6L68zbA"} target="_blank">Avenida. Cristiano Aires, 110 - Centro, Catalão - GO, 75701-380</a>
+                                <Link href={"/"}>(64) 98423-0113</Link>
                             </Links>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
@@ -86,16 +86,35 @@ export default function Footer() {
             </Box>
             <Box sx={{
                 background: '#222',
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: 2
             }}>
-                <Typography sx={{
-                    color: "#fff",
-                    fontSize: 14,
-                    textAlign: 'center',
-                }}>©2022 Rotina Imóveis - CRECI: 000000 - Todos os direitos reservados.</Typography>
+                <Container sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: 2
+                }}>
+                    <Typography sx={{
+                        color: "#fff",
+                        fontSize: 14,
+                        textAlign: 'center',
+                    }}>©2022 Rotina Imóveis - CRECI: CJ-8015 - Todos os direitos reservados.</Typography>
+                    <Box sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1
+                }}>
+                        <Typography sx={{
+                            color: "#fff",
+                            fontSize: 14,
+                            textAlign: 'center',
+                        }}>
+                            Desenvolvido por:
+                        </Typography>
+                        <a href="https://zeyah-front.vercel.app/" target="_blank" style={{display: 'flex'}}>
+                            <img src={'https://zeyah-front.vercel.app/_next/static/media/logo.eff34789.svg'} style={{ height: 24 }} />
+                        </a>
+                    </Box>
+                </Container>
             </Box>
         </>
     )

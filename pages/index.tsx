@@ -3,13 +3,13 @@ import { api } from '@/src/services/api';
 import { Home } from '@/src/ui/screens/Site/Home';
 import { GetServerSideProps } from 'next';
 
-export default function HomePage({ properties, banners }) {
+export default function HomePage({ properties, banners, realtors }) {
   return (
     <>
       <Head>
         <meta name='robots' content='index, follow' />
       </Head>
-      <Home properties={properties} banners={banners} />
+      <Home properties={properties} banners={banners} realtors={realtors}/>
     </>
   )
 }
@@ -17,12 +17,14 @@ export default function HomePage({ properties, banners }) {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { results, count } = await api.get('properties').then(res => res.data);
   const { results: resultsBanner } = await api.get('banners?bannerTypeId=4').then(res => res.data);
+  const { results: resultsRealtors} = await api.get('users/realtors').then(res => res.data);
 
   return {
     props: {
-      properties: results ?? [],
+      realtors: resultsRealtors ?? [],
       banners: resultsBanner ?? [],
-      total: count ?? 0
+      properties: results ?? [],
+      total: count ?? 0,
     }
   }
 }

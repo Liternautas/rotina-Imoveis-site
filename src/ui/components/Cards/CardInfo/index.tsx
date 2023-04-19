@@ -27,6 +27,7 @@ export function CardInfo({image, subtitle, title}: Props) {
                 top: 0,
                 left: 0,
                 p: 1,
+                pb: '8px !important',
                 bgcolor: 'rgba(0, 0, 0, .5)',
                 height: 190,
                 width: '100%',

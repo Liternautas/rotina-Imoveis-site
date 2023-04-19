@@ -7,6 +7,7 @@ import { Delete, Edit } from "@mui/icons-material";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Typography } from "@mui/material";
 
 const Box = dynamic(() => import('@mui/material/Box'), {
     loading: () => null,
@@ -42,7 +43,7 @@ const TableBody = dynamic(() => import('@mui/material/TableBody'), {
     loading: () => null,
 });
 
-export function Collaborators({ users }) {
+export function Collaborators({ users, title = 'Users' }) {
     const { results, setResults, remove } = useUser();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -83,10 +84,12 @@ export function Collaborators({ users }) {
         <Container>
             <Box sx={{
                 display: 'flex',
-                justifyContent: 'flex-end',
+                alignItems: 'center',
+                justifyContent: 'space-between',
                 mb: 2,
                 overflow: 'auto'
             }}>
+                <Typography>{title}</Typography>
                 <ModalAddUser />
             </Box>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>

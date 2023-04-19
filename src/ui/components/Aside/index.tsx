@@ -51,7 +51,7 @@ export function Aside({ children }) {
                                 display: 'flex',
                                 height: 40
                             }}>
-                                <Image src={Logo} alt="" quality={100} style={{ height: 40, width: 'fit-content'}} />
+                                <Image src={Logo} alt="" quality={100} style={{ height: 40, width: 'fit-content' }} />
                             </Link>
                         }
                     </Box>}
@@ -85,20 +85,35 @@ export function Aside({ children }) {
                         Icon={HomeOutlined}
                         open={open}
                     />
-                    <AsideButton
-                        link='/admin/collaborators'
-                        onPress={() => router.push('/admin/collaborators')}
-                        text={"Colaboradores"}
-                        Icon={ManageAccountsOutlined}
-                        open={open}
-                    />
-                    <AsideButton
-                        link='/admin/customers'
-                        onPress={() => router.push('/admin/customers')}
-                        text={"Clientes"}
+                    <AsideButtonCollapse
+                        text={"Usuários"}
                         Icon={PersonOutline}
                         open={open}
-                    />
+                        onEnvet={handleDrawerOpen}
+                    >
+                        <AsideButton
+                            link='/admin/collaborators'
+                            onPress={() => router.push('/admin/collaborators')}
+                            text={"Colaboradores"}
+                            Icon={ArrowRight}
+                            open={open}
+                        />
+                        <AsideButton
+                            link='/admin/owners'
+                            onPress={() => router.push('/admin/owners')}
+                            text={"Proprietários"}
+                            Icon={ArrowRight}
+                            open={open}
+                        />
+                        <AsideButton
+                            link='/admin/customers'
+                            onPress={() => router.push('/admin/customers')}
+                            text={"Clientes"}
+                            Icon={ArrowRight}
+                            open={open}
+                        />
+                    </AsideButtonCollapse>
+
                     <AsideButton
                         link='/admin/leads'
                         onPress={() => router.push('/admin/leads')}
