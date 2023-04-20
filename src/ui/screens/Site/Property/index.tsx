@@ -10,6 +10,7 @@ import { Aside, Description, Footer, Subtitle, Title } from "./styles";
 import { ModalScheduling } from '@/src/ui/components/modals/ModalScheduling';
 import { ModalContact } from '@/src/ui/components/modals/ModalContact';
 import { getImageUrl, getImmobileTitleCard, normalize } from "@/src/helpers/functions";
+import { HeadComponent } from "@/src/ui/components/HeadComponent";
 
 interface IShareData {
     title: string;
@@ -56,6 +57,9 @@ export function Property({ properties, property }: Props) {
             minHeight: '100vh',
             background: `#fafafa`
         }}>
+            <HeadComponent
+                title={`${type.name} ${adType === 'aluguel' ? `para alugar` : `à venda`} ${address.district && `no bairro ${address.district.name}`} - ${address.city.name}, ${address.state.name} - Rotina Imóveis`}
+            />
             <GalleryMobile />
             <Container>
                 <Grid container spacing={{ md: 3 }} sx={{ mb: 6 }}>
@@ -87,58 +91,74 @@ export function Property({ properties, property }: Props) {
                                 <Grid item xs={6} md={4}>{totalArea}m² de área total</Grid>
                             </Grid>
                         </Box>
-                        <Divider sx={{
-                            mt: 4
-                        }} />
-                        <Box sx={{
-                            mt: 4
-                        }}>
-                            <Subtitle sx={{ mb: 1, fontSize: 18 }}>Caracteristicas</Subtitle>
-                            <Grid container spacing={{ md: 1, xs: 2 }}>
-                                {characteristics.map(item => (
-                                    <Grid item xs={6} md={4}>{item.name}</Grid>
-                                ))}
-                            </Grid>
-                        </Box>
-                        <Divider sx={{
-                            mt: 4
-                        }} />
-                        <Box sx={{
-                            mt: 4
-                        }}>
-                            <Subtitle sx={{ mb: 1, fontSize: 18 }}>Segurança</Subtitle>
-                            <Grid container spacing={{ md: 1, xs: 2 }}>
-                                {security.map(item => (
-                                    <Grid item xs={6} md={4}>{item.name}</Grid>
-                                ))}
-                            </Grid>
-                        </Box>
-                        <Divider sx={{
-                            mt: 4
-                        }} />
-                        <Box sx={{
-                            mt: 4
-                        }}>
-                            <Subtitle sx={{ mb: 1, fontSize: 18 }}>Mobilia</Subtitle>
-                            <Grid container spacing={{ md: 1, xs: 2 }}>
-                                {furniture.map(item => (
-                                    <Grid item xs={6} md={4}>{item.name}</Grid>
-                                ))}
-                            </Grid>
-                        </Box>
-                        <Divider sx={{
-                            mt: 4
-                        }} />
-                        <Box sx={{
-                            mt: 4
-                        }}>
-                            <Subtitle sx={{ mb: 1, fontSize: 18 }}>Extras</Subtitle>
-                            <Grid container spacing={{ md: 1, xs: 2 }}>
-                                {extras.map(item => (
-                                    <Grid item xs={6} md={4}>{item.name}</Grid>
-                                ))}
-                            </Grid>
-                        </Box>
+                        {characteristics.length > 0 &&
+                            <>
+                                <Divider sx={{
+                                    mt: 4
+                                }} />
+                                <Box sx={{
+                                    mt: 4
+                                }}>
+                                    <Subtitle sx={{ mb: 1, fontSize: 18 }}>Caracteristicas</Subtitle>
+                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                        {characteristics.map(item => (
+                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                        ))}
+                                    </Grid>
+                                </Box>
+                            </>
+                        }
+                        {security.length > 0 &&
+                            <>
+                                <Divider sx={{
+                                    mt: 4
+                                }} />
+                                <Box sx={{
+                                    mt: 4
+                                }}>
+                                    <Subtitle sx={{ mb: 1, fontSize: 18 }}>Segurança</Subtitle>
+                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                        {security.map(item => (
+                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                        ))}
+                                    </Grid>
+                                </Box>
+                            </>
+                        }
+                        {furniture.length > 0 &&
+                            <>
+                                <Divider sx={{
+                                    mt: 4
+                                }} />
+                                <Box sx={{
+                                    mt: 4
+                                }}>
+                                    <Subtitle sx={{ mb: 1, fontSize: 18 }}>Mobilia</Subtitle>
+                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                        {furniture.map(item => (
+                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                        ))}
+                                    </Grid>
+                                </Box>
+                            </>
+                        }
+                        {extras.length > 0 &&
+                            <>
+                                <Divider sx={{
+                                    mt: 4
+                                }} />
+                                <Box sx={{
+                                    mt: 4
+                                }}>
+                                    <Subtitle sx={{ mb: 1, fontSize: 18 }}>Extras</Subtitle>
+                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                        {extras.map(item => (
+                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                        ))}
+                                    </Grid>
+                                </Box>
+                            </>
+                        }
                         <Divider sx={{
                             mt: 4
                         }} />

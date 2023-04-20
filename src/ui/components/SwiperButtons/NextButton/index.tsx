@@ -10,7 +10,7 @@ export function NextButton({ disabled }: Props) {
     const swiper = useSwiper();
 
     return (
-        <Button disabled={disabled || swiper.isLocked} variant="contained" onClick={() => swiper.slideNext()} aria-label="Next Button">
+        <Button disabled={disabled} variant="contained" onClick={() => swiper.slideNext()} aria-label="Next Button">
             <ChevronRight />
         </Button>
     );

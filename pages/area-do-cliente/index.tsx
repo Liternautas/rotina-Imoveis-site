@@ -6,10 +6,12 @@ import { CustomerArea } from "@/src/ui/screens/CustomerArea";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import UserProvider from "@/src/contexts/UserContext";
+import { HeadComponent } from "@/src/ui/components/HeadComponent";
 
 export default function CustomerAreaPage({user, invoices}) {
     return (
         <UserProvider>
+            <HeadComponent title='Area do cliente - Rotina Imóveis' />
             <CustomerArea user={user} invoices={invoices}/>
         </UserProvider>
     )
