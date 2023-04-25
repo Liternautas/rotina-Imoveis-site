@@ -27,7 +27,7 @@ export default function HomePage() {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   ctx.res.setHeader(
     'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=3600'
+    'public, s-maxage=3600, stale-while-revalidate=3600'
   )
 
   return {
