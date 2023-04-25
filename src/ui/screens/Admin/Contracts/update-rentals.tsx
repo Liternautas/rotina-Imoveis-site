@@ -260,6 +260,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
     const [propertyError, setPropertyError] = useState(false);
     const startDate = useForm();
     const endDate = useForm();
+    const createdAt = useForm();
 
     const handleSubmit = async () => {
         const contract: IRentalContract = {
@@ -486,6 +487,18 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     }}
                                     value={price.value}
                                     onChange={(e) => price.onChange(e)}
+                                    sx={{ width: 200 }}
+                                />
+                                <TextField
+                                    label="Criado em"
+                                    variant="outlined"
+                                    InputProps={{
+                                        readOnly: true,
+                                        startAdornment: <InputAdornment position="start"><DateRangeOutlined /></InputAdornment>,
+                                    }}
+                                    type="date"
+                                    value={createdAt.value}
+                                    onChange={(e) => createdAt.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
                             </Box>

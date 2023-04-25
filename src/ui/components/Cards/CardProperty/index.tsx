@@ -30,7 +30,7 @@ export function CardProperty({ property }: Props) {
                 <CardMedia
                     sx={{ height: 190, position: 'relative' }}
                 >
-                    {images && <Image fill sizes="274px" src={getImageUrl(images[0])} alt="" />}
+                    {images && <Image loading="eager" fill sizes="274px" src={getImageUrl(images[0])} alt="" />}
                 </CardMedia>
                 <Box sx={{
                     position: 'absolute',

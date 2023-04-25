@@ -17,7 +17,7 @@ export function CardInfo({ image, subtitle, title }: Props) {
             {image && <CardMedia
                 sx={{ height: 190, borderRadius: 1, position: 'relative' }}
             >
-                {image && <Image fill sizes="274px" src={getImageUrl(image)} alt="" />}
+                {image && <Image loading="eager" fill sizes="274px" src={getImageUrl(image)} alt="" />}
             </CardMedia>
             }
             <CardContent sx={{

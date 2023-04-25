@@ -3,6 +3,7 @@ import { FacebookOutlined, Instagram, YouTube } from "@mui/icons-material";
 import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
 import Link from "next/link";
 import { Links, Title } from "./styles";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -116,7 +117,7 @@ export default function Footer() {
                             Desenvolvido por:
                         </Typography>
                         <a href="https://zeyah-front.vercel.app/" target="_blank" style={{display: 'flex'}}>
-                            <img src={'https://zeyah-front.vercel.app/_next/static/media/logo.eff34789.svg'} style={{ height: 24 }} />
+                            <Image width={66} height={24} src={'https://zeyah-front.vercel.app/_next/static/media/logo.eff34789.svg'} alt="zeyah" />
                         </a>
                     </Box>
                 </Container>

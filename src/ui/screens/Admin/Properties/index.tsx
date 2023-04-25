@@ -92,7 +92,7 @@ export function Properties({ properties, total: initialTotal, realtors }: Props)
             </Stack>
             <Grid container spacing={{ xs: 2, md: 3 }}>
                 {results?.map(property => (
-                    <Grid item xs={12} sm={6} md={4}>
+                    <Grid item xs={12} sm={6} md={4} key={property.id}>
                         <CardAdmin property={property} />
                     </Grid>
                 ))
