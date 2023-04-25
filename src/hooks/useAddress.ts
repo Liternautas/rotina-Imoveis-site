@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { IAddress, ICity, IDistrict, IState } from "../interfaces";
-import { states } from "../utils/address";
+import { cities, districts, states } from "../utils/address";
 import { useForm, useFormProps } from "./useForm";
 import { useSelect, useSelectProps } from "./useSelect";
-import { api } from "../services/api";
 
 export interface useAddressProps {
     state: useSelectProps,
@@ -32,19 +31,19 @@ export function useAddress(): useAddressProps {
         state.setOptions(states);
     }, []);
 
-    const setCitiesOptions = useCallback(async () => {
-        const {data} = await api.get(`address/states/${state.value.id}/cities`);
-        city.setOptions(data.results);
+    const setCitiesOptions = useCallback(() => {
+        const filter = cities.filter(item => item.stateId === state.value.id);
+        city.setOptions(filter);
         if(initialAddress?.city) {
-            city.onChange(findInOptions(initialAddress.city.name, data.results));
+            city.onChange(findInOptions(initialAddress.city.name, filter));
         }
     }, [state.value]);
     
-    const setDistrictsOptions = useCallback(async () => {
-        const {data} = await api.get(`address/cities/${city.value.id}/districts`);
-        district.setOptions(data.results)
+    const setDistrictsOptions = useCallback(() => {
+        const filter = districts.filter(item => item.city.id === city.value.id);
+        district.setOptions(filter)
         if(initialAddress?.city) {
-            district.onChange(findInOptions(initialAddress.district.name, data.results));
+            district.onChange(findInOptions(initialAddress.district.name, filter));
         }
     }, [city.value]);
 

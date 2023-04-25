@@ -5,6 +5,7 @@ import { useAddress, useAddressProps } from "../hooks/useAddress";
 import { IProperty } from "../interfaces";
 import { adTypes, types } from "../utils/data";
 import { useRouter } from "next/router";
+import { cities, districts } from "../utils/address";
 import { api } from "../services/api";
 import { Loading } from "../ui/components/Loading";
 import slugify from "slugify";
@@ -134,8 +135,8 @@ const FilterProvider = ({ children }) => {
 
     useEffect(() => {
         const typeSelected = types.find(item => item.slug === typeQuery) as OptionSelectProps;
-        //{ cityId && city.onChange(cities.find(item => item.id === +cityId) as OptionSelectProps) };
-        //{ districtId && district.onChange(districts.find(item => item.id === +districtId) as OptionSelectProps) };
+        { cityId && city.onChange(cities.find(item => item.id === +cityId) as OptionSelectProps) };
+        { districtId && district.onChange(districts.find(item => item.id === +districtId) as OptionSelectProps) };
         { typeQuery && type.onChange(typeSelected) };
         { adTypeQuery && adType.onChange(adTypes.find(item => item.enum === adTypeQuery) as OptionSelectProps) };
         { pageQuery && setPage(+pageQuery) };
