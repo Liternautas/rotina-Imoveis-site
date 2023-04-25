@@ -41,6 +41,9 @@ interface PropertyContextProps {
     setImages: any;
 
     create(): Promise<void>;
+    remove(id: number): Promise<void>;
+    changeEmphasis(id: number, value: boolean): Promise<void>;
+    changeStatus(id: number, status: string): Promise<void>;
     uploadImages(file: File): Promise<void>;
     orderImages(images: Array<string>): Promise<void>;
     removeImage(path: string): Promise<void>;
@@ -130,6 +133,63 @@ const PropertyProvider = ({ children }) => {
         }
     }
 
+    const remove = async (id: number) => {
+        try {
+            setLoading(true);
+
+            const {success, message} = await api.delete(`properties/${id}`).then(res => res.data);
+            if(success) {
+                notification.execute('success', message);
+                router.push('/admin/properties');
+            } else {
+                throw new Error(message);
+            }
+        } catch (error) {
+            notification.execute('danger', error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+    
+    const changeEmphasis = async (id: number, value: boolean) => {
+        try {
+            setLoading(true);
+
+            const {success, message} = await api.patch(`properties/${id}/emphasis`, {
+                emphasis: value
+            }).then(res => res.data);
+
+            if(success) {
+                notification.execute('success', message);
+            } else {
+                throw new Error(message);
+            }
+        } catch (error) {
+            notification.execute('danger', error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+    const changeStatus = async (id: number, status: string) => {
+        try {
+            setLoading(true);
+
+            const {success, message} = await api.patch(`properties/${id}/status`, {
+                status: status
+            }).then(res => res.data);
+
+            if(success) {
+                notification.execute('success', message);
+            } else {
+                throw new Error(message);
+            }
+        } catch (error) {
+            notification.execute('danger', error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     function findInOptions(param: string, options) {
         let optionSelected;
         options.forEach(option => {
@@ -176,7 +236,7 @@ const PropertyProvider = ({ children }) => {
                  furnitures.setValue(property.details.filter(item => item.type === 'furniture'));
             }
         } catch (error) {
-            notification.execute('danger', error.mensage);
+            notification.execute('danger', error.message);
         } finally {
             setLoading(false);
         }
@@ -238,7 +298,7 @@ const PropertyProvider = ({ children }) => {
                 }
             }
         } catch (error) {
-            notification.execute('danger', error.mensage);
+            notification.execute('danger', error.message);
         } finally {
             setLoading(false);
         }
@@ -252,7 +312,7 @@ const PropertyProvider = ({ children }) => {
             const res = await api.post(`properties/upload/images/${id}`, data).then(res => res.data);
             setImages(res.images);
         } catch (error) {
-            notification.execute('danger', error.mensage);
+            notification.execute('danger', error.message);
         } finally {
             setLoading(false);
         }
@@ -266,7 +326,7 @@ const PropertyProvider = ({ children }) => {
             }).then(res => res.data);
             setImages(res.images);
         } catch (error) {
-            notification.execute('danger', error.mensage);
+            notification.execute('danger', error.message);
         } finally {
             setLoading(false);
         }
@@ -282,10 +342,10 @@ const PropertyProvider = ({ children }) => {
                 setImages(res.images);
                 notification.execute('success', res.message);
             } else {
-                notification.execute('danger', res.mensage);
+                notification.execute('danger', res.message);
             }
         } catch (error) {
-            notification.execute('danger', error.mensage);
+            notification.execute('danger', error.message);
         } finally {
             setLoading(false);
         }
@@ -322,8 +382,11 @@ const PropertyProvider = ({ children }) => {
 
             create,
             uploadImages,
+            changeEmphasis,
+            remove,
             orderImages,
             removeImage,
+            changeStatus,
 
             details,
             setDetails,

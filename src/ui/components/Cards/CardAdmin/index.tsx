@@ -1,23 +1,53 @@
-import { getImageUrl } from "@/src/helpers/functions";
+import { useState, useEffect } from "react";
+import { findInOptions, getImageUrl } from "@/src/helpers/functions";
 import { maskPrice } from "@/src/helpers/mask";
+import { useSelect } from "@/src/hooks/useSelect";
 import { AdType, IProperty } from "@/src/interfaces";
+import { statusData } from "@/src/utils/data";
 import { BedOutlined, DirectionsCarOutlined, Rule, ShowerOutlined, SquareFoot, SquareFootOutlined } from "@mui/icons-material";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, Autocomplete, TextField, FormControlLabel, Switch } from "@mui/material";
 import { useRouter } from "next/router";
+import { Loading } from "../../Loading";
+import { api } from "@/src/services/api";
+import { DialogComponent } from "../../DialogComponent";
+import { useProperty } from "@/src/contexts/PropertyContext";
 
 interface Props {
     property: IProperty;
 }
 
 export function CardAdmin({ property }: Props) {
+    const {remove, changeEmphasis, changeStatus} = useProperty();
     const router = useRouter();
-    const { adType, type, address, description, exemptIptu, favorites, id, images, iptu, numberBathroom, numberGarage, numberRooms, totalArea, usefulArea, code, price } = property;
+    const [state, setState] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const status = useSelect(statusData);
+    const { adType, type, address, id, images, numberBathroom, numberGarage, numberRooms, totalArea, code, price, emphasis } = property;
+
+    const handleRemove = async (id: number) => {
+        await remove(id);
+    }
+
+    const handleChangeEmphasis = async (value) => {
+        await changeEmphasis(id, value);
+        setState(value);
+    }
+    const handleChangeStatus = async (value) => {
+        await changeStatus(id, value.enum);
+        status.onChange(value);
+    }
+
+    useEffect(() => {
+        {property.status && status.onChange(findInOptions(property.status, statusData))}
+        {property.emphasis && setState(emphasis)}
+    }, [property]);
+
 
     return (
         <Card sx={{
             position: 'relative',
-            minHeight: 406
-        }} onClick={() => router.push(`/admin/properties/update/${id}`)}>
+            minHeight: 520
+        }}>
             <CardMedia
                 sx={{
                     height: 190,
@@ -91,13 +121,38 @@ export function CardAdmin({ property }: Props) {
                 </Box>
                 <Typography variant="h5" sx={{
                     fontWeight: 600,
-                    mt: 2
+                    my: 2,
+                    fontSize: 18
                 }}>R$ {maskPrice(price)}</Typography>
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={status.options}
+                    sx={{ width: 300, mt: 1 }}
+                    value={status.value}
+                    onChange={(e, value) => handleChangeStatus(value)}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label="Status" />}
+                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                />
+                <FormControlLabel
+                    control={
+                        <Switch checked={state} onChange={(e, check) => handleChangeEmphasis(check)} name="gilad" />
+                    }
+                    label="Destaque"
+                />
             </CardContent>
             <CardActions>
-                <Button size="small">Editar</Button>
-                <Button size="small">Detalhes</Button>
+                <Button size="small" onClick={() => router.push(`/admin/properties/update/${id}`)}>Editar</Button>
+                <DialogComponent
+                    title="Deletar anúncio"
+                    description="Deseja mesmo deletar esse anúncio?"
+                    onSubmit={() => handleRemove(id)}
+                >
+                    <Button size="small">Remover</Button>
+                </DialogComponent>
             </CardActions>
+            <Loading open={loading} />
         </Card>
     )
 }

@@ -18,9 +18,9 @@ export interface useSelectProps {
     validate: () => boolean;
 }
 
-export function useSelect(): useSelectProps {
+export function useSelect(data?: OptionSelectProps[]): useSelectProps {
     const [value, setValue] = useState<OptionSelectProps>(null);
-    const [options, setOptions] = useState<OptionSelectProps[]>([]);
+    const [options, setOptions] = useState<OptionSelectProps[]>(data ?? []);
     const [error, setError] = useState(null);
 
     const onChange = (option: OptionSelectProps) => {

@@ -60,7 +60,7 @@ export function Property({ properties, property }: Props) {
             <HeadComponent
                 title={`${type.name} ${adType === 'aluguel' ? `para alugar` : `à venda`} ${address.district && `no bairro ${address.district.name}`} - ${address.city.name}, ${address.state.name} - Rotina Imóveis`}
             />
-            <GalleryMobile />
+            <GalleryMobile images={images}/>
             <Container>
                 <Grid container spacing={{ md: 3 }} sx={{ mb: 6 }}>
                     <Grid item md={8}>

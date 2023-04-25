@@ -296,3 +296,26 @@ export const adTypes = [
         enum: 'aluguel'
     },
 ]
+
+export const statusData = [
+    {
+        id: '1',
+        name: 'Disponível',
+        enum: 'disponivel'
+    },
+    {
+        id: '2',
+        name: 'Alugado',
+        enum: 'alugado'
+    },
+    {
+        id: '3',
+        name: 'Vendido',
+        enum: 'vendido'
+    },
+    {
+        id: '4',
+        name: 'Indisponível',
+        enum: 'indisponivel'
+    },
+]

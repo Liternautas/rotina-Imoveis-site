@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { getImageUrl } from "@/src/helpers/functions";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 interface Props {
@@ -14,8 +16,10 @@ export function CardInfo({image, subtitle, title}: Props) {
         }}>
             {image && <CardMedia
                 sx={{ height: 190, borderRadius: 1 }}
-                image={image}
-            />}
+                >
+                    {image && <Image src={getImageUrl(image)} alt="" />}
+                </CardMedia>
+            }
             <CardContent sx={{
                 display: "flex",
                 flexDirection: "column",

@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
                 throw new Error('Email e/ou senha incorretas.');
             }
         } catch (error) {
-            notification.execute('danger', error.mensage)
+            notification.execute('danger', error.message)
         } finally {
             setLoading(false);
         }
@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
                 throw new Error('Email e/ou senha incorretas.');
             }
         } catch (error) {
-            notification.execute('danger', error.mensage)
+            notification.execute('danger', error.message)
         } finally {
             setLoading(false);
         }
@@ -99,7 +99,7 @@ const AuthProvider = ({ children }) => {
                 {red ? router.push(`/${red}`) : router.push(`/${red}`)}
             }
         } catch (error) {
-            notification.execute('danger', error.mensage);
+            notification.execute('danger', error.message);
         } finally {
             setLoading(false);
         }
@@ -127,7 +127,7 @@ const AuthProvider = ({ children }) => {
                 {red ? router.push(`/${red}`) : router.push(`/login`)}
             }
         } catch (error) {
-            notification.execute('danger', error.mensage)
+            notification.execute('danger', error.message)
         } finally {
             setLoading(false);
         }

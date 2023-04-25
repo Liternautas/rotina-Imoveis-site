@@ -58,13 +58,13 @@ export function CreateSales({ customers, realtors }) {
     const handleSubmit = async () => {
         const contract: ISalesContract = {
             buyer: {
-                id: buyer.value.id.toString()
+                id: buyer.value?.id.toString()
             },
             owner: {
-                id: owner.value.id.toString()
+                id: owner.value?.id.toString()
             },
             seller: {
-                id: seller.value.id.toString()
+                id: seller.value?.id.toString()
             },
             date: new Date(date.value),
             price: price.value,

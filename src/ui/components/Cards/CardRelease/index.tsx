@@ -1,5 +1,7 @@
+import { getImageUrl } from "@/src/helpers/functions";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
@@ -34,8 +36,10 @@ export function CardRealtor({ image, link }: Props) {
             {image &&
                 <CardMedia
                     sx={{ height: heigth }}
-                    image={image}
-                />}
+                >
+                    {image && <Image src={getImageUrl(image)} alt=""/>}
+                </CardMedia>
+                }
         </Card>
     )
 }

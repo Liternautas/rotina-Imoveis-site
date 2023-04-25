@@ -1,6 +1,8 @@
+import Image from "next/image";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { getImageUrl } from "@/src/helpers/functions";
 
 interface Props {
     image: string;
@@ -35,8 +37,10 @@ export function CardRelease({ image, link, title, subtitle }: Props) {
             {image &&
                 <CardMedia
                     sx={{ height: heigth, borderRadius: 1 }}
-                    image={image}
-                />}
+                >
+                    {image && <Image src={getImageUrl(image)} alt="" />}
+                </CardMedia>
+            }
             <CardContent sx={{
                 padding: '8px !important'
             }}>

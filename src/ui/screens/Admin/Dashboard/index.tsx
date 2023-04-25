@@ -6,10 +6,11 @@ import { Box, Container } from "@mui/material";
 import { Contacts } from "@/src/ui/components/DashboardComponents/Contacts";
 import { Properties } from "@/src/ui/components/DashboardComponents/PropertiesByType";
 
-export function Dashboard() {
+export function Dashboard({ propertiesByMonth, properties, types, leads, salesContracts, rentalContracts }) {
     return (
         <Container maxWidth="xl">
             <Box sx={{
+                maxWidth: '100%',
                 display: 'flex',
                 gap: 3,
             }}>
@@ -19,8 +20,8 @@ export function Dashboard() {
                     flexDirection: "column",
                     gap: 24,
                 }}>
-                    <RealEstateFundraising />
-                    <PropertiesByAdType />
+                    <RealEstateFundraising propertiesByMonth={propertiesByMonth} />
+                    <PropertiesByAdType properties={properties} />
                 </div>
                 <div style={{
                     display: "flex",
@@ -29,7 +30,7 @@ export function Dashboard() {
                     gap: 24,
                 }}>
                     <SalesFunnel />
-                    <Invoicing />
+                    <Invoicing salesContracts={salesContracts} rentalContracts={rentalContracts} />
                 </div>
                 <div style={{
                     display: "flex",
@@ -37,8 +38,8 @@ export function Dashboard() {
                     flexDirection: "column",
                     gap: 24,
                 }}>
-                    <Properties />
-                    <Contacts />
+                    <Properties properties={properties} types={types}/>
+                    <Contacts leads={leads} />
                 </div>
             </Box>
         </Container>

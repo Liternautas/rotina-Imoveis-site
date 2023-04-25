@@ -44,6 +44,7 @@ export interface IProperty {
     id?: number;
     code?: string;
     adType?: string;
+    status?: string;
     numberRooms?: number;
     numberBathroom?: number;
     numberSuite?: number;
@@ -53,6 +54,7 @@ export interface IProperty {
     condominium?: string;
     iptu?: string;
     exemptIptu?: boolean;
+    emphasis?: boolean;
     usefulArea?: number;
     totalArea?: number;
     images?: Array<string>;

@@ -1,75 +1,33 @@
 import { theme } from "@/styles/theme";
 import { ColumnText, Container, Row } from "./styles";
+import { ILead } from "@/src/interfaces";
+import { CardPropertyTable } from "../../Cards/CardPropertyTable";
 
-export function Contacts() {
+interface Props {
+    leads: ILead[];
+}
+
+export function Contacts({ leads }: Props) {
     return (
         <Container>
             <h4>Contatos</h4>
             <ul>
-                <Row>
-                    <Row style={{border: 0, padding: 0, margin: 0}}>
-                        <ColumnText style={{
-                            alignItems: "flex-start"
-                        }}>
-                            <strong>Casa</strong>
-                            <span>Loteamento Ipanema</span>
+                {leads.map(lead => (
+                    <Row sx={{
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}>
+                        <Row style={{ border: 0, padding: 0, margin: 0 }}>
+                            {lead.property && <CardPropertyTable property={lead.property}/>}
+                        </Row>
+                        <ColumnText>
+                            <strong>{lead.name}</strong>
+                            <strong style={{
+                                color: theme.palette.primary.main
+                            }}>{lead.phone}</strong>
                         </ColumnText>
                     </Row>
-                    <ColumnText>
-                        <strong>Maria de Lurdes</strong>
-                        <strong style={{
-                            color: theme.palette.primary.main
-                        }}>(64) 99944-9992</strong>
-                    </ColumnText>
-                </Row>
-                <Row>
-                    <Row style={{border: 0, padding: 0, margin: 0}}>
-                        <ColumnText style={{
-                            alignItems: "flex-start"
-                        }}>
-                            <strong>Casa</strong>
-                            <span>Loteamento Ipanema</span>
-                        </ColumnText>
-                    </Row>
-                    <ColumnText>
-                        <strong>Maria de Lurdes</strong>
-                        <strong style={{
-                            color: theme.palette.primary.main
-                        }}>(64) 99944-9992</strong>
-                    </ColumnText>
-                </Row>
-                <Row>
-                    <Row style={{border: 0, padding: 0, margin: 0}}>
-                        <ColumnText style={{
-                            alignItems: "flex-start"
-                        }}>
-                            <strong>Casa</strong>
-                            <span>Loteamento Ipanema</span>
-                        </ColumnText>
-                    </Row>
-                    <ColumnText>
-                        <strong>Maria de Lurdes</strong>
-                        <strong style={{
-                            color: theme.palette.primary.main
-                        }}>(64) 99944-9992</strong>
-                    </ColumnText>
-                </Row>
-                <Row>
-                    <Row style={{border: 0, padding: 0, margin: 0}}>
-                        <ColumnText style={{
-                            alignItems: "flex-start"
-                        }}>
-                            <strong>Casa</strong>
-                            <span>Loteamento Ipanema</span>
-                        </ColumnText>
-                    </Row>
-                    <ColumnText>
-                        <strong>Maria de Lurdes</strong>
-                        <strong style={{
-                            color: theme.palette.primary.main
-                        }}>(64) 99944-9992</strong>
-                    </ColumnText>
-                </Row>
+                ))}
             </ul>
         </Container>
     )

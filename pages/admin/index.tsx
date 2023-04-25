@@ -1,12 +1,20 @@
 import { useAuth } from "@/src/contexts/AuthContext";
+import { api } from "@/src/services/api";
 import { Dashboard } from "@/src/ui/screens/Admin/Dashboard";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 
-export default function AdminPage() {
-    const {loading} = useAuth();
+export default function AdminPage({properties, propertiesByMonth, types, leads, salesContracts, rentalContracts}) {
+    const { loading } = useAuth();
     return (
-        <Dashboard />
+        <Dashboard
+            properties={properties}
+            propertiesByMonth={propertiesByMonth}
+            salesContracts={salesContracts}
+            rentalContracts={rentalContracts}
+            types={types}
+            leads={leads}
+        />
     )
 }
 
@@ -21,7 +29,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         }
     }
 
+    const res = await api.get(`dashboard`).then(res => res.data);
+    const types = await api.get(`property-types`).then(res => res.data);
+
     return {
-        props: {}
+        props: {
+            properties: res.properties ?? null,
+            propertiesByMonth: res.propertiesByMonth ?? null,
+            leads: res.leads ?? null,
+            salesContracts: res.salesContracts ?? null,
+            rentalContracts: res.rentalContracts ?? null,
+            types: types ?? null,
+        }
     }
-  }
+}

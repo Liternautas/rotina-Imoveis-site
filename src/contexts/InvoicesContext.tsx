@@ -40,7 +40,7 @@ const InvoicesProvider = ({children}) => {
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     }
 
@@ -68,7 +68,7 @@ const InvoicesProvider = ({children}) => {
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     }
 
@@ -103,7 +103,7 @@ const InvoicesProvider = ({children}) => {
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     }
     
@@ -125,7 +125,7 @@ const InvoicesProvider = ({children}) => {
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     }
     
@@ -148,7 +148,7 @@ const InvoicesProvider = ({children}) => {
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     }
 
@@ -166,7 +166,7 @@ const InvoicesProvider = ({children}) => {
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     }
 

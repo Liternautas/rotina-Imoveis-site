@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getImageUrl } from "@/src/helpers/functions";
 import { maskPrice } from "@/src/helpers/mask";
 import { AdType, IProperty } from "@/src/interfaces";
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export function CardProperty({ property }: Props) {
-    const { type, adType, address, code } = property;
+    const { type, adType, address, code, images } = property;
 
     const normalize = (value: string) => slugify(value, { lower: true });
 
@@ -28,8 +29,9 @@ export function CardProperty({ property }: Props) {
             }}>
                 <CardMedia
                     sx={{ height: 190 }}
-                    image={getImageUrl(property.images[0])}
-                />
+                >
+                    {images && images.length > 0 && <Image src={getImageUrl(images[0])} alt="" />}
+                </CardMedia>
                 <Box sx={{
                     position: 'absolute',
                     top: 8,

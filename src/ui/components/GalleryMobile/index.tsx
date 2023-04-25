@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./styles.module.scss";
+import { getImageUrl } from "@/src/helpers/functions";
 
-export function GalleryMobile() {
+export function GalleryMobile({ images }) {
     const [state, setState] = useState<'start' | 'end' | 'progress'>('start');
     return (
         <Swiper
@@ -16,18 +17,9 @@ export function GalleryMobile() {
                 { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
             }}
         >
-            <SwiperSlide id={styles.swiperSlide}>
-                <img src="https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg?quality=90&strip=info" />
-            </SwiperSlide>
-            <SwiperSlide id={styles.swiperSlide}>
-                <img src="https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg?quality=90&strip=info" />
-            </SwiperSlide>
-            <SwiperSlide id={styles.swiperSlide}>
-                <img src="https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg?quality=90&strip=info" />
-            </SwiperSlide>
-            <SwiperSlide id={styles.swiperSlide}>
-                <img src="https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg?quality=90&strip=info" />
-            </SwiperSlide>
+            {images?.map(image => <SwiperSlide id={styles.swiperSlide}>
+                <img src={getImageUrl(image)} alt="Image View"/>
+            </SwiperSlide>)}
         </Swiper>
     )
 }

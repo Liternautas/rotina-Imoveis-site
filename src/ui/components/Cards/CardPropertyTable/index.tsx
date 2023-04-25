@@ -27,9 +27,13 @@ export function CardPropertyTable({ property, isLink }: Props) {
                 p: '8px !important',
                 pb: 1,
                 flex: 1,
-                display: 'flex',
-                alignItems: 'center'
             }}>
+                <Typography sx={{
+                    fontSize: 14,
+                    fontWeight: 500
+                }}>
+                    {property?.type?.name}, {property.adType}
+                </Typography>
                 {property?.address &&
                     <Typography sx={{
                         fontSize: 14,

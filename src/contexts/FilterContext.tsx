@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, useMemo } from "react";
 import { useForm } from "../hooks/useForm";
 import { OptionSelectProps, useSelect, useSelectProps } from "../hooks/useSelect";
 import { useAddress, useAddressProps } from "../hooks/useAddress";
@@ -56,15 +56,11 @@ const FilterProvider = ({ children }) => {
     const adType = useSelect();
     const [value, setValue] = useState<number[]>([0, 1000000]);
 
-    const handleTypes = async () => {
-        try {
-            const res = await api.get('property-types').then(res => res.data);
-            type.setOptions(res);
-            adType.setOptions(adTypes);
-        } catch (error) {
-            
-        }
-    }
+    const handleTypes = useCallback(async () => {
+        const res = await api.get('property-types').then(res => res.data);
+        type.setOptions(res);
+        adType.setOptions(adTypes);
+    }, []);
 
     useEffect(() => {
         state.onChange({
@@ -144,7 +140,9 @@ const FilterProvider = ({ children }) => {
         { typeQuery && type.onChange(typeSelected) };
         { adTypeQuery && adType.onChange(adTypes.find(item => item.enum === adTypeQuery) as OptionSelectProps) };
         { pageQuery && setPage(+pageQuery) };
-        findProperties({ adType: adTypeQuery?.toString(), cityId: +cityId, districtId: +districtId, page: +pageQuery, typeId: typeSelected?.id });
+        if (adTypeQuery || cityId || districtId || typeQuery || pageQuery) {
+            findProperties({ adType: adTypeQuery?.toString(), cityId: +cityId, districtId: +districtId, page: +pageQuery, typeId: typeSelected?.id });
+        }
     }, [adTypeQuery, cityId, districtId, typeQuery, pageQuery]);
 
     return (
