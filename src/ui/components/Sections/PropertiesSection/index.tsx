@@ -38,6 +38,7 @@ export function PropertiesSection({ properties, subtitle, title }: Props) {
                 <Subtitle variant="subtitle1">{subtitle ?? 'Descubra as melhores propriedades para venda ou aluguel'}</Subtitle>
             </Box>
             <Swiper
+                id={styles.swiper}
                 modules={[Navigation, Pagination]}
                 slidesPerView={'auto'}
                 onSlideChange={(swiper) => {
