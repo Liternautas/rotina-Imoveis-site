@@ -7,7 +7,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    minimumCacheTTL: 3600,
+    minimumCacheTTL: 86400,
     domains: ['localhost', 'storage.googleapis.com']
   },
   /* compiler: {
