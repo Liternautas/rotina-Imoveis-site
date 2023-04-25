@@ -38,6 +38,7 @@ interface PropsLink {
 export const LinkItem = styled(Typography)<PropsLink>`
     color: ${({ theme, active }) => active && theme.palette.primary.main} !important;
     font-weight: 600 !important;
+    font-size: .875rem;
 `
 export const ButtonCustomer = styled(Button)`
     background: ${({theme}) => theme.palette.secondary.main};
