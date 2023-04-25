@@ -31,12 +31,14 @@ export function HeadComponent({ title, description, image, urlCanonical, childre
 
             {title && <title>{title}</title>}
             {title && <meta name="og:title" content={title} />}
+            {description && <meta name="description" content={description}></meta>}
             {description && <meta property="og:description" content={description}></meta>}
             {image && <meta property="og:image" content={getImageUrl(image)}></meta>}
             {urlCanonical && <meta property="og:url" content={urlCanonical}></meta>}
 
             {!title && <title>Rotina Imóveis - Imobiliária em Catalão, Goiás | Venda, Compra e Aluguel de Imóveis</title>}
             {!title && <meta name="og:title" content={'Rotina Imóveis - Imobiliária em Catalão, Goiás | Venda, Compra e Aluguel de Imóveis'} />}
+            {!description && <meta name="description" content={'A Rotina Imóveis é a sua imobiliária de confiança em Catalão, Goiás. Encontre as melhores opções de imóveis para venda e aluguel com atendimento personalizado e suporte em todas as etapas da negociação.'}/>}
             {!description &&  <meta property="og:description" content={'A Rotina Imóveis é a sua imobiliária de confiança em Catalão, Goiás. Encontre as melhores opções de imóveis para venda e aluguel com atendimento personalizado e suporte em todas as etapas da negociação.'}></meta>}
             {!image && <meta property="og:image" content={getImageUrl(null)}></meta>}
             {!urlCanonical && url && <meta property="og:url" content={`${url}${router.asPath}`} />}
