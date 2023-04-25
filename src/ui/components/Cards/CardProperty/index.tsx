@@ -28,9 +28,9 @@ export function CardProperty({ property }: Props) {
                 flexDirection: 'column'
             }}>
                 <CardMedia
-                    sx={{ height: 190 }}
+                    sx={{ height: 190, position: 'relative' }}
                 >
-                    {images && images.length > 0 && <Image src={getImageUrl(images[0])} alt="" />}
+                    {images && <Image fill src={getImageUrl(images[0])} alt="" />}
                 </CardMedia>
                 <Box sx={{
                     position: 'absolute',

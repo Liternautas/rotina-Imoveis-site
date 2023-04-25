@@ -8,17 +8,17 @@ interface Props {
     subtitle: string;
 }
 
-export function CardInfo({image, subtitle, title}: Props) {
+export function CardInfo({ image, subtitle, title }: Props) {
     return (
         <Card sx={{
             boxShadow: "none",
             minWidth: 276
         }}>
             {image && <CardMedia
-                sx={{ height: 190, borderRadius: 1 }}
-                >
-                    {image && <Image src={getImageUrl(image)} alt="" />}
-                </CardMedia>
+                sx={{ height: 190, borderRadius: 1, position: 'relative' }}
+            >
+                {image && <Image fill src={getImageUrl(image)} alt="" />}
+            </CardMedia>
             }
             <CardContent sx={{
                 display: "flex",
