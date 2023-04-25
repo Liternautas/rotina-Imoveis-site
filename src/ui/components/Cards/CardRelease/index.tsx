@@ -37,7 +37,7 @@ export function CardRealtor({ image, link }: Props) {
                 <CardMedia
                     sx={{ height: heigth }}
                 >
-                    {image && <Image fill src={getImageUrl(image)} alt=""/>}
+                    {image && <Image fill sizes="274px" src={getImageUrl(image)} alt=""/>}
                 </CardMedia>
                 }
         </Card>
