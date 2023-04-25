@@ -1,4 +1,4 @@
-import { AppBar as AppBarMui, Drawer as MuiDrawer, Link, Button } from "@mui/material";
+import { AppBar as AppBarMui, Drawer as MuiDrawer, Link, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const AppBar = styled(AppBarMui)`
@@ -35,7 +35,7 @@ interface PropsLink {
     active?: boolean;
 }
 
-export const LinkItem = styled(Link) <PropsLink>`
+export const LinkItem = styled(Typography)<PropsLink>`
     color: ${({ theme, active }) => active && theme.palette.primary.main} !important;
     font-weight: 600 !important;
 `

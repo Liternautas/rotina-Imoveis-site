@@ -41,27 +41,27 @@ export default function Header() {
                         gap: 3
                     }}>
                         <Link href={'/'} title="Início">
-                            <LinkItem active={router.asPath === '/'}>
+                            <LinkItem variant={"caption"} active={router.asPath === '/'}>
                                 Início
                             </LinkItem>
                         </Link>
                         <Link href={'/sobre'} title="Sobre a Rotina Imóveis">
-                            <LinkItem active={router.asPath === '/sobre'}>
+                            <LinkItem variant={"caption"} active={router.asPath === '/sobre'}>
                                 Sobre
                             </LinkItem>
                         </Link>
                         <Link href={'/imoveis/filter?adType=aluguel'} title="Imóveis para alugar">
-                            <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=aluguel')}>
+                            <LinkItem variant={"caption"} active={router.asPath.startsWith('/imoveis/filter?adType=aluguel')}>
                                 Alugar
                             </LinkItem>
                         </Link>
                         <Link href={'/imoveis/filter?adType=venda'} title="Imóveis para comprar">
-                            <LinkItem active={router.asPath.startsWith('/imoveis/filter?adType=venda')}>
+                            <LinkItem variant={"caption"} active={router.asPath.startsWith('/imoveis/filter?adType=venda')}>
                                 Comprar
                             </LinkItem>
                         </Link>
                         <Link href={'/contato'} title="Entre em contato">
-                            <LinkItem active={router.asPath === '/contato'}>
+                            <LinkItem variant={"caption"} active={router.asPath === '/contato'}>
                                 Contato
                             </LinkItem>
                         </Link>
