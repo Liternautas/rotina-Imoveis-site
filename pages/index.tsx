@@ -15,6 +15,8 @@ export default function HomePage({ properties, banners, realtors }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  ctx.res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+
   const { results, count } = await api.get('properties').then(res => res.data);
   const { results: resultsBanner } = await api.get('banners?bannerTypeId=4').then(res => res.data);
   const { results: resultsRealtors} = await api.get('users/realtors').then(res => res.data);
