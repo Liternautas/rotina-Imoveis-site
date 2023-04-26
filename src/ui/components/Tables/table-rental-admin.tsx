@@ -7,12 +7,14 @@ import { useRouter } from "next/router";
 import { IRentalContract } from "@/src/interfaces";
 import { CardPropertyTable } from "../Cards/CardPropertyTable";
 import { formatDate } from "@/src/helpers/date";
+import { useContracts } from "@/src/contexts/ContractsContext";
 
 export function TableRentalAdmin({ contracts, action = true, file = false }) {
     const router = useRouter();
     const [results, setResults] = useState<IRentalContract[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const {removeRental} = useContracts();
 
     interface Column {
         id: 'id' | 'property' | 'locator' | 'tenant' | 'start' | 'end' | 'price' | 'actions' | 'file';
@@ -36,6 +38,10 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    const handleRemove = async (id: number) => {
+        await removeRental(id);
+    }
 
     useEffect(() => {
         { contracts && setResults(contracts) }
@@ -91,9 +97,9 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                             <TableCell>
                                                                 <Box>
                                                                     <DialogIcon
-                                                                        title="Remover usuário"
-                                                                        description="Deseja mesmo remover esse usuário?"
-                                                                        onSubmit={() => /* handleRemove(row.id) */null}
+                                                                        title="Remover contrato"
+                                                                        description="Deseja mesmo remover esse contrato?"
+                                                                        onSubmit={() => handleRemove(row.id)}
                                                                     >
                                                                         <Delete />
                                                                     </DialogIcon>

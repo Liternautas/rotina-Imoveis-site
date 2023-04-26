@@ -63,7 +63,11 @@ export function Property({ properties, property }: Props) {
             <GalleryMobile images={images}/>
             <Container>
                 <Grid container spacing={{ md: 3 }} sx={{ mb: 6 }}>
-                    <Grid item md={8}>
+                    <Grid item md={8} sx={{
+                        mt: {
+                            xs: 2
+                        }
+                    }}>
                         <Title>{type.name} {adType === 'aluguel' ? `para alugar` : `à venda`} {address.district && `no ${address.district.name}`}</Title>
                         <Subtitle>{address.city.name}, {address.state.name}</Subtitle>
                         <Gallery images={images} />
@@ -97,10 +101,10 @@ export function Property({ properties, property }: Props) {
                                     mt: 4
                                 }} />
                                 <Box sx={{
-                                    mt: 4
+                                    mt: 4,
                                 }}>
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Caracteristicas</Subtitle>
-                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                    <Grid container spacing={{ md: 1 }}>
                                         {characteristics.map(item => (
                                             <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
@@ -117,7 +121,7 @@ export function Property({ properties, property }: Props) {
                                     mt: 4
                                 }}>
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Segurança</Subtitle>
-                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                    <Grid container spacing={{ md: 1 }}>
                                         {security.map(item => (
                                             <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
@@ -134,7 +138,7 @@ export function Property({ properties, property }: Props) {
                                     mt: 4
                                 }}>
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Mobilia</Subtitle>
-                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                    <Grid container spacing={{ md: 1 }}>
                                         {furniture.map(item => (
                                             <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
@@ -151,7 +155,7 @@ export function Property({ properties, property }: Props) {
                                     mt: 4
                                 }}>
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Extras</Subtitle>
-                                    <Grid container spacing={{ md: 1, xs: 2 }}>
+                                    <Grid container spacing={{ md: 1 }}>
                                         {extras.map(item => (
                                             <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
@@ -243,8 +247,8 @@ export function Property({ properties, property }: Props) {
                     flexDirection: 'column',
                     justifyContent: 'center'
                 }}>
-                    <Typography>Venda:</Typography>
-                    <Typography variant="h6">R$ 500.000,00</Typography>
+                    <Typography sx={{textTransform: 'capitalize'}}>{adType}:</Typography>
+                    <Typography variant="h6">R$ {maskPrice(price)}</Typography>
                 </Box>
                 <ModalContact property={property} />
             </Footer>

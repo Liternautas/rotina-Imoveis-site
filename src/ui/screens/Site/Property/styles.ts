@@ -50,17 +50,4 @@ export const Footer = styled(Box)`
         display: none;
     }
 `
-export const GridItem = styled(Grid)`
-    padding: 8px !important;
-
-    span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40px;
-        background: #eee;
-        border-radius: 6px;
-        color: #1d1d1d;
-        font-weight: 600;
-    }
-`
+export const GridItem = styled(Grid)``

@@ -24,6 +24,7 @@ export const ContentWrapper = styled(Box)`
         max-height: 100vh;
         height: 100vh;
         border-radius: 0;
+        padding-top: 2rem;
     }
 `
 export const Content = styled(Box)`
