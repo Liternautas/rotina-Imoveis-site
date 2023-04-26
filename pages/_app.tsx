@@ -84,6 +84,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <CacheProvider value={emotionCache}>
+      <Loading open={!muiLoaded}/>
       <HeadComponent />
       <Script
         id="my-script"

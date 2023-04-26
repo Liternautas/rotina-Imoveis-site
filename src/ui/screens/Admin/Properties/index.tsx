@@ -43,17 +43,20 @@ export function Properties({ properties, total: initialTotal, realtors }: Props)
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: 1,
                 mb: 2
             }}>
                 <Typography variant="h6" fontWeight={600}>Imóveis</Typography>
                 <Box sx={{
                     display: 'flex',
+                    flexWrap: 'wrap',
                     gap: 1
                 }}>
                     {/* Input Filter */}
                     <Paper
                         component="form"
-                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', maxWidth: 400 }}
                     >
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}

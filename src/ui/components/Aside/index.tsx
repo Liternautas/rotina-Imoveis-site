@@ -238,7 +238,10 @@ export function Aside({ children }) {
             >
                 <Content />
             </DrawerMobile>
-            <Box component="main" sx={{ flexGrow: 1, p: 3, overflowY: 'auto', background: `#fafafa`, minHeight: '100vh' }}>
+            <Box component="main" sx={{ flexGrow: 1, p: {
+                xs: '24px 0',
+                md: 3
+            }, overflowY: 'auto', background: `#fafafa`, minHeight: '100vh' }}>
                 <DrawerHeader />
                 {children}
             </Box>
