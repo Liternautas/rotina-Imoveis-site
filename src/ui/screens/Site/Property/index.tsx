@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import { maskPrice } from "@/src/helpers/mask";
 import { IProperty } from "@/src/interfaces";
 import { Gallery } from "@/src/ui/components/Gallery";
@@ -31,6 +32,7 @@ export function Property({ properties, property }: Props) {
     const extras = details.filter(detail => detail.type === 'extras');
     const priceFinal = Number(condominium) + Number(price);
     const [shareData, setShareData] = useState<IShareData>(null);
+    const title = `${type.name} ${adType === 'aluguel' ? `para alugar` : `à venda`} ${address.district && `no bairro ${address.district.name}`} - ${address.city.name}, ${address.state.name} - Rotina Imóveis`;
 
     if (!property) {
         return <div style={{ height: '60vh' }}></div>;
@@ -57,10 +59,14 @@ export function Property({ properties, property }: Props) {
             minHeight: '100vh',
             background: `#fafafa`
         }}>
-            <HeadComponent
-                title={`${type.name} ${adType === 'aluguel' ? `para alugar` : `à venda`} ${address.district && `no bairro ${address.district.name}`} - ${address.city.name}, ${address.state.name} - Rotina Imóveis`}
-            />
-            <GalleryMobile images={images}/>
+            <Head>
+                {title && <title>{title}</title>}
+                {title && <meta name="og:title" content={title} />}
+                {description && <meta name="description" content={description}></meta>}
+                {description && <meta property="og:description" content={description}></meta>}
+                {<meta property="og:image" content={getImageUrl(images[0])}></meta>}
+            </Head>
+            <GalleryMobile images={images} />
             <Container>
                 <Grid container spacing={{ md: 3 }} sx={{ mb: 6 }}>
                     <Grid item md={8} sx={{
@@ -247,7 +253,7 @@ export function Property({ properties, property }: Props) {
                     flexDirection: 'column',
                     justifyContent: 'center'
                 }}>
-                    <Typography sx={{textTransform: 'capitalize'}}>{adType}:</Typography>
+                    <Typography sx={{ textTransform: 'capitalize' }}>{adType}:</Typography>
                     <Typography variant="h6">R$ {maskPrice(price)}</Typography>
                 </Box>
                 <ModalContact property={property} />
