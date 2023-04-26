@@ -25,7 +25,7 @@ export function HeadComponent({ title, description, image, urlCanonical, childre
             <meta property="og:site_name" content="Rotina Imóveis"></meta>
             <link rel="icon" type="image/png" href="/icon.png" />
             <meta name="google-site-verification" content="8uvV-LECSLo4d8UIsChZLLnuolgkLXFykaWOh6_lyl0" />
-            <meta name="keywords" content="rotina imóveis, rotina imobiliária, imobiliária em catalão, imobiliária catalão, imóveis em catalão, imobiliária goiás, compra de imóveis catalão, venda de imóveis catalão, aluguel de imóveis catalão, imóveis em catalão, casas em catalão, apartamentos em catalão, terrenos em catalão"></meta>
+            <meta name="keywords" content="rotina imóveis, rotina imobiliária, imobiliária em catalão, imobiliária catalão, imóveis em catalão, imobiliária goiás, compra de imóveis catalão, venda de imóveis catalão, aluguel de imóveis catalão, imóveis em catalão, casas em catalão, apartamentos em catalão, terrenos em catalão, casas para alugar em catalão, apartamentos para alugar em catalão"></meta>
             <link rel="canonical" href={`${url}${router.asPath}`} />
 
 
