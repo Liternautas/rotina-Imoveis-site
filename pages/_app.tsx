@@ -72,15 +72,15 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     emotionCache && setMuiLoaded(true);
   }, [emotionCache]);
 
-  if (!muiLoaded) return (
+  /* if (!muiLoaded) return (
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, background: '#000' }}
       open={!muiLoaded}
     >
-      {/* <HeadComponent /> */}
+      <HeadComponent />
       <CircularProgress color="inherit" />
     </Backdrop>
-  )
+  ) */
 
   return (
     <CacheProvider value={emotionCache}>
