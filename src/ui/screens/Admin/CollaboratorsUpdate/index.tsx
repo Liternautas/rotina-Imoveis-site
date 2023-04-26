@@ -15,7 +15,7 @@ interface IRole {
 }
 
 const roles: IRole[] = [
-    {   
+    {
         id: 0,
         name: 'Administrador',
         enum: 'admin'
@@ -47,6 +47,8 @@ export function CollaboratorsUpdate({ user }: Props) {
     const fileInputRef = useRef(null);
     const email = useForm();
     const name = useForm();
+    const document = useForm('cpf');
+    const creci = useForm();
     const password = useForm();
     const phone = useForm('phone');
     const [role, setRole] = useState<IRole>();
@@ -65,18 +67,21 @@ export function CollaboratorsUpdate({ user }: Props) {
         await update({
             email: email.value,
             name: name.value,
-            password: password.value,
             phone: phone.value,
             id: user.id,
-            role: role.enum
+            role: role.enum,
+            document: document.value,
+            creci: creci.value
         });
     }
 
     useEffect(() => {
-        if(user) {
+        if (user) {
             email.setValue(user.email);
             name.setValue(user.name);
             phone.setValue(user.phone);
+            document.setValue(user.document);
+            creci.setValue(user.creci);
             setRole(roles.find(value => value.enum === user.role));
         }
     }, [user]);
@@ -97,56 +102,58 @@ export function CollaboratorsUpdate({ user }: Props) {
                 maxWidth: 400
             }}>
                 <Box sx={{
-                            width: '100%',
-                            maxWidth: 400,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-start'
-                        }}>
-                            {avatar &&
-                                <Avatar
-                                    src={avatar && URL.createObjectURL(avatar)}
-                                    sx={{
-                                        width: 80,
-                                        height: 80,
-                                        mb: 1
-                                    }} onClick={handleButtonClick}>
-                                    {name.value.substring(0, 1)}
-                                </Avatar>}
-                            {user.avatar && !avatar &&
-                                <Avatar
-                                    src={getImageUrl(user.avatar)}
-                                    sx={{
-                                        width: 80,
-                                        height: 80,
-                                        mb: 1
-                                    }} onClick={handleButtonClick}>
-                                    {name.value.substring(0, 1)}
-                                </Avatar>}
-                            {!avatar && !user.avatar &&
-                                <Avatar
-                                    sx={{
-                                        width: 80,
-                                        height: 80,
-                                        mb: 1
-                                    }} onClick={handleButtonClick}>
-                                    {name.value.substring(0, 1)}
-                                </Avatar>}
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                style={{ display: 'none' }}
-                                onChange={handleUploadAvatar}
-                            />
-                            <Button
-                                variant="outlined"
-                                onClick={handleButtonClick}
-                            >
-                                Selecionar foto
-                            </Button>
-                        </Box>
+                    width: '100%',
+                    maxWidth: 400,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start'
+                }}>
+                    {avatar &&
+                        <Avatar
+                            src={avatar && URL.createObjectURL(avatar)}
+                            sx={{
+                                width: 80,
+                                height: 80,
+                                mb: 1
+                            }} onClick={handleButtonClick}>
+                            {name.value.substring(0, 1)}
+                        </Avatar>}
+                    {user.avatar && !avatar &&
+                        <Avatar
+                            src={getImageUrl(user.avatar)}
+                            sx={{
+                                width: 80,
+                                height: 80,
+                                mb: 1
+                            }} onClick={handleButtonClick}>
+                            {name.value.substring(0, 1)}
+                        </Avatar>}
+                    {!avatar && !user.avatar &&
+                        <Avatar
+                            sx={{
+                                width: 80,
+                                height: 80,
+                                mb: 1
+                            }} onClick={handleButtonClick}>
+                            {name.value.substring(0, 1)}
+                        </Avatar>}
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleUploadAvatar}
+                    />
+                    <Button
+                        variant="outlined"
+                        onClick={handleButtonClick}
+                    >
+                        Selecionar foto
+                    </Button>
+                </Box>
                 <TextField id="outlined-basic" label="Nome" variant="outlined" value={name.value} onChange={e => name.onChange(e)} />
                 <TextField id="outlined-basic" label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} />
+                <TextField id="outlined-basic" label="CPF (Opcional)" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
+                <TextField id="outlined-basic" label="Creci (Opcional)" variant="outlined" value={creci.value} onChange={e => creci.onChange(e)} fullWidth />
                 <TextField id="outlined-basic" label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} />
                 <FormControl>
                     <InputLabel id="demo-simple-select-label" shrink={true}>Função</InputLabel>
