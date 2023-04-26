@@ -260,7 +260,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
     const [propertyError, setPropertyError] = useState(false);
     const startDate = useForm();
     const endDate = useForm();
-    const createdAt = useForm();
+    const signatureDate = useForm();
 
     const handleSubmit = async () => {
         const contract: IRentalContract = {
@@ -274,6 +274,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             tenant: {
                 id: tenant.value.id.toString()
             },
+            signatureDate: new Date(signatureDate.value),
             start: new Date(startDate.value),
             end: new Date(endDate.value),
             price: price.value,
@@ -346,6 +347,12 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             const end = new Date(contract.end.toString().split('T')[0]);
             end.setHours(end.getHours() + 4);
             const endStr = end.toLocaleDateString().split('/');
+            if (contract.signatureDate) {
+                const signature = new Date(contract.signatureDate.toString().split('T')[0]);
+                signature.setHours(end.getHours() + 4);
+                const signatureStr = signature.toLocaleDateString().split('/');
+                { contract.signatureDate && signatureDate.setValue(`${signatureStr[2]}-${signatureStr[1]}-${signatureStr[0]}`) }
+            }
             { contract.start && startDate.setValue(`${startStr[2]}-${startStr[1]}-${startStr[0]}`) }
             { contract.end && endDate.setValue(`${endStr[2]}-${endStr[1]}-${endStr[0]}`) }
             { contract.cpf && cpf.setValue(contract.cpf) }
@@ -493,12 +500,11 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     label="Criado em"
                                     variant="outlined"
                                     InputProps={{
-                                        readOnly: true,
                                         startAdornment: <InputAdornment position="start"><DateRangeOutlined /></InputAdornment>,
                                     }}
                                     type="date"
-                                    value={createdAt.value}
-                                    onChange={(e) => createdAt.onChange(e)}
+                                    value={signatureDate.value}
+                                    onChange={(e) => signatureDate.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
                             </Box>

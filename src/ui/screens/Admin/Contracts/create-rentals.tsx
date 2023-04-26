@@ -249,7 +249,7 @@ export function CreateRentals({ customers, realtors }) {
     const [propertyError, setPropertyError] = useState(false);
     const startDate = useForm();
     const endDate = useForm();
-    const createdAt = useForm();
+    const signatureDate = useForm();
     const [loading, setLoading] = useState(false);
 
     const handleSearchProperty = async (e) => {
@@ -283,6 +283,7 @@ export function CreateRentals({ customers, realtors }) {
             tenant: {
                 id: tenent.value.id.toString()
             },
+            signatureDate: new Date(signatureDate.value),
             start: new Date(startDate.value),
             end: new Date(endDate.value),
             price: price.value,
@@ -482,15 +483,15 @@ export function CreateRentals({ customers, realtors }) {
                                     sx={{ width: 200 }}
                                 />
                                 <TextField
-                                    label="Criado em"
+                                    label="Data de assinatura"
                                     variant="outlined"
                                     InputProps={{
                                         readOnly: true,
                                         startAdornment: <InputAdornment position="start"><DateRangeOutlined /></InputAdornment>,
                                     }}
                                     type="date"
-                                    value={createdAt.value}
-                                    onChange={(e) => createdAt.onChange(e)}
+                                    value={signatureDate.value}
+                                    onChange={(e) => signatureDate.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
                             </Box>

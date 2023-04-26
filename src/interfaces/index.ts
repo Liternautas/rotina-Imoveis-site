@@ -130,6 +130,7 @@ export interface ISalesContract {
 export interface IRentalContract {
     id?: number;
     price?: string;
+    signatureDate?: Date;
     start?: Date;
     end?: Date;
     fineDelay?: number;
