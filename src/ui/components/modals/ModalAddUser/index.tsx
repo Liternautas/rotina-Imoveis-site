@@ -11,6 +11,9 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     maxWidth: '100%',
+    height: {
+        xs: '100vh'
+    },
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 2,
@@ -46,6 +49,8 @@ export function ModalAddUser() {
     const email = useForm();
     const name = useForm();
     const password = useForm();
+    const document = useForm('cpf');
+    const creci = useForm();
     const phone = useForm('phone');
 
     const [open, setOpen] = useState(false);
@@ -61,7 +66,9 @@ export function ModalAddUser() {
                 email: email.value,
                 name: name.value,
                 password: password.value,
-                phone: phone.value
+                phone: phone.value,
+                document: document.value,
+                creci: creci.value
             }, role.enum);
             handleClose();
         } else {
@@ -99,6 +106,8 @@ export function ModalAddUser() {
                     }}>
                         <TextField id="outlined-basic" label="Nome" variant="outlined" value={name.value} onChange={e => name.onChange(e)} fullWidth />
                         <TextField id="outlined-basic" label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} fullWidth />
+                        <TextField id="outlined-basic" label="CPF (Opcional)" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
+                        <TextField id="outlined-basic" label="Creci (Opcional)" variant="outlined" value={creci.value} onChange={e => creci.onChange(e)} fullWidth />
                         <TextField id="outlined-basic" label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} fullWidth />
                         <TextField id="outlined-basic" label="Senha" variant="outlined" value={password.value} onChange={e => password.onChange(e)} fullWidth />
                         <FormControl fullWidth>
