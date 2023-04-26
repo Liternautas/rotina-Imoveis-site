@@ -486,7 +486,6 @@ export function CreateRentals({ customers, realtors }) {
                                     label="Data de assinatura"
                                     variant="outlined"
                                     InputProps={{
-                                        readOnly: true,
                                         startAdornment: <InputAdornment position="start"><DateRangeOutlined /></InputAdornment>,
                                     }}
                                     type="date"
