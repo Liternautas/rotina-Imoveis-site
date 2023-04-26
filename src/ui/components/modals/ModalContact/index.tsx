@@ -72,7 +72,7 @@ export function ModalContact({ property }: Props) {
                 }
             }).then(() => {
                 generateLink();
-                close();
+                setOpen(false);
             });
         } else {
             setError('Insira todos os dados.');

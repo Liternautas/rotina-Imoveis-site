@@ -9,3 +9,13 @@ export const blobToFile = async (path: string) => {
         });
     return myFile;
 }
+
+export const downloadFile = async (path: string) => {
+    const link = document.createElement('a');
+    link.href = process.env.NEXT_PUBLIC_BASE_URL + path;
+    link.setAttribute('download', 'file.pdf');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+    document.body.appendChild(link);
+    link.click();
+};

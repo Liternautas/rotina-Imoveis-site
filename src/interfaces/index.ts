@@ -159,6 +159,7 @@ export interface IInvoice {
     reference?: Date;
     price?: string;
     path?: string;
+    voucher?: string;
     rentalContract?: IRentalContract;
     property?: IProperty;
 }

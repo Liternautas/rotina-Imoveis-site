@@ -1,4 +1,5 @@
 import { useInvoices } from "@/src/contexts/InvoicesContext";
+import { downloadFile } from "@/src/helpers/file";
 import { maskPrice } from "@/src/helpers/mask";
 import { useForm } from "@/src/hooks/useForm";
 import { useSelect } from "@/src/hooks/useSelect";
@@ -14,18 +15,6 @@ interface Props {
     contracts: IRentalContract[];
     invoice: IInvoice;
 }
-
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    borderRadius: 1,
-    boxShadow: 24,
-    p: 1.5,
-};
 
 export function InvoiceUpdate({ contracts, invoice }: Props) {
     const { update, file, setFile, } = useInvoices();
@@ -44,7 +33,6 @@ export function InvoiceUpdate({ contracts, invoice }: Props) {
         handleClose();
     }
     const handleUpload = async ({ target }) => {
-        console.log(target.files[0])
         setFile(target.files[0]);
     }
     const handleButtonClick = () => {
@@ -182,7 +170,7 @@ export function InvoiceUpdate({ contracts, invoice }: Props) {
                                 gap: 1,
                                 height: 48,
                                 mt: 3
-                            }}>
+                            }} onClick={() => downloadFile(invoice.path)}>
                                 <Download />
                                 Baixar fatura
                             </Button>
@@ -199,6 +187,17 @@ export function InvoiceUpdate({ contracts, invoice }: Props) {
                             <UploadFileOutlined />
                             Vincular Fatura
                         </Button>}
+                        {invoice.voucher &&
+                            <Button variant="outlined" sx={{
+                                display: 'flex',
+                                gap: 1,
+                                height: 48,
+                                mt: 3
+                            }} onClick={() => downloadFile(invoice.voucher)}>
+                                <Download />
+                                Baixar comprovante
+                            </Button>
+                        }
                         <Box
                             sx={{
                                 display: 'flex',

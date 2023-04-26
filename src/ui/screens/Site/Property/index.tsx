@@ -6,7 +6,7 @@ import { GalleryMobile } from "@/src/ui/components/GalleryMobile";
 import { PropertiesSection } from "@/src/ui/components/Sections/PropertiesSection";
 import { FavoriteBorderOutlined, ShareOutlined } from "@mui/icons-material";
 import { Avatar, Box, Button, Container, Divider, Grid, Typography } from "@mui/material";
-import { Aside, Description, Footer, Subtitle, Title } from "./styles";
+import { Aside, Description, Footer, GridItem, Subtitle, Title } from "./styles";
 import { ModalScheduling } from '@/src/ui/components/modals/ModalScheduling';
 import { ModalContact } from '@/src/ui/components/modals/ModalContact';
 import { getImageUrl, getImmobileTitleCard, normalize } from "@/src/helpers/functions";
@@ -83,12 +83,12 @@ export function Property({ properties, property }: Props) {
                         }}>
                             <Subtitle sx={{ mb: 1, fontSize: 18 }}>Detalhes</Subtitle>
                             <Grid container spacing={{ md: 1 }}>
-                                <Grid item xs={6} md={4}>{numberRooms} quartos</Grid>
-                                <Grid item xs={6} md={4}>{numberSuite} suíte</Grid>
-                                <Grid item xs={6} md={4}>{numberBathroom} banheiros</Grid>
-                                <Grid item xs={6} md={4}>{numberGarage} garagens</Grid>
-                                <Grid item xs={6} md={4}>{usefulArea}m² de área útil</Grid>
-                                <Grid item xs={6} md={4}>{totalArea}m² de área total</Grid>
+                                <GridItem item xs={6} md={4}><span>{numberRooms} quartos</span></GridItem>
+                                <GridItem item xs={6} md={4}><span>{numberSuite} suíte</span></GridItem>
+                                <GridItem item xs={6} md={4}><span>{numberBathroom} banheiros</span></GridItem>
+                                <GridItem item xs={6} md={4}><span>{numberGarage} garagens</span></GridItem>
+                                <GridItem item xs={6} md={4}><span>{usefulArea}m² de área útil</span></GridItem>
+                                <GridItem item xs={6} md={4}><span>{totalArea}m² de área total</span></GridItem>
                             </Grid>
                         </Box>
                         {characteristics.length > 0 &&
@@ -102,7 +102,7 @@ export function Property({ properties, property }: Props) {
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Caracteristicas</Subtitle>
                                     <Grid container spacing={{ md: 1, xs: 2 }}>
                                         {characteristics.map(item => (
-                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                            <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
                                     </Grid>
                                 </Box>
@@ -119,7 +119,7 @@ export function Property({ properties, property }: Props) {
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Segurança</Subtitle>
                                     <Grid container spacing={{ md: 1, xs: 2 }}>
                                         {security.map(item => (
-                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                            <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
                                     </Grid>
                                 </Box>
@@ -136,7 +136,7 @@ export function Property({ properties, property }: Props) {
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Mobilia</Subtitle>
                                     <Grid container spacing={{ md: 1, xs: 2 }}>
                                         {furniture.map(item => (
-                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                            <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
                                     </Grid>
                                 </Box>
@@ -153,7 +153,7 @@ export function Property({ properties, property }: Props) {
                                     <Subtitle sx={{ mb: 1, fontSize: 18 }}>Extras</Subtitle>
                                     <Grid container spacing={{ md: 1, xs: 2 }}>
                                         {extras.map(item => (
-                                            <Grid item xs={6} md={4}>{item.name}</Grid>
+                                            <GridItem item xs={6} md={4}><span>{item.name}</span></GridItem>
                                         ))}
                                     </Grid>
                                 </Box>

@@ -136,7 +136,7 @@ export function TableLeadsAdmin({ leads, action = true, file = false }) {
                                                 case 'realtor':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.realtor.name}
+                                                            {row.realtor?.name}
                                                         </TableCell>
                                                     )
                                                 case 'type':

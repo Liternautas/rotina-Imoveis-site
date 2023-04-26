@@ -151,7 +151,6 @@ export function ModalScheduling({property}: Props) {
                     await handleSubmitLead();
                     handleClose();
                 } else {
-                    alert(days[day].name + ' ' + times[time].name);
                     setError('Insira todos os dados.');
                 }
                 break;

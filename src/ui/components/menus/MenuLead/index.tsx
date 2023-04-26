@@ -50,7 +50,7 @@ export function MenuLead({ children, id }) {
                         Desativar lead
                     </MenuItem>
                 </DialogComponent>
-                <MenuItem onClick={() => router.push(`/admin/leads/edit/${id}`)}>
+                <MenuItem onClick={() => router.push(`/admin/leads/view/${id}`)}>
                     <EditOutlined sx={{ mr: 2, color: '#555' }} />
                     Detalhes lead
                 </MenuItem>

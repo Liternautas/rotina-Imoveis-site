@@ -27,8 +27,8 @@ export function MenuComponent({ children, id }) {
         await chanceStatus(id, status);
     }
     
-    const handlePayInvoice = async (id: string, date: Date) => {
-        await payInvoice(id, date);
+    const handlePayInvoice = async (id: string, date: Date, file?: File) => {
+        await payInvoice(id, date, file);
     }
 
     return (
@@ -51,7 +51,7 @@ export function MenuComponent({ children, id }) {
                     },
                 }}
             >
-                <ModalPayInvoice onSubmit={(date) => handlePayInvoice(id, new Date(date))}>
+                <ModalPayInvoice onSubmit={(date, file) => handlePayInvoice(id, new Date(date), file)}>
                     <MenuItem>
                         <Check sx={{ mr: 2, color: '#555' }} />
                         Quitar fatura

@@ -5,10 +5,10 @@ import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 
-export default function CustomersPage({ users }) {
+export default function CustomersPage({ users, total }) {
     return (
         <UserProvider>
-            <Collaborators users={users} title="Clientes"/>
+            <Collaborators users={users} title="Clientes" total={total}/>
         </UserProvider>
     )
 }
@@ -27,11 +27,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     api.defaults.headers['Authorization'] = `Bearer ${token}`
     const userFormated: IUser = JSON.parse(user);
 
-    const { results } = await api.get('users/customers').then(res => res.data);
+    const { results, total } = await api.get('users/customers').then(res => res.data);
 
     return {
         props: {
             users: results ?? [],
+            total: total ?? 0
         }
     }
 }

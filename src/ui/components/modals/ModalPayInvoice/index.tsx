@@ -1,8 +1,7 @@
-import { useUser } from "@/src/contexts/UserContext";
 import { useForm } from "@/src/hooks/useForm";
-import { Role } from "@/src/interfaces";
-import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { UploadFileOutlined, Delete } from "@mui/icons-material";
+import { Box, Button, Card, CardContent, Modal, IconButton, TextField, Typography } from "@mui/material";
+import { useEffect, useState, useRef } from "react";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -18,41 +17,30 @@ const style = {
     pt: 3
 };
 
-const roles = [
-    {
-        name: 'Administrador',
-        enum: 'admin'
-    },
-    {
-        name: 'Colaborador',
-        enum: 'collaborator'
-    },
-    {
-        name: 'Corretor',
-        enum: 'realtor'
-    },
-    {
-        name: 'Proprietário',
-        enum: 'owner'
-    },
-    {
-        name: 'Cliente',
-        enum: 'customer'
-    },
-]
 
 export function ModalPayInvoice({ children, onSubmit }) {
     const payment = useForm('date');
-
+    const fileInputRef = useRef(null);
     const [open, setOpen] = useState(false);
+    const [file, setFile] = useState<File>(null);
+
     const handleClose = () => setOpen(false);
 
     const handleSubmit = async () => {
         if (payment.validate()) {
-            await onSubmit(payment.value);
+            await onSubmit(payment.value, file);
             handleClose();
         }
     }
+
+    const handleUpload = async ({ target }) => {
+        console.log(target.files[0])
+        setFile(target.files[0]);
+    }
+
+    const handleButtonClick = () => {
+        fileInputRef.current.click();
+    };
 
     useEffect(() => {
     }, []);
@@ -91,6 +79,46 @@ export function ModalPayInvoice({ children, onSubmit }) {
                                 shrink: true
                             }}
                         />
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: 'none' }}
+                            onChange={handleUpload}
+                        />
+                        {file &&
+                            <Card sx={{
+                                width: 'fit-content',
+                                mt: 3
+                            }}>
+                                <CardContent sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 2,
+                                    p: 2,
+                                    pb: '16px !important',
+                                }}>
+                                    <Typography sx={{
+                                        fontWeight: 600
+                                    }}>
+                                        {file.name}
+                                    </Typography>
+                                    <IconButton onClick={() => setFile(null)}>
+                                        <Delete />
+                                    </IconButton>
+                                </CardContent>
+                            </Card>
+                        }
+                        <Button
+                            variant="outlined"
+                            onClick={handleButtonClick}
+                            sx={{
+                                display: 'flex',
+                                gap: 1,
+                                height: 48,
+                            }}>
+                            <UploadFileOutlined />
+                            Vincular comprovante
+                        </Button>
                     </Box>
                     <Box sx={{
                         height: 48,

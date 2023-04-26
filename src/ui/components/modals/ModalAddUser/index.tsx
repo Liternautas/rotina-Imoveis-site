@@ -48,19 +48,24 @@ export function ModalAddUser() {
     const phone = useForm('phone');
 
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false);
     const [role, setRole] = useState(null);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleSubmit = async () => {
-        await create({
-            email: email.value,
-            name: name.value,
-            password: password.value,
-            phone: phone.value
-        }, role.enum);
-        handleClose();
+        if(email.validate() && name.validate() && password.validate() && phone.validate()) {
+            await create({
+                email: email.value,
+                name: name.value,
+                password: password.value,
+                phone: phone.value
+            }, role.enum);
+            handleClose();
+        } else {
+            
+        }
     }
 
     return (

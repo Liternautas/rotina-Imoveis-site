@@ -8,6 +8,8 @@ import { Delete, Edit } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import { api } from "@/src/services/api";
+import { Loading } from "@/src/ui/components/Loading";
 
 const Box = dynamic(() => import('@mui/material/Box'), {
     loading: () => null,
@@ -43,15 +45,25 @@ const TableBody = dynamic(() => import('@mui/material/TableBody'), {
     loading: () => null,
 });
 
-export function Collaborators({ users, title = 'Users' }) {
+export function Collaborators({ users, title = 'Users', total }) {
     const { results, setResults, remove } = useUser();
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [rowsPerPage, setRowsPerPage] = useState(15);
     const router = useRouter();
 
     const handleRemove = async (id: string) => {
         await remove(id);
     };
+
+    const handleResults = async (page: number) => {
+        setLoading(true);
+        setPage(page);
+        const { results, total, limit } = await api.get(`users/customers?page=${page}&limit=${rowsPerPage}`).then(res => res.data);
+        setResults(results);
+        setRowsPerPage(limit);
+        setLoading(false);
+    }
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
@@ -76,6 +88,7 @@ export function Collaborators({ users, title = 'Users' }) {
 
     useEffect(() => {
         if (users) {
+            console.log(users)
             setResults(users);
         }
     }, [users]);
@@ -92,6 +105,7 @@ export function Collaborators({ users, title = 'Users' }) {
                 <Typography>{title}</Typography>
                 <ModalAddUser />
             </Box>
+            <Loading open={loading}/>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
@@ -109,9 +123,7 @@ export function Collaborators({ users, title = 'Users' }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {results
-                                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
+                            {results.map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                             {columns.map((column) => {
@@ -150,11 +162,11 @@ export function Collaborators({ users, title = 'Users' }) {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    count={users.length}
+                    rowsPerPageOptions={[15]}
+                    count={total}
                     rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={() => { }}
+                    page={page - 1}
+                    onPageChange={(e, page) => handleResults(page + 1)}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>

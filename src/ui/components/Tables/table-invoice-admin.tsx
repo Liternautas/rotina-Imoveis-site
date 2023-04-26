@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Box, IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { DialogIcon } from "../DialogIcon";
-import { Cancel, CancelOutlined, Check, Delete, DeleteOutline, Download, Edit, EditOutlined, MoreVert } from "@mui/icons-material";
+import { Alert, Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import {  Download, MoreVert } from "@mui/icons-material";
 import { maskPrice } from "@/src/helpers/mask";
-import { useRouter } from "next/router";
 import { IInvoice } from "@/src/interfaces";
 import { CardPropertyTable } from "../Cards/CardPropertyTable";
-import { InvoiceStatus, useInvoices } from "@/src/contexts/InvoicesContext";
 import { formatDate } from "@/src/helpers/date";
-import { DialogComponent } from "../DialogComponent";
-import { ModalPayInvoice } from "../modals/ModalPayInvoice";
 import { MenuComponent } from "../MenuComponent";
 
 export function TableInvoiceAdmin({ invoices, action = true, file = false }) {
-    const { remove, chanceStatus, payInvoice } = useInvoices();
-    const router = useRouter();
     const [results, setResults] = useState<IInvoice[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [openActions, setOpenActions] = useState(false);
-
-
 
     interface Column {
         id: 'id' | 'property' | 'expiration' | 'tenant' | 'locator' | 'status' | 'price' | 'actions' | 'file' | 'payment';

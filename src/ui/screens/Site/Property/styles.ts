@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import {styled} from "@mui/material/styles";
+import { Box, Typography, Grid } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 export const Title = styled(Typography)`
     font-size: 24px;
@@ -48,5 +48,19 @@ export const Footer = styled(Box)`
 
     @media (min-width: 720px) {
         display: none;
+    }
+`
+export const GridItem = styled(Grid)`
+    padding: 8px !important;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        background: #eee;
+        border-radius: 6px;
+        color: #1d1d1d;
+        font-weight: 600;
     }
 `

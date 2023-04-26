@@ -18,7 +18,7 @@ interface InvoicesContextProps {
     update(data: IInvoice): Promise<void>;
     remove(id: string): Promise<void>;
     chanceStatus(id: string, status: InvoiceStatus): Promise<void>;
-    payInvoice(id: string, date: Date): Promise<void>;
+    payInvoice(id: string, date: Date, voucher?: File): Promise<void>;
 }
 
 const InvoicesContext = createContext({} as InvoicesContextProps);
@@ -129,7 +129,7 @@ const InvoicesProvider = ({children}) => {
         }
     }
     
-    const payInvoice = async (id: string, date: Date) => {
+    const payInvoice = async (id: string, date: Date, voucher?: File) => {
         try {
             setLoading(true);
 
@@ -140,6 +140,17 @@ const InvoicesProvider = ({children}) => {
 
             if(res.success) {
                 notification.execute('success', 'Status da fatura atualizado com sucesso.');
+                if(voucher) {
+                    const form = new FormData();
+                    form.append('file', voucher);
+                    const res = await api.post(`invoices/${id}/upload/voucher`, form).then(res => res.data);
+    
+                    if(res.success) {
+                        notification.execute('success', 'Upload de comprovante realizado com sucesso.');
+                    } else {
+                        throw new Error(res.message);
+                    }
+                }
                 await findAll();
             } else {
                 throw new Error(res.message);
