@@ -12,6 +12,7 @@ export function Dashboard({ propertiesByMonth, properties, types, leads, salesCo
             <Box sx={{
                 maxWidth: '100%',
                 display: 'flex',
+                flexWrap: 'wrap',
                 gap: 3,
             }}>
                 <div style={{
