@@ -77,7 +77,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, background: '#000' }}
       open={!muiLoaded}
     >
-      <HeadComponent />
+      {/* <HeadComponent /> */}
       <CircularProgress color="inherit" />
     </Backdrop>
   )
