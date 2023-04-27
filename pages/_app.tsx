@@ -84,7 +84,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <CacheProvider value={emotionCache}>
-      <Loading open={!muiLoaded}/>
+      <Loading open={!muiLoaded} />
       <HeadComponent />
       <Script
         id="my-script"
@@ -122,7 +122,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
                     `
         }}
       />
-      <ThemeProvider theme={theme}>
+      {muiLoaded && <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
           <FilterProvider>
@@ -140,7 +140,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') && asPath != '/area-do-cliente/login' ? <Footer /> : null}
           </FilterProvider>
         </AuthProvider>
-      </ThemeProvider>
+      </ThemeProvider>}
     </CacheProvider>
   )
 }
