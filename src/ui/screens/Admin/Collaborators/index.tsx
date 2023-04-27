@@ -81,9 +81,9 @@ export function Collaborators({ users, title = 'Users', total }) {
     const columns: readonly Column[] = [
         { id: 'name', label: 'Nome', minWidth: 170 },
         { id: 'email', label: 'Email', minWidth: 170 },
-        { id: 'phone', label: 'Telefone', minWidth: 100 },
+        { id: 'phone', label: 'Telefone', minWidth: 150 },
         { id: 'role', label: 'Função', minWidth: 100 },
-        { id: 'actions', label: 'Ações', minWidth: 100 },
+        { id: 'actions', label: 'Ações', minWidth: 150 },
     ];
 
     useEffect(() => {

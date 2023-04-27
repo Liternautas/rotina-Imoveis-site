@@ -23,6 +23,8 @@ export function Rentals({contracts}: Props) {
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: 1,
                 mb: 2
             }}>
                 <Typography variant="h6" fontWeight={600}>Contratos de aluguel</Typography>
@@ -33,7 +35,7 @@ export function Rentals({contracts}: Props) {
                     {/* Input Filter */}
                     <Paper
                         component="form"
-                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', maxWidth: 400 }}
                     >
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}

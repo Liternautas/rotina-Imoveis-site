@@ -8,11 +8,18 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    maxWidth: 600,
+    width: '100%',
+    height: {
+        xs: '100vh'
+    },
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 24,
-    p: 4,
+    p: {
+        md: 4,
+        xs: '32px 16px'
+    },
     display: 'flex',
     flexDirection: 'column',
     gap: 2
