@@ -3,11 +3,14 @@ import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { PropertyProvider } from "@/src/contexts/PropertyContext";
+import UserProvider from "@/src/contexts/UserContext";
 
-export default function CreatePropertyPage({details, owners, realtors}) {
+export default function CreatePropertyPage({ details, owners, realtors }) {
     return (
         <PropertyProvider>
-            <PropertyCreate details={details} realtors={realtors} owners={owners}/>
+            <UserProvider>
+                <PropertyCreate details={details} realtors={realtors} owners={owners} />
+            </UserProvider>
         </PropertyProvider>
     )
 }

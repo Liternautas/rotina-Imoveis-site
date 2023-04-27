@@ -6,12 +6,16 @@ import { Loading } from "../ui/components/Loading";
 
 interface UserContextProps {
     findAll(customers?: boolean): Promise<void>;
+    findRealtors(): Promise<void>;
+    findOwners(): Promise<void>;
     create(user: IUser, role: Role): Promise<void>;
     remove(id: string): Promise<void>;
     update(user: IUser): Promise<void>;
     uploadAvatar(id: string, file: File): Promise<void>;
 
     results: IUser[];
+    owners: IUser[];
+    realtors: IUser[];
     setResults: any;
     loading: boolean;
 }
@@ -20,8 +24,34 @@ const UserContext = createContext({} as UserContextProps);
 
 const UserProvider = ({ children }) => {
     const [results, setResults] = useState<IUser[]>([]);
+    const [owners, setOwners] = useState<IUser[]>([]);
+    const [realtors, setRealtors] = useState<IUser[]>([]);
     const [loading, setLoading] = useState(false);
     const notification = useNotification();
+
+    const findRealtors = async () => {
+        try {
+            setLoading(true);
+            const res = await api.get('users/realtors').then(res => res.data);
+            setRealtors(res.results);
+        } catch (error) {
+            notification.execute('danger', error.message);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const findOwners = async () => {
+        try {
+            setLoading(true);
+            const res = await api.get('users/owners').then(res => res.data);
+            setOwners(res.results);
+        } catch (error) {
+            notification.execute('danger', error.message);
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const findAll = async (customers?: boolean) => {
         let res;
@@ -44,7 +74,6 @@ const UserProvider = ({ children }) => {
         let res;
         try {
             setLoading(true);
-            console.log(user, role);
             switch (role) {
                 case Role.admin:
                     res = await api.post('users/administrators', user).then(res => res.data);
@@ -66,6 +95,13 @@ const UserProvider = ({ children }) => {
                 throw new Error(res.message);
             } else {
                 notification.execute('success', "Usuário cadastrado com sucesso.");
+                if(role === Role.owner) {
+                    await findOwners();
+                } else if(role === Role.realtor) {
+                    await findRealtors();
+                } else {
+                    findAll(role === Role.customer);
+                }
                 findAll(role === Role.customer);
             }
         } catch (error) {
@@ -98,7 +134,7 @@ const UserProvider = ({ children }) => {
             setLoading(true);
             res = await api.delete(`users/${id}`).then(res => res.data);
 
-            if(!res.success) throw new Error(res.message);
+            if (!res.success) throw new Error(res.message);
             notification.execute('success', 'Usuário removido com sucesso.')
             findAll()
         } catch (error) {
@@ -117,8 +153,8 @@ const UserProvider = ({ children }) => {
 
             const res = await api.post(`users/upload/avatar/${id}`, data).then(res => res.data);
 
-            if(res.success) {
-                notification.execute('success', res.message);    
+            if (res.success) {
+                notification.execute('success', res.message);
             } else {
                 throw new Error(res.message);
             }
@@ -138,9 +174,13 @@ const UserProvider = ({ children }) => {
             results,
             setResults,
             remove,
-            uploadAvatar
+            uploadAvatar,
+            findOwners,
+            realtors,
+            findRealtors,
+            owners
         }}>
-            <Loading open={loading}/>
+            <Loading open={loading} />
             {children}
         </UserContext.Provider>
     )

@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const code = id[id.length - 1];
 
     const { property } = await api.get(`properties/code/${code}`).then(res => res.data);
-    const { results, count } = await api.get('properties').then(res => res.data);
+    const { results, count } = await api.get(`properties?status=disponivel`).then(res => res.data);
     console.log(property);
 
     return {

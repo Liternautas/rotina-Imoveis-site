@@ -1,11 +1,24 @@
+import {useEffect} from "react";
 import { useProperty } from "@/src/contexts/PropertyContext";
 import { useSelect } from "@/src/hooks/useSelect";
 import { Autocomplete, Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { ModalAddUser } from "../modals/ModalAddUser";
+import { useUser } from "@/src/contexts/UserContext";
 
 export function Finished() {
-    const {pickup, owner} = useProperty();
-    const type = useSelect();
+    const { pickup, owner } = useProperty();
+    const { owners, realtors } = useUser();
+    
+    useEffect(() => {
+        if(owners && owners.length > 0) {
+            owner.setOptions(owners)
+        }
+        if(realtors && realtors.length > 0) {
+            pickup.setOptions(realtors)
+        }
+    }, [owners, realtors]);
+
     return (
         <Box>
             <Box sx={{ mb: 5 }}>
@@ -38,7 +51,14 @@ export function Finished() {
                         renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
                     />
                 </Box>
-                <Button>Não encontrou? Cadastre aqui</Button>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                }}>
+                    <Typography>Não encontrou?</Typography>
+                    <ModalAddUser />
+                </Box>
             </Box>
         </Box>
     )

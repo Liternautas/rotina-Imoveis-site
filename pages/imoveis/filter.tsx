@@ -33,7 +33,7 @@ export default function FilterPage({ properties, total }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const { results, count } = await api.get('properties').then(res => res.data);
+    const { results, count } = await api.get('properties?status=disponivel').then(res => res.data);
 
     return {
         props: {

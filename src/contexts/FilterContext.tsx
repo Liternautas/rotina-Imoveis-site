@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import { cities, districts } from "../utils/address";
 import { api } from "../services/api";
 import { Loading } from "../ui/components/Loading";
-import slugify from "slugify";
 import { useNotification } from "../hooks/useNotification";
 
 interface FindPropertiesProps {
@@ -72,7 +71,9 @@ const FilterProvider = ({ children }) => {
 
     const getPathApi = (page?: number) => {
         const { city, district } = address;
+        const asPath = router.asPath;
         let path = `properties?page=${page ?? 1}`;
+        { !asPath.startsWith('/admin') ? path = path + '&status=disponivel' : null}
         { adType.value ? path = path + `&adType=${adType.value.enum}` : null }
         { city.value ? path = path + `&cityId=${city.value.id}` : null }
         { pickup.value ? path = path + `&realtorId=${pickup.value.id}` : null }
@@ -90,8 +91,10 @@ const FilterProvider = ({ children }) => {
 
     const getPathByRoute = ({ adType, cityId, districtId, page, typeId, maxPrice, minPrice }: FindPropertiesProps) => {
         let path = `properties?`;
+        const asPath = router.asPath;
 
         { adType ? path = path + `adType=${adType}` : null }
+        { !asPath.startsWith('/admin') ? path = path + '&status=disponivel' : null}
         { typeId ? path = path + `&typeId=${typeId}` : null }
         { cityId ? path = path + `&cityId=${cityId}` : null }
         { districtId ? path = path + `&districtId=${districtId}` : null }

@@ -12,7 +12,8 @@ const style = {
     width: 400,
     maxWidth: '100%',
     height: {
-        xs: '100vh'
+        xs: '100vh',
+        md: 'fit-content'
     },
     bgcolor: 'background.paper',
     boxShadow: 24,
