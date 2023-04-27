@@ -127,13 +127,13 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                 case 'locator':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.locator.name}
+                                                            {row.locator?.name}
                                                         </TableCell>
                                                     )
                                                 case 'tenant':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.tenant.name}
+                                                            {row.tenant?.name}
                                                         </TableCell>
                                                     )
                                                 case 'start':
