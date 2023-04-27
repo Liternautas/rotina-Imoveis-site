@@ -72,16 +72,6 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     emotionCache && setMuiLoaded(true);
   }, [emotionCache]);
 
-  /* if (!muiLoaded) return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, background: '#000' }}
-      open={!muiLoaded}
-    >
-      <HeadComponent />
-      <CircularProgress color="inherit" />
-    </Backdrop>
-  ) */
-
   return (
     <CacheProvider value={emotionCache}>
       <Loading open={!muiLoaded} />
@@ -122,7 +112,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
                     `
         }}
       />
-      {muiLoaded && <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
           <FilterProvider>
@@ -140,7 +130,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
             {!asPath.startsWith('/admin') && !asPath.startsWith('/login') && asPath != '/area-do-cliente/login' ? <Footer /> : null}
           </FilterProvider>
         </AuthProvider>
-      </ThemeProvider>}
+      </ThemeProvider>
     </CacheProvider>
   )
 }
