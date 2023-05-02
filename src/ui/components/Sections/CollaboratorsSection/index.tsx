@@ -47,7 +47,7 @@ export function CollaboratorsSection({ realtors }: Props) {
                     { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                 }}
             >
-                {realtors?.map(user => (
+                {realtors?.map(user => user.role != 'super_admin' && (
                     <SwiperSlide className={styles.swiperSlide}>
                         <CardRealtor
                             image={getImageUrl(user.avatar)}
