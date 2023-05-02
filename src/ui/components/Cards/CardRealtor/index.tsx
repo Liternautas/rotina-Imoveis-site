@@ -26,7 +26,7 @@ export function CardRelease({ image, link, title, subtitle }: Props) {
     return (
         <Card
             ref={ref}
-            sx={{ position: 'relative' }}
+            sx={{ position: 'relative', cursor: 'pointer' }}
             onClick={() => link && router.push(link)}
             style={{
                 boxShadow: 'none',

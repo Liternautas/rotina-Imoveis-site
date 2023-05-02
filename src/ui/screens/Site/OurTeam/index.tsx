@@ -81,10 +81,10 @@ export function OurTeam() {
                                     <Box>
                                         <Typography sx={{
                                             fontWeight: 600
-                                        }}>{pickup?.name}</Typography>
+                                        }}>{pickup?.name ?? 'Rotina Imóveis'}</Typography>
                                         <Typography sx={{
                                             fontSize: 14
-                                        }}>{pickup?.email}</Typography>
+                                        }}>{pickup?.email ?? 'rotinaimoveis@hotmail.com'}</Typography>
                                         <Typography sx={{
                                             fontSize: 14
                                         }}>{pickup?.creci}</Typography>

@@ -66,7 +66,7 @@ export default function Header() {
                             </LinkItem>
                         </Link>
                         <Link href={'/nossa-equipe'} title="Nossa equipe">
-                            <LinkItem variant={"caption"} active={router.asPath === '/nossa-equipe'}>
+                            <LinkItem variant={"caption"} active={router.asPath.startsWith('/nossa-equipe')}>
                                 Nossa equipe
                             </LinkItem>
                         </Link>
