@@ -19,7 +19,7 @@ export function About() {
                     minWidth: 300
                 }}>
                     <Title variant="h2">Sobre a Rotina Imóveis</Title>
-                    <Typography variant="subtitle1" component={'p'}>A Rotina Imóveis é uma empresa do setor imobiliário que atua na cidade de Catalão, Goiás. Fundada em [ano de fundação], a empresa tem como missão oferecer serviços de qualidade e soluções eficientes para seus clientes, sempre buscando a satisfação dos mesmos através de um atendimento personalizado e transparente.</Typography>
+                    <Typography variant="subtitle1" component={'p'}>A Rotina Imóveis é uma empresa especializada em serviços imobiliários que oferece soluções completas para seus clientes. Com mais de 25 anos de experiência no mercado, a empresa se destaca pela qualidade do atendimento e pela variedade de opções em imóveis residenciais e comerciais. Seja para compra, venda ou locação, a Rotina Imóveis conta com uma equipe de profissionais qualificados e comprometidos em encontrar as melhores opções para atender às necessidades de cada cliente. Além disso, a empresa também oferece serviços de administração de condomínios e consultoria imobiliária. Confie na Rotina Imóveis e encontre o imóvel dos seus sonhos!</Typography>
                 </Box>
                 <img src="/about-01.png" />
             </Section>
