@@ -17,12 +17,14 @@ interface FindPropertiesProps {
     adType?: number | string,
     page?: number | string,
     maxPrice?: number | string,
-    minPrice?: number | string
+    minPrice?: number | string,
+    pickupId?: string
 }
 
 interface FilterContextProps {
     address: useAddressProps;
     type: useSelectProps;
+    users: useSelectProps;
     adType: useSelectProps;
     results: IProperty[];
     total: number;
@@ -39,7 +41,7 @@ const FilterContext = createContext({} as FilterContextProps);
 
 const FilterProvider = ({ children }) => {
     const router = useRouter();
-    const { adType: adTypeQuery, type: typeQuery, cityId, districtId, page: pageQuery } = router.query;
+    const { adType: adTypeQuery, type: typeQuery, cityId, districtId, page: pageQuery, pickup: pickupQuery } = router.query;
     const notification = useNotification();
 
     const [page, setPage] = useState(1);
@@ -49,6 +51,7 @@ const FilterProvider = ({ children }) => {
     const address = useAddress();
     const { city, district, state } = address;
     const pickup = useSelect();
+    const users = useSelect();
     const priceMin = useForm('price');
     const priceMax = useForm('price');
     const type = useSelect();
@@ -73,7 +76,7 @@ const FilterProvider = ({ children }) => {
         const { city, district } = address;
         const asPath = router.asPath;
         let path = `properties?page=${page ?? 1}`;
-        { !asPath.startsWith('/admin') ? path = path + '&status=disponivel' : null}
+        { !asPath.startsWith('/admin') ? path = path + '&status=disponivel' : null }
         { adType.value ? path = path + `&adType=${adType.value.enum}` : null }
         { city.value ? path = path + `&cityId=${city.value.id}` : null }
         { pickup.value ? path = path + `&realtorId=${pickup.value.id}` : null }
@@ -93,8 +96,8 @@ const FilterProvider = ({ children }) => {
         let path = `properties?`;
         const asPath = router.asPath;
 
-        { adType ? path = path + `adType=${adType}` : null }
-        { !asPath.startsWith('/admin') ? path = path + '&status=disponivel' : null}
+        { adType ? path = path + `adType=${adType}` : path = path + `adType=venda` }
+        { !asPath.startsWith('/admin') ? path = path + '&status=disponivel' : null }
         { typeId ? path = path + `&typeId=${typeId}` : null }
         { cityId ? path = path + `&cityId=${cityId}` : null }
         { districtId ? path = path + `&districtId=${districtId}` : null }
@@ -117,7 +120,7 @@ const FilterProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    }, [adTypeQuery, cityId, districtId, typeQuery]);
+    }, [adTypeQuery, cityId, districtId, typeQuery, pickupQuery]);
 
     const findPropertiesAdmin = async (page?: number) => {
         try {
@@ -142,16 +145,18 @@ const FilterProvider = ({ children }) => {
         { districtId && district.onChange(districts.find(item => item.id === +districtId) as OptionSelectProps) };
         { typeQuery && type.onChange(typeSelected) };
         { adTypeQuery && adType.onChange(adTypes.find(item => item.enum === adTypeQuery) as OptionSelectProps) };
+        { pickupQuery && pickup.onChange({ id: pickupQuery } as OptionSelectProps) };
         { pageQuery && setPage(+pageQuery) };
-        if (adTypeQuery || cityId || districtId || typeQuery || pageQuery) {
-            findProperties({ adType: adTypeQuery?.toString(), cityId: +cityId, districtId: +districtId, page: +pageQuery, typeId: typeSelected?.id });
+        if (adTypeQuery || cityId || districtId || typeQuery || pageQuery || pickupQuery) {
+            findProperties({ adType: adTypeQuery?.toString(), cityId: +cityId, districtId: +districtId, page: +pageQuery, typeId: typeSelected?.id, pickupId: pickupQuery?.toString() });
         }
-    }, [adTypeQuery, cityId, districtId, typeQuery, pageQuery]);
+    }, [adTypeQuery, cityId, districtId, typeQuery, pageQuery, pickupQuery]);
 
     return (
         <FilterContext.Provider value={{
             address,
             type,
+            users,
             adType,
             results,
             pickup,

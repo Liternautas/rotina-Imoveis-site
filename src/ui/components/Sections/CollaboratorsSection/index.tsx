@@ -49,7 +49,12 @@ export function CollaboratorsSection({ realtors }: Props) {
             >
                 {realtors?.map(user => (
                     <SwiperSlide className={styles.swiperSlide}>
-                        <CardRealtor image={getImageUrl(user.avatar)} title={user.name} subtitle={roles.find(item => item.enum === user.role).name} />
+                        <CardRealtor
+                            image={getImageUrl(user.avatar)}
+                            title={user.name}
+                            subtitle={roles.find(item => item.enum === user.role).name}
+                            link={`/nossa-equipe?pickup=${user.id}&adType=venda`}
+                        />
                     </SwiperSlide>
                 ))}
                 <SwiperButtons state={state} />

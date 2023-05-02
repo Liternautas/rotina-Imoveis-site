@@ -8,13 +8,14 @@ import { FilterContainer } from "./styles";
 
 export function Filter({close}) {
     const router = useRouter();
-    const {address, type, adType, page} = useFilter();
+    const {address, type, adType, page, pickup} = useFilter();
     const {city, district} = address;
 
     const handleSubmit = async () => {
         close();
-        let path = `/imoveis/filter?`;
+        let path = router.asPath.startsWith(`/imoveis/filter`) ? `/imoveis/filter?` : `/nossa-equipe?`;
         path = path + `adType=${+adType.value.id <= 1 ? 'venda' : 'aluguel'}`;
+        {pickup.value ? path = path + `&pickup=${pickup.value.id}` : null}
         {type.value ? path = path + `&type=${normalize(type.value.name)}` : null}
         {city.value ? path = path + `&cityId=${city.value.id}` : null}
         {district.value ? path = path + `&districtId=${district.value.id}` : null}

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { DialogIcon } from "@/src/ui/components/DialogIcon";
-import { ModalAddUser } from "@/src/ui/components/modals/ModalAddUser";
+import { ModalAddUser, roles } from "@/src/ui/components/modals/ModalAddUser";
 import { useUser } from "@/src/contexts/UserContext";
 import { Delete, Edit } from "@mui/icons-material";
 
@@ -105,7 +105,7 @@ export function Collaborators({ users, title = 'Users', total }) {
                 <Typography>{title}</Typography>
                 <ModalAddUser />
             </Box>
-            <Loading open={loading}/>
+            <Loading open={loading} />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
@@ -124,11 +124,13 @@ export function Collaborators({ users, title = 'Users', total }) {
                         </TableHead>
                         <TableBody>
                             {results.map((row) => {
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                if (column.id === 'actions') {
+                                return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                        {columns.map((column) => {
+                                            const value = row[column.id];
+
+                                            switch (column.id) {
+                                                case "actions":
                                                     return (
                                                         <TableCell>
                                                             <Box>
@@ -145,7 +147,13 @@ export function Collaborators({ users, title = 'Users', total }) {
                                                             </Box>
                                                         </TableCell>
                                                     )
-                                                } else {
+                                                case "role":
+                                                    return (
+                                                        <TableCell key={column.id} align={column.align}>
+                                                            {roles.find(item => item.enum === value).name}
+                                                        </TableCell>
+                                                    );
+                                                default:
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
                                                             {column.format && typeof value === 'number'
@@ -153,11 +161,11 @@ export function Collaborators({ users, title = 'Users', total }) {
                                                                 : value}
                                                         </TableCell>
                                                     );
-                                                }
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
+                                            }
+                                        })}
+                                    </TableRow>
+                                );
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>

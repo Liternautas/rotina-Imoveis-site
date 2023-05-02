@@ -23,22 +23,27 @@ const style = {
 
 export const roles = [
     {
-        name: 'Administrador',
+        id: 1,
+        name: 'Assistente Administrativo',
         enum: 'admin'
     },
     {
-        name: 'Colaborador',
+        id: 2,
+        name: 'Estagiário',
         enum: 'collaborator'
     },
     {
+        id: 3,
         name: 'Corretor',
         enum: 'realtor'
     },
     {
+        id: 4,
         name: 'Proprietário',
         enum: 'owner'
     },
     {
+        id: 5,
         name: 'Cliente',
         enum: 'customer'
     },

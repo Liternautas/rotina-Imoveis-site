@@ -11,7 +11,7 @@ import { maskPrice } from "@/src/helpers/mask";
 import { api } from "@/src/services/api";
 
 interface Props {
-    property: IProperty;
+    property?: IProperty;
 }
 
 export function ModalContact({ property }: Props) {
@@ -31,12 +31,12 @@ export function ModalContact({ property }: Props) {
 
     const generateMessage = () => {
         let message = '';
-        let type = property.type;
-        let adType = findNameInOptions(property.adType, adTypes);
+        let type = property?.type;
+        let adType = findNameInOptions(property?.adType, adTypes);
         if (property) {
             message = `Olá, Gostaria de ter mais informações do imóvel de Cód. ${property.code}; ${type.name} ${adType === 'Venda' ? `à ${adType}` : `para ${adType}`} de R$ ${maskPrice(property.price)} em ${property.address?.district?.name ?? property.address?.city?.name}, que encontrei no seu site. Aguardo seu contato. Obrigado!`
         } else {
-            message = `Olá, Gostaria de ter mais informações do imóvel \n`
+            message = `Olá, Gostaria de ter algumas informações em relação a imóveis. \n`
         }
         return message;
     }

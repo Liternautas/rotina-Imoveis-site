@@ -4,7 +4,7 @@ export enum Role {
     realtor = 'realtor',
     collaborator = 'collaborator',
     owner = 'owner',
-    customer = 'customer'
+    customer = 'customer',
 }
 
 export interface IUser {

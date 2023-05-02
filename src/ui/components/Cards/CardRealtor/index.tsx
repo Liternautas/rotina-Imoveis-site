@@ -36,7 +36,7 @@ export function CardRelease({ image, link, title, subtitle }: Props) {
         >
             {image &&
                 <CardMedia
-                    sx={{ height: heigth, borderRadius: 1, position: 'relative' }}
+                    sx={{ height: heigth, borderRadius: 1, position: 'relative', overflow: 'hidden' }}
                 >
                     {image && <Image loading="eager" fill sizes="200px" src={getImageUrl(image)} alt="" />}
                 </CardMedia>

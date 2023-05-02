@@ -2,8 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { useUser } from "@/src/contexts/UserContext";
 import { useForm } from "@/src/hooks/useForm";
 import { IUser } from "@/src/interfaces";
-import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography, Avatar } from "@mui/material";
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography, Avatar, Autocomplete } from "@mui/material";
 import { getImageUrl } from "@/src/helpers/functions";
+import { roles } from "@/src/ui/components/modals/ModalAddUser";
+import { useSelect } from "@/src/hooks/useSelect";
 
 interface Props {
     user: IUser;
@@ -14,34 +16,6 @@ interface IRole {
     enum: string
 }
 
-const roles: IRole[] = [
-    {
-        id: 0,
-        name: 'Administrador',
-        enum: 'admin'
-    },
-    {
-        id: 1,
-        name: 'Colaborador',
-        enum: 'collaborator'
-    },
-    {
-        id: 2,
-        name: 'Corretor',
-        enum: 'realtor'
-    },
-    {
-        id: 3,
-        name: 'Proprietário',
-        enum: 'owner'
-    },
-    {
-        id: 3,
-        name: 'Cliente',
-        enum: 'customer'
-    },
-]
-
 export function CollaboratorsUpdate({ user }: Props) {
     const { update, uploadAvatar } = useUser();
     const fileInputRef = useRef(null);
@@ -51,7 +25,7 @@ export function CollaboratorsUpdate({ user }: Props) {
     const creci = useForm();
     const password = useForm();
     const phone = useForm('phone');
-    const [role, setRole] = useState<IRole>();
+    const role = useSelect(roles);
     const [avatar, setAvatar] = useState(null);
 
     const handleUploadAvatar = async ({ target }) => {
@@ -69,7 +43,7 @@ export function CollaboratorsUpdate({ user }: Props) {
             name: name.value,
             phone: phone.value,
             id: user.id,
-            role: role.enum,
+            role: role.value.enum,
             document: document.value,
             creci: creci.value
         });
@@ -82,7 +56,7 @@ export function CollaboratorsUpdate({ user }: Props) {
             phone.setValue(user.phone);
             document.setValue(user.document);
             creci.setValue(user.creci);
-            setRole(roles.find(value => value.enum === user.role));
+            role.onChange(roles.find(value => value.enum === user.role) as IRole);
         }
     }, [user]);
 
@@ -155,18 +129,17 @@ export function CollaboratorsUpdate({ user }: Props) {
                 <TextField id="outlined-basic" label="CPF (Opcional)" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
                 <TextField id="outlined-basic" label="Creci (Opcional)" variant="outlined" value={creci.value} onChange={e => creci.onChange(e)} fullWidth />
                 <TextField id="outlined-basic" label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} />
-                <FormControl>
-                    <InputLabel id="demo-simple-select-label" shrink={true}>Função</InputLabel>
-                    <Select
-                        value={role || ""} // THIS IS NEEDED
-                        defaultValue={role || ""}
-                        displayEmpty
-                        renderValue={(value: IRole) => <Box>{value.name ?? ''}</Box>}
-                        label="Função"
-                    >
-                        {roles.map(role => <MenuItem value={role.id} onClick={() => setRole(role)}>{role.name}</MenuItem>)}
-                    </Select>
-                </FormControl>
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={role.options}
+                    sx={{ flex: 1, minWidth: 200 }}
+                    value={role.value}
+                    onChange={(e, value) => role.onChange(value)}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label="Tipo" />}
+                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                />
                 <Button variant="contained" sx={{
                     color: '#fff',
                     height: 48,

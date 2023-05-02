@@ -65,6 +65,11 @@ export default function Header() {
                                 Contato
                             </LinkItem>
                         </Link>
+                        <Link href={'/nossa-equipe'} title="Nossa equipe">
+                            <LinkItem variant={"caption"} active={router.asPath === '/nossa-equipe'}>
+                                Nossa equipe
+                            </LinkItem>
+                        </Link>
                     </Box>
                     <Box sx={{
                         flexGrow: 1,

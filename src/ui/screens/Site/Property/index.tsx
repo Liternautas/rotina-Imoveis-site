@@ -11,7 +11,6 @@ import { Aside, Description, Footer, GridItem, Subtitle, Title } from "./styles"
 import { ModalScheduling } from '@/src/ui/components/modals/ModalScheduling';
 import { ModalContact } from '@/src/ui/components/modals/ModalContact';
 import { getImageUrl, getImmobileTitleCard, normalize } from "@/src/helpers/functions";
-import { HeadComponent } from "@/src/ui/components/HeadComponent";
 
 interface IShareData {
     title: string;
@@ -217,22 +216,23 @@ export function Property({ properties, property }: Props) {
                                     }}>R$ {maskPrice(priceFinal.toString())}</Typography>
                                 </Box>
                             </Box>
-                            {pickup && <Box sx={{
-                                display: "flex",
-                                gap: 1,
-                                mt: 2
-                            }}>
-                                <Avatar src={getImageUrl(pickup.avatar)}>{pickup.name.substring(0, 1)}</Avatar>
-                                <Box>
-                                    <Typography>{pickup.name}</Typography>
-                                    <Typography sx={{
-                                        fontSize: 14
-                                    }}>{pickup.email}</Typography>
-                                    <Button sx={{
-                                        p: 0
-                                    }}>Veja mais imóveis desse corretor</Button>
-                                </Box>
-                            </Box>}
+                            {pickup &&
+                                <Box sx={{
+                                    display: "flex",
+                                    gap: 1,
+                                    mt: 2
+                                }}>
+                                    <Avatar src={getImageUrl(pickup.avatar)}>{pickup.name.substring(0, 1)}</Avatar>
+                                    <Box>
+                                        <Typography>{pickup.name}</Typography>
+                                        <Typography sx={{
+                                            fontSize: 14
+                                        }}>{pickup.email}</Typography>
+                                        <Button sx={{
+                                            p: 0
+                                        }}>Veja mais imóveis desse corretor</Button>
+                                    </Box>
+                                </Box>}
                             <Box sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
