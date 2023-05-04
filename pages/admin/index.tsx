@@ -4,7 +4,7 @@ import { Dashboard } from "@/src/ui/screens/Admin/Dashboard";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 
-export default function AdminPage({properties, propertiesByMonth, types, leads, salesContracts, rentalContracts}) {
+export default function AdminPage({properties, propertiesByMonth, types, leads, salesContracts, rentalContracts, rentalContractsData}) {
     const { loading } = useAuth();
     return (
         <Dashboard
@@ -12,6 +12,7 @@ export default function AdminPage({properties, propertiesByMonth, types, leads, 
             propertiesByMonth={propertiesByMonth}
             salesContracts={salesContracts}
             rentalContracts={rentalContracts}
+            rentalContractsData={rentalContractsData}
             types={types}
             leads={leads}
         />
@@ -39,6 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
             leads: res.leads ?? null,
             salesContracts: res.salesContracts ?? null,
             rentalContracts: res.rentalContracts ?? null,
+            rentalContractsData: res.rentalContractsData ?? null,
             types: types ?? null,
         }
     }

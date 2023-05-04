@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function CardPropertyH({ property, isLink }: Props) {
-    const {adType, type, address, code} = property;
+    const { adType, type, address, code } = property;
 
     return (
         <>
@@ -27,7 +27,7 @@ export function CardPropertyH({ property, isLink }: Props) {
 }
 
 function CardComponent({ property }: Props) {
-    const {adType, type, code} = property;
+    const { adType, type, code } = property;
     return (
         <Card sx={{
             position: 'relative',
@@ -46,13 +46,13 @@ function CardComponent({ property }: Props) {
             boxShadow: '0 2px 4px rgba(0, 0, 0, .15)'
         }}>
             <CardMedia
-                sx={{ 
+                sx={{
                     width: {
                         xs: '100%',
                         md: '40%'
-                    }, 
+                    },
                     minWidth: '40%',
-                    height: 190 
+                    height: 190
                 }}
                 image={getImageUrl(property.images[0])}
             />
@@ -118,7 +118,7 @@ function CardComponent({ property }: Props) {
                                 fontSize: 14,
                                 fontWeight: 600,
                                 color: 'secondary.main',
-                            }}>120m²</Typography>
+                            }}>{property.totalArea}m²</Typography>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <BedOutlined sx={{ color: "primary.main" }} />
@@ -126,7 +126,7 @@ function CardComponent({ property }: Props) {
                                 fontSize: 14,
                                 fontWeight: 600,
                                 color: 'secondary.main',
-                            }}>4</Typography>
+                            }}>{property.numberRooms}</Typography>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <ShowerOutlined sx={{ color: "primary.main" }} />
@@ -134,7 +134,7 @@ function CardComponent({ property }: Props) {
                                 fontSize: 14,
                                 fontWeight: 600,
                                 color: 'secondary.main',
-                            }}>2</Typography>
+                            }}>{property.numberBathroom}</Typography>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <DirectionsCarOutlined sx={{ color: "primary.main" }} />
@@ -142,7 +142,7 @@ function CardComponent({ property }: Props) {
                                 fontSize: 14,
                                 fontWeight: 600,
                                 color: 'secondary.main',
-                            }}>1</Typography>
+                            }}>{property.numberGarage}</Typography>
                         </Box>
                     </Box>
                 </Box>

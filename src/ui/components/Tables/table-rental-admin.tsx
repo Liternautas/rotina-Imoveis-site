@@ -8,6 +8,7 @@ import { IRentalContract } from "@/src/interfaces";
 import { CardPropertyTable } from "../Cards/CardPropertyTable";
 import { formatDate } from "@/src/helpers/date";
 import { useContracts } from "@/src/contexts/ContractsContext";
+import { AlertStatusContract } from "../AlertStatusContract";
 
 export function TableRentalAdmin({ contracts, action = true, file = false }) {
     const router = useRouter();
@@ -127,7 +128,7 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                 case 'locator':
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {row.locator?.name}
+                                                            <AlertStatusContract dataVencimento={row.end}/>
                                                         </TableCell>
                                                     )
                                                 case 'tenant':

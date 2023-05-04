@@ -250,6 +250,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
 
     const code = useForm('number');
     const price = useForm('price');
+    const shorts = useForm('price');
     const cpf = useForm('cpf');
     const rg = useForm('rg');
     const profession = useForm();
@@ -262,12 +263,18 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
     const endDate = useForm();
     const signatureDate = useForm();
 
+    const guarantorName = useForm();
+    const guarantorEmail = useForm('email');
+    const guarantorCpf = useForm('cpf');
+    const guarantorRg = useForm('rg');
+    const guarantorProfession = useForm();
+    const guarantorNationality = useForm();
+    const guarantorPhone = useForm('phone');
+    const guarantorMaritalStatus = useSelect(maritalsStatus);
+
     const handleSubmit = async () => {
         const contract: IRentalContract = {
             id: +id,
-            locator: {
-                id: realtor.value.id.toString()
-            },
             owner: {
                 id: owner.value.id.toString()
             },
@@ -278,6 +285,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             start: new Date(startDate.value),
             end: new Date(endDate.value),
             price: price.value,
+            shorts: shorts.value,
             property: {
                 id: property.id
             },
@@ -296,6 +304,15 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                     id: +state.value.id
                 }
             },
+
+            guarantorCpf: guarantorCpf.value,
+            guarantorEmail: guarantorEmail.value,
+            guarantorMaritalStatus: guarantorMaritalStatus.value.enum,
+            guarantorName: guarantorName.value,
+            guarantorNationality: guarantorNationality.value,
+            guarantorPhone: guarantorPhone.value,
+            guarantorProfession: guarantorProfession.value,
+            guarantorRg: guarantorRg.value
         }
         await updateRental(contract);
     }
@@ -341,6 +358,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             { contract.locator && realtor.onChange(contract.locator as OptionSelectProps) }
             { contract.tenant && tenant.onChange(contract.tenant as OptionSelectProps) }
             { contract.price && price.setValue(maskPrice(contract.price)) }
+            { contract.shorts && shorts.setValue(maskPrice(contract.shorts)) }
             const start = new Date(contract.start.toString().split('T')[0]);
             start.setHours(start.getHours() + 4);
             const startStr = start.toLocaleDateString().split('/');
@@ -366,6 +384,15 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             { contract.duration && duration.onChange(durations.find(item => +item.enum === contract.duration)) }
             { contract.document && setDocumentPath(contract.document) }
             { contract.images && setImages(contract.images) }
+            
+            { contract.guarantorName && guarantorName.setValue(contract.guarantorName) }
+            { contract.guarantorEmail && guarantorEmail.setValue(contract.guarantorEmail) }
+            { contract.guarantorPhone && guarantorPhone.setValue(contract.guarantorPhone) }
+            { contract.guarantorCpf && guarantorCpf.setValue(contract.guarantorCpf) }
+            { contract.guarantorRg && guarantorRg.setValue(contract.guarantorRg) }
+            { contract.guarantorNationality && guarantorNationality.setValue(contract.guarantorNationality) }
+            { contract.guarantorProfession && guarantorProfession.setValue(contract.guarantorProfession) }
+            { contract.guarantorMaritalStatus && guarantorMaritalStatus.onChange(maritalsStatus.find(item => item.enum === contract.guarantorMaritalStatus)) }
         }
     }, [contract]);
 
@@ -383,61 +410,48 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                     {property && <CardPropertyH property={property} isLink={false} />}
                 </Box>
                 {property &&
-                    <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={pickup?.options}
-                                value={pickup.value}
-                                onChange={(e, value) => pickup.onChange(value)}
-                                getOptionLabel={(option) => option.name}
-                                renderInput={(params) => <TextField {...params} label="Captador" />}
-                                renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                sx={{ width: 300 }}
-                                readOnly
-                            />
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={owner?.options}
-                                value={owner.value}
-                                onChange={(e, value) => owner.onChange(value)}
-                                getOptionLabel={(option) => option.name}
-                                renderInput={(params) => <TextField {...params} label="Proprietário" />}
-                                renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                sx={{ width: 300 }}
-                                readOnly
-                            />
-                        </Box>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={realtor?.options}
-                                value={realtor.value}
-                                onChange={(e, value) => realtor.onChange(value)}
-                                getOptionLabel={(option) => option.name}
-                                renderInput={(params) => <TextField {...params} label="Responsável" />}
-                                renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                sx={{ width: 300 }}
-                                readOnly
-                            />
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={tenant?.options}
-                                value={tenant.value}
-                                onChange={(e, value) => tenant.onChange(value)}
-                                getOptionLabel={(option) => option.name}
-                                renderInput={(params) => <TextField {...params} label="Inquilino" />}
-                                renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                sx={{ width: 300 }}
-                                readOnly
-                            />
-                        </Box>
+                    <Box sx={{ maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do contrato</Typography>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <Autocomplete
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={pickup?.options}
+                                    value={pickup.value}
+                                    onChange={(e, value) => pickup.onChange(value)}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => <TextField {...params} label="Captador" />}
+                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                    sx={{ width: 300 }}
+                                    readOnly
+                                />
+                                <Autocomplete
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={owner?.options}
+                                    value={owner.value}
+                                    onChange={(e, value) => owner.onChange(value)}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => <TextField {...params} label="Proprietário" />}
+                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                    sx={{ width: 300 }}
+                                    readOnly
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <Autocomplete
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={tenant?.options}
+                                    value={tenant.value}
+                                    onChange={(e, value) => tenant.onChange(value)}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => <TextField {...params} label="Inquilino" />}
+                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                    sx={{ width: 300 }}
+                                />
+                            </Box>
                             <Box sx={{ display: "flex", gap: 2 }}>
                                 <TextField
                                     label="Início"
@@ -497,7 +511,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     sx={{ width: 200 }}
                                 />
                                 <TextField
-                                    label="Criado em"
+                                    label="Data de assinatura"
                                     variant="outlined"
                                     InputProps={{
                                         startAdornment: <InputAdornment position="start"><DateRangeOutlined /></InputAdornment>,
@@ -505,6 +519,18 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     type="date"
                                     value={signatureDate.value}
                                     onChange={(e) => signatureDate.onChange(e)}
+                                    sx={{ width: 200 }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <TextField
+                                    label="Calção"
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                    }}
+                                    value={shorts.value}
+                                    onChange={(e) => shorts.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
                             </Box>
@@ -578,6 +604,76 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => <TextField {...params} label="Cidade" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                    sx={{ width: 200 }}
+                                />
+                            </Box>
+                        </Box>
+                        <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+                            <Typography variant="h6">Dados do Fiador</Typography>
+                            <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
+                                <TextField
+                                    label="Nome"
+                                    variant="outlined"
+                                    value={guarantorName.value}
+                                    onChange={(e) => guarantorName.onChange(e)}
+                                    fullWidth
+                                    sx={{ flex: 1 }}
+                                />
+                                <TextField
+                                    label="Email"
+                                    variant="outlined"
+                                    value={guarantorEmail.value}
+                                    onChange={(e) => guarantorEmail.onChange(e)}
+                                    sx={{ flex: 1 }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <TextField
+                                    label="CPF"
+                                    variant="outlined"
+                                    value={guarantorCpf.value}
+                                    onChange={(e) => guarantorCpf.onChange(e)}
+                                    sx={{ width: 200 }}
+                                />
+                                <TextField
+                                    label="RG"
+                                    variant="outlined"
+                                    value={guarantorRg.value}
+                                    onChange={(e) => guarantorRg.onChange(e)}
+                                    sx={{ width: 200 }}
+                                />
+                                <TextField
+                                    label="Profissão"
+                                    variant="outlined"
+                                    value={guarantorProfession.value}
+                                    onChange={(e) => guarantorProfession.onChange(e)}
+                                    sx={{ width: 200 }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <TextField
+                                    label="Nacionalidade"
+                                    variant="outlined"
+                                    value={guarantorNationality.value}
+                                    onChange={(e) => guarantorNationality.onChange(e)}
+                                    sx={{ width: 200 }}
+                                />
+                                <Autocomplete
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={guarantorMaritalStatus?.options}
+                                    value={guarantorMaritalStatus.value}
+                                    onChange={(e, value) => guarantorMaritalStatus.onChange(value)}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => <TextField {...params} label="Estado Civil" />}
+                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                    sx={{ width: 200 }}
+                                />
+                                <TextField
+                                    label="Telefone"
+                                    variant="outlined"
+                                    value={guarantorPhone.value}
+                                    onChange={(e) => guarantorPhone.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
                             </Box>

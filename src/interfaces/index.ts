@@ -131,6 +131,7 @@ export interface ISalesContract {
 export interface IRentalContract {
     id?: number;
     price?: string;
+    shorts?: string;
     signatureDate?: Date;
     start?: Date;
     end?: Date;
@@ -151,6 +152,15 @@ export interface IRentalContract {
     document?: string;
     images?: Array<string>;
     address?: IAddress;
+
+    guarantorName?: string;
+    guarantorEmail?: string;
+    guarantorCpf?: string;
+    guarantorRg?: string;
+    guarantorProfession?: string;
+    guarantorNationality?: string;
+    guarantorPhone?: string;
+    guarantorMaritalStatus?: string;
 }
 
 export interface IInvoice {
