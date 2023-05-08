@@ -6276,7 +6276,7 @@ export const cities = [
         apiId: 814,
         stateId: 8
     },
-    {
+    /* {
         id: 875,
         ibgeId: 5212501,
         name: "Luziânia",
@@ -7989,6 +7989,41 @@ export const cities = [
         ibgeId: 5212956,
         name: "Matrinchã",
         apiId: 3965,
+        stateId: 9
+    }, */
+    {
+        id: 980,
+        ibgeId: 5205109,
+        name: "Catalão",
+        apiId: 3826,
+        stateId: 9
+    },
+    {
+        id: 981,
+        ibgeId: 5215504,
+        name: "Ouvidor",
+        apiId: 3827,
+        stateId: 9
+    },
+    {
+        id: 982,
+        ibgeId: 5221304,
+        name: "Três Ranchos",
+        apiId: 3828,
+        stateId: 9
+    },
+    {
+        id: 983,
+        ibgeId: 5206909,
+        name: "Davinópolis",
+        apiId: 3829,
+        stateId: 9
+    },
+    {
+        id: 984,
+        ibgeId: 5208509,
+        name: "Goiandira",
+        apiId: 3830,
         stateId: 9
     },
     {

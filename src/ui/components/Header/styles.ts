@@ -41,7 +41,7 @@ export const LinkItem = styled(Typography)<PropsLink>`
     font-size: .875rem;
 `
 export const ButtonCustomer = styled(Button)`
-    background: ${({theme}) => theme.palette.secondary.main};
+    background: ${({theme}) => theme.palette.secondary.main} !important;
     color: #fff;
     height: 48px;
 

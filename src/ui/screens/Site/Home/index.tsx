@@ -6,8 +6,9 @@ import { Navigation, Pagination } from "swiper";
 
 import styles from './styles.module.scss';
 import { Subtitle, Title } from "./styles";
+import { ButtonWhatsapp } from "@/src/ui/components/ButtonWhatsapp";
 
-const BannerHome  = dynamic(() => import('@/src/ui/components/Banners/BannerHome'), {
+const BannerHome = dynamic(() => import('@/src/ui/components/Banners/BannerHome'), {
     loading: () => null,
 });
 
@@ -37,14 +38,15 @@ export function Home({ properties, banners, realtors }) {
             mt: '72px',
         }}
             component={'section'}>
+            <ButtonWhatsapp />
             <BannerHome />
             <Container>
                 <PropertiesSection properties={properties} />
                 <ReleasesSection banners={banners} />
-                <PropertiesSection 
-                title="Imóveis recém-chegados" 
-                subtitle="Descubra nossas últimas adições em imóveis, prontas para se tornarem seu novo lar."
-                properties={properties} 
+                <PropertiesSection
+                    title="Imóveis recém-chegados"
+                    subtitle="Descubra nossas últimas adições em imóveis, prontas para se tornarem seu novo lar."
+                    properties={properties}
                 />
                 <Box sx={{
                     py: 3
@@ -91,7 +93,7 @@ export function Home({ properties, banners, realtors }) {
                         </SwiperSlide>
                     </Swiper>
                 </Box>
-                <CollaboratorsSection realtors={realtors}/>
+                <CollaboratorsSection realtors={realtors} />
             </Container>
         </Box>
     )

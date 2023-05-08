@@ -10,7 +10,7 @@ export const Button = styled(ButtonMui)`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({theme}) => theme.palette.primary.main};
+    background: ${({theme}) => theme.palette.primary.main} !important;
     svg {
         color: #fff;
         font-size: 24px;
