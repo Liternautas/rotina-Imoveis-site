@@ -9,9 +9,10 @@ interface Props {
     link?: string;
     title?: string;
     subtitle?: string;
+    creci?: string;
 }
 
-export function CardRelease({ image, link, title, subtitle }: Props) {
+export function CardRelease({ image, link, title, subtitle, creci }: Props) {
     const ref = useRef(null);
     const [heigth, setHeight] = useState(190);
     const router = useRouter();
@@ -54,6 +55,11 @@ export function CardRelease({ image, link, title, subtitle }: Props) {
                     fontWeight: 500,
                     textAlign: 'center'
                 }}>{subtitle}</Typography>
+                {creci && <Typography variant="h6" sx={{
+                    fontSize: 14,
+                    fontWeight: 500,
+                    textAlign: 'center'
+                }}>{creci}</Typography>}
             </CardContent>
         </Card>
     )

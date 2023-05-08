@@ -54,6 +54,7 @@ export function CollaboratorsSection({ realtors }: Props) {
                             title={user.name}
                             subtitle={roles.find(item => item.enum === user.role).name}
                             link={`/nossa-equipe?pickup=${user.id}&adType=venda`}
+                            creci={user?.creci}
                         />
                     </SwiperSlide>
                 ))}
