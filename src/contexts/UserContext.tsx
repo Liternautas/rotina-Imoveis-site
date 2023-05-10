@@ -91,13 +91,15 @@ const UserProvider = ({ children }) => {
                     res = await api.post('users/realtors', user).then(res => res.data);
                     break;
             }
-            if (!res.success) {
+            if (!res) {
+                notification.execute('danger', "Algo deu errado.");
+            } else if (!res.success) {
                 throw new Error(res.message);
             } else {
                 notification.execute('success', "Usuário cadastrado com sucesso.");
-                if(role === Role.owner) {
+                if (role === Role.owner) {
                     await findOwners();
-                } else if(role === Role.realtor) {
+                } else if (role === Role.realtor) {
                     await findRealtors();
                 } else {
                     findAll(role === Role.customer);

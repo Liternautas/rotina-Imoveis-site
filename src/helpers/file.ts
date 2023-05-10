@@ -19,3 +19,13 @@ export const downloadFile = async (path: string) => {
     document.body.appendChild(link);
     link.click();
 };
+
+export const downloadFileToPath = async (path: string) => {
+    const link = document.createElement('a');
+    link.href = path;
+    link.setAttribute('download', 'file.pdf');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+    document.body.appendChild(link);
+    link.click();
+};
