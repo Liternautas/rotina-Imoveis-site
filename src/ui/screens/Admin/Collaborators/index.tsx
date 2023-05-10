@@ -150,7 +150,7 @@ export function Collaborators({ users, title = 'Users', total }) {
                                                 case "role":
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
-                                                            {roles.find(item => item.enum === value).name}
+                                                            {roles.find(item => item.enum === value)?.name}
                                                         </TableCell>
                                                     );
                                                 default:

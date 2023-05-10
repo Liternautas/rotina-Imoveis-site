@@ -47,6 +47,11 @@ export const roles = [
         name: 'Cliente',
         enum: 'customer'
     },
+    {
+        id: 6,
+        name: 'Super Admin',
+        enum: 'super_admin'
+    },
 ]
 
 export function ModalAddUser() {
