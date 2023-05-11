@@ -24,7 +24,7 @@ const style = {
 export const roles = [
     {
         id: 1,
-        name: 'Assistente Administrativo',
+        name: 'Analista administrativo',
         enum: 'admin'
     },
     {

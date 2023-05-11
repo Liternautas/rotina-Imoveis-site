@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 
 import styles from './styles.module.scss';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
 import { IBanner, IUser } from "@/src/interfaces";
 import { getImageUrl } from "@/src/helpers/functions";
@@ -21,6 +21,18 @@ interface Props {
 
 export function CollaboratorsSection({ realtors }: Props) {
     const [state, setState] = useState('start');
+    const [results, setResults] = useState<IUser[]>([]);
+
+    useEffect(() => {
+        if (realtors) {
+            setResults(realtors.sort(function (a, b) {
+                const roles = ['admin', 'realtor', 'collaborator'];
+                const indexA = roles.indexOf(a.role);
+                const indexB = roles.indexOf(b.role);
+                return indexA - indexB;
+            }));
+        }
+    }, []);
 
     return (
         <Box
@@ -47,7 +59,7 @@ export function CollaboratorsSection({ realtors }: Props) {
                     { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                 }}
             >
-                {realtors?.map(user => user.role != 'super_admin' && (
+                {results?.map(user => user.role != 'super_admin' && (
                     <SwiperSlide className={styles.swiperSlide}>
                         <CardRealtor
                             image={getImageUrl(user.avatar)}

@@ -19,8 +19,8 @@ export function CardProperty({ property }: Props) {
     return (
         <Link href={`imovel/${adType === 'aluguel' ? `${type.slug}-para-alugar` : `${type.slug}-a-venda`}-em-${normalize(address.city.name)}-${normalize(address.district.name)}/${code}`}>
             <Card sx={{
-                w: '276px',
-                height: '328px',
+                w: '313px',
+                height: '364px',
                 minWidth: '276px',
                 boxShadow: 'none',
                 border: '.5px solid #eee',
@@ -65,44 +65,55 @@ export function CardProperty({ property }: Props) {
                 }}>
                     <Box>
                         <Typography sx={{
+                            fontSize: 14,
+                            fontWeight: 600,
+                            lineHeight: '140%',
+                            color: "primary.main"
+                        }} variant="h2">{property.type.name}</Typography>
+                        <Typography sx={{
                             fontSize: 20,
                             fontWeight: 600,
                             lineHeight: '140%'
-                        }} variant="h2">{property.address.district.name ?? property.type.name}, {property.address.city.name}</Typography>
+                        }} variant="h2">{property.address.district.name ?? property.type.name}</Typography>
+                        <Typography sx={{
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '140%'
+                        }} variant="h2">{property.address.city.name} - {property.address.state.shortName}</Typography>
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'space-between'
                         }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <SquareFootOutlined sx={{ color: "primary.main" }} />
+                                <SquareFootOutlined sx={{ color: "#333" }} />
                                 <Typography sx={{
                                     fontSize: 14,
                                     fontWeight: 600,
-                                    color: 'secondary.main',
+                                    color: "#333"
                                 }}>{property.totalArea}m²</Typography>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <BedOutlined sx={{ color: "primary.main" }} />
+                                <BedOutlined sx={{ color: "#333" }} />
                                 <Typography sx={{
                                     fontSize: 14,
                                     fontWeight: 600,
-                                    color: 'secondary.main',
+                                    color: "#333"
                                 }}>{property.numberRooms}</Typography>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <ShowerOutlined sx={{ color: "primary.main" }} />
+                                <ShowerOutlined sx={{ color: "#333" }} />
                                 <Typography sx={{
                                     fontSize: 14,
                                     fontWeight: 600,
-                                    color: 'secondary.main',
+                                    color: "#333"
                                 }}>{property.numberBathroom}</Typography>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <DirectionsCarOutlined sx={{ color: "primary.main" }} />
+                                <DirectionsCarOutlined sx={{ color: "#333" }} />
                                 <Typography sx={{
                                     fontSize: 14,
                                     fontWeight: 600,
-                                    color: 'secondary.main',
+                                    color: "#333"
                                 }}>{property.numberGarage}</Typography>
                             </Box>
                         </Box>
