@@ -32,7 +32,7 @@ export function CollaboratorsSection({ realtors }: Props) {
                 return indexA - indexB;
             }));
         }
-    }, []);
+    }, [realtors]);
 
     return (
         <Box
