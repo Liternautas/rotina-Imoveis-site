@@ -92,7 +92,7 @@ const FilterProvider = ({ children }) => {
         findPropertiesAdmin(page);
     }, []);
 
-    const getPathByRoute = ({ adType, cityId, districtId, page, typeId, maxPrice, minPrice }: FindPropertiesProps) => {
+    const getPathByRoute = ({ adType, cityId, districtId, page, typeId, maxPrice, minPrice, pickupId }: FindPropertiesProps) => {
         let path = `properties?`;
         const asPath = router.asPath;
 
@@ -101,15 +101,16 @@ const FilterProvider = ({ children }) => {
         { typeId ? path = path + `&typeId=${typeId}` : null }
         { cityId ? path = path + `&cityId=${cityId}` : null }
         { districtId ? path = path + `&districtId=${districtId}` : null }
+        { pickupId ? path = path + `&realtorId=${pickupId}` : null }
         { page ? path = path + `&page=${page}` : null }
         return path;
     }
 
-    const findProperties = useCallback(async ({ adType, cityId, districtId, page, typeId, maxPrice, minPrice }: FindPropertiesProps) => {
+    const findProperties = useCallback(async ({ adType, cityId, districtId, page, typeId, maxPrice, minPrice, pickupId }: FindPropertiesProps) => {
         try {
             setResults([]);
             setLoading(true);
-            const { results, count } = await api.get(getPathByRoute({ adType, cityId, districtId, page, typeId, maxPrice, minPrice })).then(res => res.data);
+            const { results, count } = await api.get(getPathByRoute({ adType, cityId, districtId, page, typeId, maxPrice, minPrice, pickupId })).then(res => res.data);
 
             if (results) {
                 setResults(results);
