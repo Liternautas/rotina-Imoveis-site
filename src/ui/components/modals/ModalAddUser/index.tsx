@@ -72,11 +72,16 @@ export function ModalAddUser() {
     const handleClose = () => setOpen(false);
 
     const handleSubmit = async () => {
-        if(email.validate() && name.validate() && password.validate() && phone.validate()) {
+        if(name.validate() && phone.validate()) {
+            if(!(role.enum === 'customer') && !(role.enum === 'owner')) {
+                if(!email.validate() || !password.validate()) {
+                    return;
+                }
+            }
             await create({
-                email: email.value,
+                email: email.value && email.value != '' ? email.value : null,
                 name: name.value,
-                password: password.value,
+                password: password.value && password.value != '' ? password.value : null,
                 phone: phone.value,
                 document: document.value,
                 creci: creci.value
