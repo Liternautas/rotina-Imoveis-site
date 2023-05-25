@@ -236,7 +236,7 @@ export function CreateRentals({ customers, realtors }) {
     const maritalStatus = useSelect(maritalsStatus);
     const paymentLimit = useSelect();
     const owner = useSelect();
-    
+
     const code = useForm('number');
     const price = useForm('price');
     const shorts = useForm('price');
@@ -244,7 +244,7 @@ export function CreateRentals({ customers, realtors }) {
     const rg = useForm('rg');
     const profession = useForm();
     const nationality = useForm();
-    
+
     const guarantorName = useForm();
     const guarantorEmail = useForm('email');
     const guarantorCpf = useForm('cpf');
@@ -364,7 +364,12 @@ export function CreateRentals({ customers, realtors }) {
         }}>
             <Loading open={loading} />
             <Container>
-                <Box sx={{ mb: 5, width: 400, display: "flex", flexDirection: "column", gap: 2 }}>
+                <Typography variant="h2" sx={{
+                    fontSize: 24,
+                    fontWeight: 600,
+                    mb: 2
+                }}>Cadastrar Contrato de Locação</Typography>
+                <Box sx={{ mb: 5, width: 400, display: "flex", flexDirection: "column", gap: 1 }}>
                     <Typography variant="h6">Busque a propriedade</Typography>
                     <Paper
                         component="form"

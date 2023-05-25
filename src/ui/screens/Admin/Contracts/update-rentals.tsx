@@ -404,7 +404,10 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
         }}>
             <Container>
                 <Box sx={{ mb: 3, width: 400, display: "flex", flexDirection: "column", gap: 2 }}>
-                    <Typography variant="h6">Atualizar Contrato de locação</Typography>
+                <Typography variant="h2" sx={{
+                    fontSize: 24,
+                    fontWeight: 600,
+                }}>Cadastrar Contrato de Locação</Typography>
                 </Box>
                 <Box sx={{ width: "fit-content" }}>
                     {property && <CardPropertyH property={property} isLink={false} />}

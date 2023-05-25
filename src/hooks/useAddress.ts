@@ -29,6 +29,7 @@ export function useAddress(): useAddressProps {
 
     const setEstateOptions = useCallback(() => {
         state.setOptions(states);
+        state.onChange(states.find(state => state.shortName === 'GO'));
     }, []);
 
     const setCitiesOptions = useCallback(() => {

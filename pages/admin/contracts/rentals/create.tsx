@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     api.defaults.headers['Authorization'] = `Bearer ${token}`
 
-    const customers = await api.get('users/customers').then(res => res.data);
+    const customers = await api.get('users/customers?limit=300').then(res => res.data);
     const realtors = await api.get('users/realtors').then(res => res.data);
 
     return {
