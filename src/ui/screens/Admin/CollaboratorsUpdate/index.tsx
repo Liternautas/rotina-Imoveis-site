@@ -45,13 +45,19 @@ export function CollaboratorsUpdate({ user }: Props) {
 
     const handleSubmit = async () => {
         await update({
-            email: email.value,
+            email: email.value && email.value != '' ? email.value : null,
             name: name.value,
+            password: password.value && password.value != '' ? password.value : null,
             phone: phone.value,
+            document: document.value && document.value != '' ? document.value : null,
+            creci: creci.value && creci.value != '' ? creci.value : null,
+            cpf: cpf.value && cpf.value != '' ? cpf.value : null,
+            rg: rg.value && rg.value != '' ? rg.value : null,
+            nationality: nationality.value && nationality.value != '' ? nationality.value : null,
+            maritalStatus: maritalStatus.value.enum,
+            profession: profession.value && profession.value != '' ? profession.value : null,
             id: user.id,
             role: role.value.enum,
-            document: document.value,
-            creci: creci.value
         });
     }
 

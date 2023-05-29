@@ -116,7 +116,7 @@ export function ModalAddUser() {
                 name: name.value,
                 password: password.value && password.value != '' ? password.value : null,
                 phone: phone.value,
-                document: document.value,
+                document: document.value && document.value != '' ? document.value : null,
                 creci: creci.value && creci.value != '' ? creci.value : null,
                 cpf: cpf.value && cpf.value != '' ? cpf.value : null,
                 rg: rg.value && rg.value != '' ? rg.value : null,
