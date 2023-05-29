@@ -54,7 +54,7 @@ export function CollaboratorsUpdate({ user }: Props) {
             cpf: cpf.value && cpf.value != '' ? cpf.value : null,
             rg: rg.value && rg.value != '' ? rg.value : null,
             nationality: nationality.value && nationality.value != '' ? nationality.value : null,
-            maritalStatus: maritalStatus.value.enum,
+            maritalStatus: maritalStatus?.value?.enum,
             profession: profession.value && profession.value != '' ? profession.value : null,
             id: user.id,
             role: role.value.enum,
