@@ -17,6 +17,12 @@ export interface IUser {
     creci?: string;
     avatar?: string;
     role?: string;
+    cpf?: string;
+    rg?: string;
+    profession?: string;
+    nationality?: string;
+    maritalStatus?: string;
+
     rentalContracts?: IRentalContract[];
     rentalContractsLocator?: IRentalContract[];
     rentalContractsTenant?: IRentalContract[];

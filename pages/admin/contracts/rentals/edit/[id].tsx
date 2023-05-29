@@ -5,10 +5,10 @@ import { parseCookies } from "nookies";
 import { ContractsProvider } from "@/src/contexts/ContractsContext";
 import { UpdateRentals } from "@/src/ui/screens/Admin/Contracts/update-rentals";
 
-export default function UpdateContractsPage({ customers, realtors, contract }) {
+export default function UpdateContractsPage({ customers, realtors, contract, owners }) {
     return (
         <ContractsProvider>
-            <UpdateRentals contract={contract} customers={customers} realtors={realtors} />
+            <UpdateRentals contract={contract} customers={customers} realtors={realtors} owners={owners} />
         </ContractsProvider>
     )
 }
@@ -27,12 +27,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     api.defaults.headers['Authorization'] = `Bearer ${token}`
 
     const customers = await api.get('users/customers?limit=300').then(res => res.data);
+    const owners = await api.get('users/owners?limit=300').then(res => res.data);
     const realtors = await api.get('users/realtors').then(res => res.data);
     const {result} = await api.get(`rental-contracts/${ctx.query.id}`).then(res => res.data);
 
     return {
         props: {
             customers: customers.results ?? [],
+            owners: customers.results ?? [],
             realtors: realtors.results ?? [],
             contract: result ?? null
         }

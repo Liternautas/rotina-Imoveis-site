@@ -4,8 +4,9 @@ import { useForm } from "@/src/hooks/useForm";
 import { IUser } from "@/src/interfaces";
 import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography, Avatar, Autocomplete } from "@mui/material";
 import { getImageUrl } from "@/src/helpers/functions";
-import { roles } from "@/src/ui/components/modals/ModalAddUser";
+import { maritalsStatus, roles } from "@/src/ui/components/modals/ModalAddUser";
 import { useSelect } from "@/src/hooks/useSelect";
+import { maskCpf } from "@/src/helpers/mask";
 
 interface Props {
     user: IUser;
@@ -27,6 +28,11 @@ export function CollaboratorsUpdate({ user }: Props) {
     const phone = useForm('phone');
     const role = useSelect(roles);
     const [avatar, setAvatar] = useState(null);
+    const maritalStatus = useSelect();
+    const cpf = useForm('cpf');
+    const rg = useForm('rg');
+    const profession = useForm();
+    const nationality = useForm();
 
     const handleUploadAvatar = async ({ target }) => {
         await uploadAvatar(user.id, target.files[0]);
@@ -57,8 +63,17 @@ export function CollaboratorsUpdate({ user }: Props) {
             document.setValue(user.document);
             creci.setValue(user.creci);
             role.onChange(roles.find(value => value.enum === user.role) as IRole);
+            cpf.setValue(maskCpf(user.cpf ?? ''));
+            rg.setValue(user.rg ?? '');
+            nationality.setValue(user.nationality ?? '');
+            profession.setValue(user.profession ?? '');
+            { user.maritalStatus && maritalStatus.onChange(maritalsStatus.find(item => item.enum === user.maritalStatus)) }
         }
     }, [user]);
+
+    useEffect(() => {
+        maritalStatus.setOptions(maritalsStatus);
+    }, []);
 
     return (
         <Container sx={{
@@ -73,7 +88,7 @@ export function CollaboratorsUpdate({ user }: Props) {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                maxWidth: 400
+                maxWidth: 600
             }}>
                 <Box sx={{
                     width: '100%',
@@ -126,8 +141,6 @@ export function CollaboratorsUpdate({ user }: Props) {
                 </Box>
                 <TextField id="outlined-basic" label="Nome" variant="outlined" value={name.value} onChange={e => name.onChange(e)} />
                 <TextField id="outlined-basic" label="Telefone" variant="outlined" value={phone.value} onChange={e => phone.onChange(e)} />
-                <TextField id="outlined-basic" label="CPF (Opcional)" variant="outlined" value={document.value} onChange={e => document.onChange(e)} fullWidth />
-                <TextField id="outlined-basic" label="Creci (Opcional)" variant="outlined" value={creci.value} onChange={e => creci.onChange(e)} fullWidth />
                 <TextField id="outlined-basic" label="Email" variant="outlined" value={email.value} onChange={e => email.onChange(e)} />
                 <Autocomplete
                     disablePortal
@@ -140,6 +153,58 @@ export function CollaboratorsUpdate({ user }: Props) {
                     renderInput={(params) => <TextField {...params} label="Tipo" />}
                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
                 />
+                {
+                    role?.value?.name === 'Cliente' &&
+                    <>
+                        <Box sx={{ display: "flex", flexWrap: 'wrap', gap: 2 }}>
+                            <TextField
+                                label="CPF"
+                                variant="outlined"
+                                value={cpf.value}
+                                onChange={(e) => cpf.onChange(e)}
+                                sx={{ minWidth: 200, flex: 1 }}
+                            />
+                            <TextField
+                                label="RG"
+                                variant="outlined"
+                                value={rg.value}
+                                onChange={(e) => rg.onChange(e)}
+                                sx={{ minWidth: 200, flex: 1 }}
+                            />
+                        </Box>
+                        <TextField
+                            label="Profissão"
+                            variant="outlined"
+                            value={profession.value}
+                            onChange={(e) => profession.onChange(e)}
+                            sx={{ width: '100%' }}
+                        />
+                        <Box sx={{ display: "flex", flexWrap: 'wrap', gap: 2 }}>
+                            <TextField
+                                label="Nacionalidade"
+                                variant="outlined"
+                                value={nationality.value}
+                                onChange={(e) => nationality.onChange(e)}
+                                sx={{ minWidth: 200, flex: 1 }}
+                            />
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={maritalStatus?.options}
+                                value={maritalStatus.value}
+                                onChange={(e, value) => maritalStatus.onChange(value)}
+                                getOptionLabel={(option) => option.name}
+                                renderInput={(params) => <TextField {...params} label="Estado Civil" />}
+                                renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                sx={{ minWidth: 200, flex: 1 }}
+                            />
+                        </Box>
+                    </>
+                }
+                {
+                    role?.value?.name === 'Corretor' &&
+                    <TextField id="outlined-basic" label="Creci (Opcional)" variant="outlined" value={creci.value} onChange={e => creci.onChange(e)} fullWidth />
+                }
                 <Button variant="contained" sx={{
                     color: '#fff',
                     height: 48,

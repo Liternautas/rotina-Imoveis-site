@@ -229,10 +229,11 @@ const paymentLimits = [
 interface Props {
     customers: IUser[];
     realtors: IUser[];
+    owners: IUser[];
     contract: IRentalContract;
 }
 
-export function UpdateRentals({ customers, realtors, contract }: Props) {
+export function UpdateRentals({ customers, realtors, contract, owners }: Props) {
     const { updateRental, generateDocument, setImages, documentPath, setDocumentPath } = useContracts();
     const router = useRouter();
     const { id } = router.query;
@@ -272,6 +273,8 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
     const guarantorPhone = useForm('phone');
     const guarantorMaritalStatus = useSelect(maritalsStatus);
 
+    const getValue = (value: string) => value && value != '' ? value : null;
+
     const handleSubmit = async () => {
         const contract: IRentalContract = {
             id: +id,
@@ -296,23 +299,15 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             nationality: nationality.value,
             paymentLimit: +paymentLimit.value.enum,
             profession: profession.value,
-            address: {
-                city: {
-                    id: +city.value.id
-                },
-                state: {
-                    id: +state.value.id
-                }
-            },
 
-            guarantorCpf: guarantorCpf.value,
-            guarantorEmail: guarantorEmail.value,
-            guarantorMaritalStatus: guarantorMaritalStatus.value.enum,
-            guarantorName: guarantorName.value,
-            guarantorNationality: guarantorNationality.value,
-            guarantorPhone: guarantorPhone.value,
-            guarantorProfession: guarantorProfession.value,
-            guarantorRg: guarantorRg.value
+            guarantorCpf: getValue(guarantorCpf.value),
+            guarantorEmail: getValue(guarantorEmail.value),
+            guarantorMaritalStatus: getValue(guarantorMaritalStatus.value?.enum),
+            guarantorName: getValue(guarantorName.value),
+            guarantorNationality: getValue(guarantorNationality.value),
+            guarantorPhone: getValue(guarantorPhone.value),
+            guarantorProfession: getValue(guarantorProfession.value),
+            guarantorRg: getValue(guarantorRg.value)
         }
         await updateRental(contract);
     }
@@ -378,13 +373,13 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
             { contract.profession && profession.setValue(contract.profession) }
             { contract.nationality && nationality.setValue(contract.nationality) }
             { contract.maritalStatus && maritalStatus.onChange(maritalsStatus.find(item => item.enum === contract.maritalStatus)) }
-            { contract.address.state && state.onChange(contract.address.state) }
-            { contract.address.city && city.onChange(contract.address.city) }
+            { contract?.address?.state && state.onChange(contract.address.state) }
+            { contract?.address?.city && city.onChange(contract.address.city) }
             { contract.paymentLimit && paymentLimit.onChange(paymentLimits.find(item => +item.enum === contract.paymentLimit)) }
             { contract.duration && duration.onChange(durations.find(item => +item.enum === contract.duration)) }
             { contract.document && setDocumentPath(contract.document) }
             { contract.images && setImages(contract.images) }
-            
+
             { contract.guarantorName && guarantorName.setValue(contract.guarantorName) }
             { contract.guarantorEmail && guarantorEmail.setValue(contract.guarantorEmail) }
             { contract.guarantorPhone && guarantorPhone.setValue(contract.guarantorPhone) }
@@ -404,19 +399,21 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
         }}>
             <Container>
                 <Box sx={{ mb: 3, width: 400, display: "flex", flexDirection: "column", gap: 2 }}>
-                <Typography variant="h2" sx={{
-                    fontSize: 24,
-                    fontWeight: 600,
-                }}>Cadastrar Contrato de Locação</Typography>
+                    <Typography variant="h2" sx={{
+                        fontSize: 24,
+                        fontWeight: 600,
+                    }}>Cadastrar Contrato de Locação</Typography>
                 </Box>
                 <Box sx={{ width: "fit-content" }}>
                     {property && <CardPropertyH property={property} isLink={false} />}
                 </Box>
                 {property &&
                     <Box sx={{ maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+                        
+                        {/* Dados do Contrato */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do contrato</Typography>
-                            <Box sx={{ display: "flex", gap: 2 }}>
+                            <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
                                 <Autocomplete
                                     disablePortal
                                     id="combo-box-demo"
@@ -426,7 +423,7 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => <TextField {...params} label="Captador" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 300 }}
+                                    sx={{ flex: 1}}
                                     readOnly
                                 />
                                 <Autocomplete
@@ -438,21 +435,8 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => <TextField {...params} label="Proprietário" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 300 }}
+                                    sx={{ flex: 1 }}
                                     readOnly
-                                />
-                            </Box>
-                            <Box sx={{ display: "flex", gap: 2 }}>
-                                <Autocomplete
-                                    disablePortal
-                                    id="combo-box-demo"
-                                    options={tenant?.options}
-                                    value={tenant.value}
-                                    onChange={(e, value) => tenant.onChange(value)}
-                                    getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => <TextField {...params} label="Inquilino" />}
-                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 300 }}
                                 />
                             </Box>
                             <Box sx={{ display: "flex", gap: 2 }}>
@@ -538,9 +522,22 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                 />
                             </Box>
                         </Box>
+
+                        {/* Dados do Inquilino */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do Inquilino</Typography>
                             <Box sx={{ display: "flex", gap: 2 }}>
+                                <Autocomplete
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={tenant?.options}
+                                    value={tenant.value}
+                                    onChange={(e, value) => tenant.onChange(value)}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => <TextField {...params} label="Inquilino" />}
+                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
+                                    sx={{ width: 200 }}
+                                />
                                 <TextField
                                     label="CPF"
                                     variant="outlined"
@@ -555,6 +552,8 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     onChange={(e) => rg.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
                                 <TextField
                                     label="Profissão"
                                     variant="outlined"
@@ -562,8 +561,6 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                     onChange={(e) => profession.onChange(e)}
                                     sx={{ width: 200 }}
                                 />
-                            </Box>
-                            <Box sx={{ display: "flex", gap: 2 }}>
                                 <TextField
                                     label="Nacionalidade"
                                     variant="outlined"
@@ -584,33 +581,8 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                 />
                             </Box>
                         </Box>
-                        <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
-                            <Typography variant="h6">Endereço do Inquilino</Typography>
-                            <Box sx={{ display: "flex", gap: 2 }}>
-                                <Autocomplete
-                                    disablePortal
-                                    id="combo-box-demo"
-                                    options={state?.options}
-                                    value={state.value}
-                                    onChange={(e, value) => state.onChange(value)}
-                                    getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => <TextField {...params} label="Estado" />}
-                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 200 }}
-                                />
-                                <Autocomplete
-                                    disablePortal
-                                    id="combo-box-demo"
-                                    options={city?.options}
-                                    value={city.value}
-                                    onChange={(e, value) => city.onChange(value)}
-                                    getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => <TextField {...params} label="Cidade" />}
-                                    renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 200 }}
-                                />
-                            </Box>
-                        </Box>
+
+                        {/* Dados do Fiador */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do Fiador</Typography>
                             <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
@@ -681,6 +653,8 @@ export function UpdateRentals({ customers, realtors, contract }: Props) {
                                 />
                             </Box>
                         </Box>
+
+                        {/* Documentos */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Box>
                                 <Typography variant="h6">Documentos</Typography>

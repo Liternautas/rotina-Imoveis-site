@@ -4,10 +4,10 @@ import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
-export default function CreateContractsPage({ customers, realtors }) {
+export default function CreateContractsPage({ customers, realtors, owners }) {
     return (
         <ContractsProvider>
-            <CreateRentals customers={customers} realtors={realtors} />
+            <CreateRentals customers={customers} realtors={realtors} owners={owners} />
         </ContractsProvider>
     )
 }
@@ -26,11 +26,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     api.defaults.headers['Authorization'] = `Bearer ${token}`
 
     const customers = await api.get('users/customers?limit=300').then(res => res.data);
+    const owners = await api.get('users/owners?limit=300').then(res => res.data);
     const realtors = await api.get('users/realtors').then(res => res.data);
 
     return {
         props: {
             customers: customers.results ?? [],
+            owners: owners.results ?? [],
             realtors: realtors.results ?? []
         }
     }
