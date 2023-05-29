@@ -365,10 +365,9 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
             end.setHours(end.getHours() + 4);
             const endStr = end.toLocaleDateString().split('/');
             if (contract.signatureDate) {
-                const signature = new Date(contract.signatureDate.toString().split('T')[0]);
-                signature.setHours(end.getHours() + 4);
-                const signatureStr = signature.toLocaleDateString().split('/');
-                { contract.signatureDate && signatureDate.setValue(`${signatureStr[2]}-${signatureStr[1]}-${signatureStr[0]}`) }
+                const date = contract.signatureDate.toString().split('T')[0];
+                const [year, month, day] = date.split('-');
+                { contract.signatureDate && signatureDate.setValue(`${year}-${month}-${day}`) }
             }
             { contract.start && startDate.setValue(`${startStr[2]}-${startStr[1]}-${startStr[0]}`) }
             { contract.end && endDate.setValue(`${endStr[2]}-${endStr[1]}-${endStr[0]}`) }
