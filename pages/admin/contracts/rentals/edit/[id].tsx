@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
         props: {
             customers: customers.results ?? [],
-            owners: customers.results ?? [],
+            owners: owners.results ?? [],
             realtors: realtors.results ?? [],
             contract: result ?? null
         }

@@ -341,6 +341,10 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
     }, [realtors]);
 
     useEffect(() => {
+        { owners && owner.setOptions(owners) }
+    }, [owners]);
+
+    useEffect(() => {
         { property && property.pickup && pickup.onChange(property.pickup as OptionSelectProps) }
         { property && property.owner && owner.onChange(property.owner as OptionSelectProps) }
     }, [property]);
@@ -421,7 +425,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                                     value={pickup.value}
                                     onChange={(e, value) => pickup.onChange(value)}
                                     getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => <TextField {...params} label="Captador" />}
+                                    renderInput={(params) => <TextField {...params} label="Captador (Opcional)" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
                                     sx={{ flex: 1}}
                                     readOnly
@@ -436,7 +440,6 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                                     renderInput={(params) => <TextField {...params} label="Proprietário" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
                                     sx={{ flex: 1 }}
-                                    readOnly
                                 />
                             </Box>
                             <Box sx={{ display: "flex", gap: 2 }}>

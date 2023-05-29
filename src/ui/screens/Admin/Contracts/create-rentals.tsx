@@ -416,7 +416,7 @@ export function CreateRentals({ customers, realtors, owners }) {
                                     value={pickup.value}
                                     onChange={(e, value) => pickup.onChange(value)}
                                     getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => <TextField {...params} label="Captador" />}
+                                    renderInput={(params) => <TextField {...params} label="Captador (Opcional)" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
                                     sx={{ width: 300 }}
                                     readOnly
