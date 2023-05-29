@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useNotification } from "../hooks/useNotification";
 import { IUser, Role } from "../interfaces";
 import { api } from "../services/api";
+import {useRouter} from "next/router";
 import { Loading } from "../ui/components/Loading";
 
 interface UserContextProps {
@@ -23,6 +24,7 @@ interface UserContextProps {
 const UserContext = createContext({} as UserContextProps);
 
 const UserProvider = ({ children }) => {
+    const router = useRouter();
     const [results, setResults] = useState<IUser[]>([]);
     const [owners, setOwners] = useState<IUser[]>([]);
     const [realtors, setRealtors] = useState<IUser[]>([]);
@@ -33,7 +35,7 @@ const UserProvider = ({ children }) => {
         try {
             setLoading(true);
             const res = await api.get('users/realtors').then(res => res.data);
-            setRealtors(res.results);
+            setResults(res.results);
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
@@ -45,7 +47,7 @@ const UserProvider = ({ children }) => {
         try {
             setLoading(true);
             const res = await api.get('users/owners').then(res => res.data);
-            setOwners(res.results);
+            setResults(res.results);
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
@@ -104,7 +106,6 @@ const UserProvider = ({ children }) => {
                 } else {
                     findAll(role === Role.customer);
                 }
-                findAll(role === Role.customer);
             }
         } catch (error) {
             notification.execute('danger', error.message);
@@ -121,7 +122,13 @@ const UserProvider = ({ children }) => {
                 throw new Error(res.message);
             } else {
                 notification.execute('success', "Usuário cadastrado com sucesso.");
-                findAll(res.user.role ?? null);
+                if (res.user.role === Role.owner) {
+                    await findOwners();
+                } else if (res.user.role === Role.realtor) {
+                    await findRealtors();
+                } else {
+                    findAll(res.user.role === Role.customer);
+                }
             }
         } catch (error) {
             notification.execute('danger', error.message);
@@ -138,7 +145,14 @@ const UserProvider = ({ children }) => {
 
             if (!res.success) throw new Error(res.message);
             notification.execute('success', 'Usuário removido com sucesso.')
-            findAll()
+
+            if (router.asPath === '/admin/owners') {
+                await findOwners();
+            } else if (router.asPath === '/admin/customers') {
+                await findAll();
+            } else {
+                await findRealtors();
+            }
         } catch (error) {
             notification.execute('danger', error.message);
         } finally {
