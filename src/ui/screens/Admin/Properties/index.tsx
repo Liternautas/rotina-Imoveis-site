@@ -16,7 +16,7 @@ interface Props {
 }
 
 export function Properties({ properties, total: initialTotal, realtors }: Props) {
-    const {total, setTotal, results, setResults, page, handlePage, pickup} = useFilter();
+    const { total, setTotal, results, setResults, page, handlePage, pickup } = useFilter();
     const [open, setOpen] = useState(false);
     const router = useRouter();
     const GlobalStyles = createGlobalStyle`
@@ -51,7 +51,10 @@ export function Properties({ properties, total: initialTotal, realtors }: Props)
                 <Box sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: 1
+                    flex: 1,
+                    gap: 1,
+                    minWidth: 350,
+                    justifyContent: 'flex-end',
                 }}>
                     {/* Input Filter */}
                     <Paper
@@ -71,7 +74,7 @@ export function Properties({ properties, total: initialTotal, realtors }: Props)
                             <Search />
                         </IconButton>
                         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                        <ModalFilter open={open} close={() => setOpen(false)}/>
+                        <ModalFilter open={open} close={() => setOpen(false)} />
                         <IconButton
                             sx={{ p: '10px' }}
                             aria-label="directions"
@@ -80,7 +83,6 @@ export function Properties({ properties, total: initialTotal, realtors }: Props)
                             <FilterListOutlined />
                         </IconButton>
                     </Paper>
-
                     <Button
                         variant="contained"
                         onClick={() => router.push('/admin/properties/create')}

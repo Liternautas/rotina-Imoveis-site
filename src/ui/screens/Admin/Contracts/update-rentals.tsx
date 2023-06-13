@@ -254,6 +254,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
     const shorts = useForm('price');
     const cpf = useForm('cpf');
     const rg = useForm('rg');
+    const pix = useForm();
     const profession = useForm();
     const nationality = useForm();
 
@@ -278,9 +279,9 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
     const handleSubmit = async () => {
         const contract: IRentalContract = {
             id: +id,
-            owner: {
+            owner: owner?.value ? {
                 id: owner.value.id.toString()
-            },
+            } : null,
             tenant: {
                 id: tenant.value.id.toString()
             },
@@ -288,17 +289,18 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
             start: new Date(startDate.value),
             end: new Date(endDate.value),
             price: price.value,
+            pix: getValue(pix.value),
             shorts: shorts.value,
             property: {
                 id: property.id
             },
-            cpf: cpf.value,
-            rg: rg.value,
+            cpf: getValue(cpf.value),
+            rg: getValue(rg.value),
             duration: +duration.value.enum,
             maritalStatus: maritalStatus.value.enum,
-            nationality: nationality.value,
+            nationality: getValue(nationality.value),
             paymentLimit: +paymentLimit.value.enum,
-            profession: profession.value,
+            profession: getValue(profession.value),
 
             guarantorCpf: getValue(guarantorCpf.value),
             guarantorEmail: getValue(guarantorEmail.value),
@@ -358,6 +360,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
             { contract.tenant && tenant.onChange(contract.tenant as OptionSelectProps) }
             { contract.price && price.setValue(maskPrice(contract.price)) }
             { contract.shorts && shorts.setValue(maskPrice(contract.shorts)) }
+            pix.setValue(contract.pix ?? 'Celular: (64) 98168-0018');
             const start = new Date(contract.start.toString().split('T')[0]);
             start.setHours(start.getHours() + 4);
             const startStr = start.toLocaleDateString().split('/');
@@ -416,7 +419,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                         {/* Dados do Contrato */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do contrato</Typography>
-                            <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
+                            <Box sx={{ display: "flex", gap: 2, width: '100%', flex: 1 }}>
                                 <Autocomplete
                                     disablePortal
                                     id="combo-box-demo"
@@ -511,7 +514,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                                     sx={{ width: 200 }}
                                 />
                             </Box>
-                            <Box sx={{ display: "flex", gap: 2 }}>
+                            <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
                                 <TextField
                                     label="Calção"
                                     variant="outlined"
@@ -521,6 +524,13 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                                     value={shorts.value}
                                     onChange={(e) => shorts.onChange(e)}
                                     sx={{ width: 200 }}
+                                />
+                                <TextField
+                                    label="Chave pix"
+                                    variant="outlined"
+                                    value={pix.value}
+                                    onChange={(e) => pix.onChange(e)}
+                                    sx={{ flex: 1 }}
                                 />
                             </Box>
                         </Box>

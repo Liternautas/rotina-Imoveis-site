@@ -226,8 +226,6 @@ const paymentLimits = [
 
 export function CreateRentals({ customers, realtors, owners }) {
     const { createRental } = useContracts();
-    const address = useAddress();
-    const { city, state } = address;
 
     const contractType = useSelect();
     const realtor = useSelect();
@@ -240,6 +238,7 @@ export function CreateRentals({ customers, realtors, owners }) {
 
     const code = useForm('number');
     const price = useForm('price');
+    const pix = useForm();
     const shorts = useForm('price');
     const cpf = useForm('cpf');
     const rg = useForm('rg');
@@ -286,41 +285,40 @@ export function CreateRentals({ customers, realtors, owners }) {
     }
 
     const handleSubmit = async () => {
-        if (owner.validate()) {
-            const contract: IRentalContract = {
-                owner: {
-                    id: owner.value.id.toString()
-                },
-                tenant: {
-                    id: tenant.value.id.toString()
-                },
-                signatureDate: new Date(signatureDate.value),
-                start: new Date(startDate.value),
-                end: new Date(endDate.value),
-                price: price.value,
-                shorts: shorts.value,
-                property: {
-                    id: property.id
-                },
-                cpf: cpf.value,
-                rg: rg.value,
-                duration: +duration.value.enum,
-                maritalStatus: maritalStatus.value.enum,
-                nationality: nationality.value,
-                paymentLimit: +paymentLimit.value.enum,
-                profession: profession.value,
+        const contract: IRentalContract = {
+            owner: owner?.value ? {
+                id: owner.value.id.toString()
+            } : null,
+            tenant: {
+                id: tenant.value.id.toString()
+            },
+            signatureDate: new Date(signatureDate.value),
+            start: new Date(startDate.value),
+            end: new Date(endDate.value),
+            price: price.value,
+            pix: getValue(pix.value),
+            shorts: shorts.value,
+            property: {
+                id: property.id
+            },
+            cpf: cpf.value,
+            rg: rg.value,
+            duration: +duration.value.enum,
+            maritalStatus: maritalStatus.value.enum,
+            nationality: nationality.value,
+            paymentLimit: +paymentLimit.value.enum,
+            profession: profession.value,
 
-                guarantorCpf: getValue(guarantorCpf.value),
-                guarantorEmail: getValue(guarantorEmail.value),
-                guarantorMaritalStatus: guarantorMaritalStatus.value?.enum,
-                guarantorName: getValue(guarantorName?.value),
-                guarantorNationality: getValue(guarantorNationality?.value),
-                guarantorPhone: getValue(guarantorPhone?.value),
-                guarantorProfession: getValue(guarantorProfession?.value),
-                guarantorRg: getValue(guarantorRg?.value)
-            }
-            await createRental(contract);
+            guarantorCpf: getValue(guarantorCpf.value),
+            guarantorEmail: getValue(guarantorEmail.value),
+            guarantorMaritalStatus: getValue(guarantorMaritalStatus.value?.enum) ?? null,
+            guarantorName: getValue(guarantorName?.value),
+            guarantorNationality: getValue(guarantorNationality?.value),
+            guarantorPhone: getValue(guarantorPhone?.value),
+            guarantorProfession: getValue(guarantorProfession?.value),
+            guarantorRg: getValue(guarantorRg?.value)
         }
+        await createRental(contract);
     }
 
     useEffect(() => {
@@ -338,6 +336,7 @@ export function CreateRentals({ customers, realtors, owners }) {
         duration.setOptions(durations);
         maritalStatus.setOptions(maritalsStatus);
         paymentLimit.setOptions(paymentLimits);
+        pix.setValue('Celular: (64) 98168-0018');
     }, []);
 
     useEffect(() => {
@@ -408,7 +407,7 @@ export function CreateRentals({ customers, realtors, owners }) {
                     <Box sx={{ maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do contrato</Typography>
-                            <Box sx={{ display: "flex", gap: 2 }}>
+                            <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
                                 <Autocomplete
                                     disablePortal
                                     id="combo-box-demo"
@@ -418,7 +417,7 @@ export function CreateRentals({ customers, realtors, owners }) {
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => <TextField {...params} label="Captador (Opcional)" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 300 }}
+                                    sx={{ flex: 1 }}
                                     readOnly
                                 />
                                 <Autocomplete
@@ -430,7 +429,7 @@ export function CreateRentals({ customers, realtors, owners }) {
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => <TextField {...params} label="Proprietário" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ width: 300 }}
+                                    sx={{ flex: 1 }}
                                 />
                             </Box>
                             <Box sx={{ display: "flex", gap: 2 }}>
@@ -503,7 +502,7 @@ export function CreateRentals({ customers, realtors, owners }) {
                                     sx={{ width: 200 }}
                                 />
                             </Box>
-                            <Box sx={{ display: "flex", gap: 2 }}>
+                            <Box sx={{ display: "flex", gap: 2, width: '100%' }}>
                                 <TextField
                                     label="Calção"
                                     variant="outlined"
@@ -513,6 +512,13 @@ export function CreateRentals({ customers, realtors, owners }) {
                                     value={shorts.value}
                                     onChange={(e) => shorts.onChange(e)}
                                     sx={{ width: 200 }}
+                                />
+                                <TextField
+                                    label="Chave pix"
+                                    variant="outlined"
+                                    value={pix.value}
+                                    onChange={(e) => pix.onChange(e)}
+                                    sx={{ flex: 1 }}
                                 />
                             </Box>
                         </Box>

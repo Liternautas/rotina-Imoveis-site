@@ -137,6 +137,7 @@ export interface ISalesContract {
 export interface IRentalContract {
     id?: number;
     price?: string;
+    pix?: string;
     shorts?: string;
     signatureDate?: Date;
     start?: Date;
