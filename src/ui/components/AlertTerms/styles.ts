@@ -29,4 +29,9 @@ export const Content = styled(Box)`
             background: ${({theme}) => theme.palette.secondary.dark};
         }
     }
+    @media (max-width: 720px) {
+        right: 16px;
+        left: 16px;
+        width: auto;
+    }
 `
