@@ -64,7 +64,7 @@ export function CollaboratorsSection({ realtors }: Props) {
                         <CardRealtor
                             image={getImageUrl(user.avatar)}
                             title={user.name}
-                            subtitle={roles.find(item => item.enum === user.role).name}
+                            subtitle={roles.find(item => item.enum === user.role)?.name}
                             link={`/nossa-equipe?pickup=${user.id}&adType=venda`}
                             creci={user?.creci}
                         />

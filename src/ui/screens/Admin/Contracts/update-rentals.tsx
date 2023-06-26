@@ -335,6 +335,15 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
     }, []);
 
     useEffect(() => {
+        if (duration.value && startDate.value) {
+            const data = new Date(startDate.value);
+            data.setMonth(data.getMonth() + Number(duration.value.enum));
+            const dataFormatada = data.toISOString().slice(0, 10);
+            endDate.setValue(dataFormatada);
+        }
+    }, [duration.value, startDate.value]);
+
+    useEffect(() => {
         { customers && tenant.setOptions(customers) }
     }, [customers]);
 
