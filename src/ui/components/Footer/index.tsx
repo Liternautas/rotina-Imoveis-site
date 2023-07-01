@@ -70,15 +70,16 @@ export default function Footer() {
                                     display: "flex",
                                     gap: 1
                                 }}>
-                                    <IconButton>
-                                        <FacebookOutlined />
-                                    </IconButton>
-                                    <IconButton>
-                                        <Instagram />
-                                    </IconButton>
-                                    <IconButton>
-                                        <YouTube />
-                                    </IconButton>
+                                    <Link href={'https://www.facebook.com/rotinaimoveis'} target="_blank">
+                                        <IconButton>
+                                            <FacebookOutlined />
+                                        </IconButton>
+                                    </Link>
+                                    <Link href={'https://www.instagram.com/rotinaimoveiscatalao/'} target="_blank">
+                                        <IconButton>
+                                            <Instagram />
+                                        </IconButton>
+                                    </Link>
                                 </Box>
                             </Links>
                         </Grid>
@@ -105,10 +106,10 @@ export default function Footer() {
                         textAlign: 'center',
                     }}>©2022 Rotina Imóveis - CRECI: CJ-8015 - Todos os direitos reservados.</Typography>
                     <Box sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1
-                }}>
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1
+                    }}>
                         <Typography sx={{
                             color: "#fff",
                             fontSize: 14,
@@ -116,7 +117,7 @@ export default function Footer() {
                         }}>
                             Desenvolvido por:
                         </Typography>
-                        <a href="https://zeyah-front.vercel.app/" target="_blank" style={{display: 'flex'}}>
+                        <a href="https://zeyah-front.vercel.app/" target="_blank" style={{ display: 'flex' }}>
                             <Image width={66} height={24} src={'https://zeyah-front.vercel.app/_next/static/media/logo.eff34789.svg'} alt="zeyah" />
                         </a>
                     </Box>

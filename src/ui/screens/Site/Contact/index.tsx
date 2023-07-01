@@ -2,6 +2,7 @@ import { Box, Container, TextField, Typography, Button, IconButton } from "@mui/
 import { Links, Title } from "./styles";
 import { useForm } from "@/src/hooks/useForm";
 import { FacebookOutlined, Instagram, YouTube } from "@mui/icons-material";
+import Link from "next/link";
 
 export function Contact() {
     const name = useForm();
@@ -104,15 +105,16 @@ export function Contact() {
                                 display: "flex",
                                 gap: 1
                             }}>
-                                <IconButton>
-                                    <FacebookOutlined />
-                                </IconButton>
-                                <IconButton>
-                                    <Instagram />
-                                </IconButton>
-                                <IconButton>
-                                    <YouTube />
-                                </IconButton>
+                                <Link href={'https://www.facebook.com/rotinaimoveis'} target="_blank">
+                                    <IconButton>
+                                        <FacebookOutlined />
+                                    </IconButton>
+                                </Link>
+                                <Link href={'https://www.instagram.com/rotinaimoveiscatalao/'} target="_blank">
+                                    <IconButton>
+                                        <Instagram />
+                                    </IconButton>
+                                </Link>
                             </Box>
                         </Links>
                     </Box>
