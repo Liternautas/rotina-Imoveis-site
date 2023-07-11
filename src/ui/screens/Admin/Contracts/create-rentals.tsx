@@ -65,6 +65,16 @@ const maritalsStatus = [
         name: 'Divorciado(a)',
         enum: 'divorciado'
     },
+    {
+        id: 4,
+        name: 'União estável',
+        enum: 'uniao-estavel'
+    },
+    {
+        id: 5,
+        name: 'Amasiado(a)',
+        enum: 'amasiado'
+    }
 ]
 const paymentLimits = [
     {
