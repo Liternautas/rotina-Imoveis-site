@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next';
 import useSWR from 'swr';
 
 export default function HomePage() {
-  const properties = useSWR('properties', async () => await api.get(`properties?status=disponivel`).then(res => res.data));
+  const properties = useSWR('properties', async () => await api.get(`properties?status=disponivel&emphasis=true`).then(res => res.data));
   const banners = useSWR('banners?bannerTypeId=4', async () => await api.get('banners?bannerTypeId=4').then(res => res.data));
   const realtors = useSWR('users', async () => await api.get('users').then(res => res.data));
 
