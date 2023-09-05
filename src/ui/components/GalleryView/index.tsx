@@ -4,12 +4,11 @@ import { Keyboard, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Container, ButtonClose } from "./styles";
 import styles from "./styles.module.scss";
-import { Slide } from "./components/Slide";
 import { PrevButton } from "./components/PrevButton";
 import { NextButton } from "./components/NextButton";
-import { HandleIndex } from "./components/HandleIndex";
 import { Close } from "@mui/icons-material";
 import { Container as ContainerMui } from "@mui/material";
+import { getImageUrl } from "@/src/helpers/functions";
 
 export function GalleryView({ close, active, show, images }) {
     const [state, setState] = useState('start');
@@ -52,11 +51,11 @@ export function GalleryView({ close, active, show, images }) {
                         { swiper.isEnd && setState('end') }
                         { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                     }}
+                    initialSlide={active}
                 >
-                    <HandleIndex active={active} show={show} />
                     {images.map((item, index) => (
                         <SwiperSlide key={index} id={styles.swiper_slide}>
-                            <Slide image={item} />
+                            <img src={getImageUrl(item)} />
                         </SwiperSlide>
                     ))}
                     <PrevButton disabled={state === 'start' && true} />

@@ -29,7 +29,7 @@ export function Gallery({ images }) {
                 md: 'flex'
             }
         }}>
-            <GalleryView images={images} active={0} close={() => setShowGalleryView(false)} show={showGalleryView} />
+            {showGalleryView && <GalleryView images={images} active={0} close={() => setShowGalleryView(false)} show={showGalleryView} />}
             <ImageSelected onMouseDown={() => setShowGalleryView(true)}>
                 <img src={getImageUrl(image)} />
             </ImageSelected>
