@@ -30,13 +30,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     const details = await api.get('details').then(res => res.data);
     const owners = await api.get('users/owners').then(res => res.data);
+    const collaborators = await api.get('users/collaborators').then(res => res.data);
     const realtors = await api.get('users/realtors').then(res => res.data);
+    const array = [];
+    {realtors.results && array.push(...realtors.results)}
+    {collaborators.results && array.push(...collaborators.results)}
 
     return {
         props: {
             details: details.results ?? null,
             owners: owners.results ?? [],
-            realtors: realtors.results ?? [],
+            realtors: array ?? [],
         }
     }
 }
