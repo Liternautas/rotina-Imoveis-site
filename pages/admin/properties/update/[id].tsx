@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const owners = await api.get('users/owners').then(res => res.data);
     const collaborators = await api.get('users/collaborators').then(res => res.data);
     const realtors = await api.get('users/realtors').then(res => res.data);
-    const array = [];
+    let array = [];
     {realtors.results && array.push(...realtors.results)}
     {collaborators.results && array.push(...collaborators.results)}
 
