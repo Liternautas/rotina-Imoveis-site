@@ -117,7 +117,6 @@ const UserProvider = ({ children }) => {
     const update = async (user: IUser) => {
         try {
             setLoading(true);
-            console.log(user);
             const res = await api.patch(`users/${user.id}`, user).then(res => res.data);
             if (!res.success) {
                 throw new Error(res.message);

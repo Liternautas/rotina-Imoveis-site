@@ -28,8 +28,8 @@ export function useAddress(): useAddressProps {
     const complement = useForm();
 
     const setEstateOptions = useCallback(() => {
-        state.setOptions(states);
-        state.onChange(states.find(state => state.shortName === 'GO'));
+        state.setOptions(states.filter(state => state.shortName === 'GO'));
+        /* state.onChange(states.find(state => state.shortName === 'GO')); */
     }, []);
 
     const setCitiesOptions = useCallback(() => {

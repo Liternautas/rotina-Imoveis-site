@@ -242,10 +242,9 @@ const PropertyProvider = ({ children }) => {
         }
     }
 
-    const create = async () => {
+    const create = async () => {    
         try {
             setLoading(true);
-            
             const property: IProperty = {
                 address: {
                     city: {
@@ -286,10 +285,12 @@ const PropertyProvider = ({ children }) => {
                     id: pickup.value ? pickup.value.id.toString() : null
                 }
             }
+
             if (id) {
                 const res = await api.patch(`properties/${id}`, property).then(res => res.data);
                 if (res.success) {
-                    router.push(`/admin/properties/update/${res.property.id}`);
+                    //router.push(`/admin/properties/update/${res.property.id}`);
+                    notification.execute('success', 'Propriedade atualizada com sucesso');
                 }
             } else {
                 const res = await api.post('properties', property).then(res => res.data);
