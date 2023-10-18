@@ -9,6 +9,7 @@ import { useState } from "react";
 import { SwiperButtons } from "../../SwiperButtons";
 import { IBanner } from "@/src/interfaces";
 import { getImageUrl } from "@/src/helpers/functions";
+import Link from "next/link";
 
 const CardRelease = dynamic(() => import('../../Cards/CardRelease'), {
     loading: () => null,
@@ -47,7 +48,9 @@ export function ReleasesSection({ banners }: Props) {
             >
                 {banners.map(banner => (
                     <SwiperSlide className={styles.swiperSlide}>
-                        <CardRelease image={getImageUrl(banner.path)} />
+                        <Link href={banner.link ?? '/'}>
+                            <CardRelease image={getImageUrl(banner.path)} />
+                        </Link>
                     </SwiperSlide>
                 ))}
                 <SwiperButtons state={state} />

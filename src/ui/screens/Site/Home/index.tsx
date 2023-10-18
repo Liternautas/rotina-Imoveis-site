@@ -32,7 +32,7 @@ const CardInfo = dynamic(() => import('@/src/ui/components/Cards/CardInfo'), {
     loading: () => null,
 });
 
-export function Home({ properties, banners, realtors }) {
+export function Home({ properties, otherProperties, banners, realtors }) {
     return (
         <Box sx={{
             mt: '72px',
@@ -46,7 +46,7 @@ export function Home({ properties, banners, realtors }) {
                 <PropertiesSection
                     title="Imóveis recém-chegados"
                     subtitle="Descubra nossas últimas adições em imóveis, prontas para se tornarem seu novo lar."
-                    properties={properties}
+                    properties={otherProperties}
                 />
                 <Box sx={{
                     py: 3

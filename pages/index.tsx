@@ -6,6 +6,7 @@ import useSWR from 'swr';
 
 export default function HomePage() {
   const properties = useSWR('properties', async () => await api.get(`properties?status=disponivel&emphasis=true`).then(res => res.data));
+  const otherProperties = useSWR('otherProperties', async () => await api.get(`properties?status=disponivel`).then(res => res.data));
   const banners = useSWR('banners?bannerTypeId=4', async () => await api.get('banners?bannerTypeId=4').then(res => res.data));
   const realtors = useSWR('users', async () => await api.get('users').then(res => res.data));
 
@@ -14,7 +15,7 @@ export default function HomePage() {
       <Head>
         <meta name='robots' content='index, follow' />
       </Head>
-      <Home properties={properties?.data?.results ?? []} banners={banners?.data?.results ?? []} realtors={realtors?.data?.results ?? []}/>
+      <Home properties={properties?.data?.results ?? []} otherProperties={otherProperties?.data?.results ?? []} banners={banners?.data?.results ?? []} realtors={realtors?.data?.results ?? []}/>
     </>
   )
 }
