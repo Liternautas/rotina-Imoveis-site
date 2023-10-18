@@ -47,7 +47,12 @@ export function PropertiesSection({ properties, subtitle, title }: Props) {
                     { !swiper.isBeginning && !swiper.isEnd && setState('progress') }
                 }}
             >
-                {properties.map(property =>
+                {properties.filter(item => item.adType === 'aluguel').map(property =>
+                    <SwiperSlide className={styles.swiperSlide}>
+                        <CardProperty property={property} />
+                    </SwiperSlide>
+                )}
+                {properties.filter(item => item.adType === 'venda').map(property =>
                     <SwiperSlide className={styles.swiperSlide}>
                         <CardProperty property={property} />
                     </SwiperSlide>
