@@ -632,6 +632,14 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tinymce/tinymce-react@^4.3.2":
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-4.3.2.tgz#fbe05e35e948b0e577eddf639bfe7ee2158fdc10"
+  integrity sha512-wJHZhPf2Mk3yTtdVC/uIGh+kvDgKuTw/qV13uzdChTNo68JI1l7jYMrSQOpyimDyn5LHAw0E1zFByrm1WHAVeA==
+  dependencies:
+    prop-types "^15.6.2"
+    tinymce "^6.0.0 || ^5.5.1"
+
 "@types/hoist-non-react-statics@*":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
@@ -2030,6 +2038,11 @@ through@^2.3.8:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==
+
+"tinymce@^6.0.0 || ^5.5.1":
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.8.1.tgz#840f514b4a175f55042cbe2fce548b10fc38208b"
+  integrity sha512-WYPvMXIjBrXM/oBiqGCbT2a8ptiO3TWXm/xxPWDCl8SxRKMW7Rfp0Lk190E9fXmX6uh9lJMRCnmKHzvryz0ftA==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

@@ -4,15 +4,15 @@ import { CardPropertyH } from "@/src/ui/components/Cards/CardPropertyH";
 import { useForm } from "@/src/hooks/useForm";
 import { OptionSelectProps, useSelect } from "@/src/hooks/useSelect";
 import { IProperty, IRentalContract, IUser } from "@/src/interfaces";
-import { api } from "@/src/services/api";
-import { DateRangeOutlined, DeleteOutline, Download, Remove, Search } from "@mui/icons-material";
-import { Alert, Autocomplete, Box, Button, Container, InputAdornment, IconButton, InputBase, Paper, TextField, Typography } from "@mui/material";
-import DatePicker from "react-datepicker";
+import { DateRangeOutlined, Download } from "@mui/icons-material";
+import { Alert, Autocomplete, Box, Button, Container, InputAdornment, TextField, Typography } from "@mui/material";
 import { useContracts } from "@/src/contexts/ContractsContext";
 import { maskPrice } from "@/src/helpers/mask";
 import { useAddress } from "@/src/hooks/useAddress";
 import { theme } from "@/styles/theme";
 import { GalleryRentalContract } from "@/src/ui/components/GalleryRentalContract";
+import { Editor } from "@/src/ui/components/Editor";
+import { contractRentalModel } from "@/src/utils/document-models";
 
 const types = [
     {
@@ -270,6 +270,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
 
     const [property, setProperty] = useState<IProperty>(null);
     const [propertyError, setPropertyError] = useState(false);
+    const [content, setContent] = useState(contractRentalModel);
     const startDate = useForm();
     const endDate = useForm();
     const signatureDate = useForm();
@@ -322,8 +323,42 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
         }
         await updateRental(contract);
     }
+
     const handleGenerateDocument = async () => {
         await generateDocument(+id);
+    }
+
+    const convertDate = (value: string | Date) => {
+            const date = value.toString().split('T')[0];
+            const [year, month, day] = date.split('-');
+            return `${day}/${month}/${year}`
+    }
+
+    const hydrateContract = (contract: IRentalContract) => {
+        let document = contractRentalModel;
+
+        document = document.replaceAll('{name}', contract.tenant.name);
+        document = document.replace('{nationality}', contract.tenant.nationality);
+        document = document.replace('{maritalStatus}', contract.tenant.maritalStatus);
+        document = document.replace('{profession}', contract.tenant.profession);
+        document = document.replace('{rg}', contract.tenant.rg);
+        document = document.replaceAll('{cpf}', contract.tenant.cpf);
+        document = document.replace('{address}', contract.address?.city?.name ?? 'Catalão');
+        document = document.replace('{phone}', contract.tenant.phone);
+        document = document.replace('{signatureDate}', convertDate(contract.signatureDate));
+        document = document.replace('{startContract}', convertDate(contract.start));
+        document = document.replace('{endContract}', convertDate(contract.end));
+        document = document.replace('{type}', contract.property.type.name);
+        document = document.replace('{pix}', contract.pix);
+        document = document.replace('{shorts}', maskPrice(contract.shorts));
+        document = document.replace('{price}', maskPrice(contract.price));
+        document = document.replace('{paymentLimit}', contract.paymentLimit.toString());
+        document = document.replace('{duration}', `${contract.duration} meses`);
+        const city = contract.property.address.city;
+        const state = contract.property.address.state;
+        document = document.replace('{propertyAddress}', `${city.name} - ${state?.shortName}`);
+        
+        setContent(document);
     }
 
     const downloadArquivo = async (path: string) => {
@@ -412,6 +447,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
             { contract.guarantorNationality && guarantorNationality.setValue(contract.guarantorNationality) }
             { contract.guarantorProfession && guarantorProfession.setValue(contract.guarantorProfession) }
             { contract.guarantorMaritalStatus && guarantorMaritalStatus.onChange(maritalsStatus.find(item => item.enum === contract.guarantorMaritalStatus)) }
+            hydrateContract(contract);
         }
     }, [contract]);
 
@@ -432,7 +468,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                     {property && <CardPropertyH property={property} isLink={false} />}
                 </Box>
                 {property &&
-                    <Box sx={{ maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+                    <Box sx={{ maxWidth: 1080, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                         
                         {/* Dados do Contrato */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
@@ -724,6 +760,8 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                             </Box>
                             <GalleryRentalContract />
                         </Box>
+                        
+                        <Editor content={content} onChange={str => setContent(str)} />
 
                         <Button
                             type="submit"
