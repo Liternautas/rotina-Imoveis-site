@@ -5,7 +5,7 @@ import { Alert } from "@mui/material";
 import { parseCookies } from "nookies";
 import { ContractsProvider } from "@/src/contexts/ContractsContext";
 
-export default function ContractsPage({ contracts, error }) {
+export default function ContractsPage({ contracts, total, error }) {
     if (error) {
         return (
             <Alert severity="error">{error}</Alert>
@@ -14,7 +14,7 @@ export default function ContractsPage({ contracts, error }) {
 
     return (
         <ContractsProvider>
-            <Rentals contracts={contracts} />
+            <Rentals contracts={contracts} totalResults={total} />
         </ContractsProvider>
     )
 }
@@ -33,11 +33,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
         api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-        const { results } = await api.get('rental-contracts').then(res => res.data);
+        const { results, total } = await api.get('rental-contracts?limit=10').then(res => res.data);
 
         return {
             props: {
                 contracts: results ?? [],
+                total: total
             }
         }
     } catch (error) {

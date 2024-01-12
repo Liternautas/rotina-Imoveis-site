@@ -21,7 +21,7 @@ export function CardPropertyTable({ property, isLink }: Props) {
                     height: 56,
                     borderRadius: 1,
                 }}
-                image={getImageUrl(property.images[0])}
+                image={getImageUrl(property?.images[0])}
             />
             <CardContent sx={{
                 p: '8px !important',
@@ -32,7 +32,7 @@ export function CardPropertyTable({ property, isLink }: Props) {
                     fontSize: 14,
                     fontWeight: 500
                 }}>
-                    {property?.type?.name}, {property.adType}
+                    {property?.code}, {property?.type?.name}, {property?.adType}
                 </Typography>
                 {property?.address &&
                     <Typography sx={{

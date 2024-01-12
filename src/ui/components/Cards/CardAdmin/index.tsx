@@ -11,6 +11,7 @@ import { Loading } from "../../Loading";
 import { api } from "@/src/services/api";
 import { DialogComponent } from "../../DialogComponent";
 import { useProperty } from "@/src/contexts/PropertyContext";
+import { ModalPropertyDetails } from "../../modals/ModalPropertyDetails";
 
 interface Props {
     property: IProperty;
@@ -21,6 +22,7 @@ export function CardAdmin({ property }: Props) {
     const router = useRouter();
     const [state, setState] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
     const status = useSelect(statusData);
     const { adType, type, address, id, images, numberBathroom, numberGarage, numberRooms, totalArea, code, price, emphasis } = property;
 
@@ -54,6 +56,7 @@ export function CardAdmin({ property }: Props) {
                 }}
                 image={getImageUrl(images[0])}
             />
+
             <Box sx={{
                 position: 'absolute',
                 top: 8,
@@ -87,6 +90,7 @@ export function CardAdmin({ property }: Props) {
                 color: '#fff',
                 borderRadius: 1
             }}>{type?.name}</Box>}
+
             <CardContent style={{
                 display: "flex",
                 flexDirection: "column",
@@ -151,8 +155,10 @@ export function CardAdmin({ property }: Props) {
                 >
                     <Button size="small">Remover</Button>
                 </DialogComponent>
+                <Button size="small" onClick={() => setShowDetails(true)}>Detalhes</Button>
             </CardActions>
             <Loading open={loading} />
+            <ModalPropertyDetails open={showDetails} close={() => setShowDetails(false)} property={property}/>
         </Card>
     )
 }

@@ -9,12 +9,13 @@ import { CardPropertyTable } from "../Cards/CardPropertyTable";
 import { formatDate } from "@/src/helpers/date";
 import { useContracts } from "@/src/contexts/ContractsContext";
 import { AlertStatusContract } from "../AlertStatusContract";
+import { api } from "@/src/services/api";
+import { Loading } from "../Loading";
 
-export function TableRentalAdmin({ contracts, action = true, file = false }) {
+export function TableRentalAdmin({ results, total, page, rowsPerPage, onChange, onChangeRowsPerPage, action = true, file = false }) {
     const router = useRouter();
-    const [results, setResults] = useState<IRentalContract[]>([]);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    
+    
     const {removeRental} = useContracts();
 
     interface Column {
@@ -35,20 +36,11 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
         { id: 'actions', label: 'Ações', minWidth: 100 },
     ];
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
     const handleRemove = async (id: number) => {
         await removeRental(id);
     }
 
-    useEffect(() => {
-        { contracts && setResults(contracts) }
-    }, [contracts]);
-
-    if (!contracts || contracts.length === 0) return (
+    if (!results || results.length === 0) return (
         <Alert severity="info">Você ainda não possui contratos de locações de imóveis!</Alert>
     )
 
@@ -85,7 +77,6 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                     </TableHead>
                     <TableBody>
                         {results
-                            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -95,7 +86,7 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
                                                 case 'actions':
                                                     if (action) {
                                                         return (
-                                                            <TableCell>
+                                                            <TableCell key={column.id}>
                                                                 <Box>
                                                                     <DialogIcon
                                                                         title="Remover contrato"
@@ -170,11 +161,11 @@ export function TableRentalAdmin({ contracts, action = true, file = false }) {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={contracts.length}
+                count={total}
                 rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={() => { }}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+                page={page - 1}
+                onPageChange={(e, page) => onChange(page + 1)}
+                onRowsPerPageChange={onChangeRowsPerPage}
             />
         </Paper>
     )
