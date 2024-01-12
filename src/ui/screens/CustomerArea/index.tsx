@@ -5,7 +5,7 @@ import { TableSalesAdmin } from "../../components/Tables/table-sales-admin";
 import { TableRentalAdmin } from "../../components/Tables/table-rental-admin";
 import { TableInvoiceAdmin } from "../../components/Tables/table-invoice-admin";
 import { useUser } from "@/src/contexts/UserContext";
-import { IInvoice, IUser } from "@/src/interfaces";
+import { IInvoice, IRentalContract, IUser } from "@/src/interfaces";
 import { getImageUrl } from "@/src/helpers/functions";
 
 interface Props {
@@ -160,7 +160,7 @@ export function CustomerArea({ user, invoices }: Props) {
                         flexDirection: 'column',
                         gap: 2
                     }}>
-                        <TableRentalAdmin contracts={user.rentalContractsTenant} action={false} />
+                        <TableRentalAdmin onChange={() => {}} onChangeRowsPerPage={() => {}} page={1} rowsPerPage={10} total={user.rentalContractsTenant.length} results={user.rentalContractsTenant} action={false} />
                     </Box>
                 }
                 {
