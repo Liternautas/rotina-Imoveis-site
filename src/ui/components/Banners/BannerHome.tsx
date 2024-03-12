@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import { Container as ContainerMui, Box } from "@mui/material";
 import { BackgroundHome, Container, Title } from "./styles";
 
 const FilterBanner = dynamic(() => import('../Form/FilterBanner'), {

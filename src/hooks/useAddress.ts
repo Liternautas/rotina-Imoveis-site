@@ -8,7 +8,7 @@ export interface useAddressProps {
     state: useSelectProps,
     city: useSelectProps,
     district: useSelectProps,
-    route: useFormProps, 
+    route: useFormProps,
     zipcode: useFormProps,
     number: useFormProps,
     complement: useFormProps
@@ -35,18 +35,25 @@ export function useAddress(): useAddressProps {
     const setCitiesOptions = useCallback(() => {
         const filter = cities.filter(item => item.stateId === state.value.id);
         city.setOptions(filter);
-        if(initialAddress?.city) {
+        if (initialAddress?.city) {
             city.onChange(findInOptions(initialAddress.city.name, filter));
         }
     }, [state.value]);
-    
-    const setDistrictsOptions = useCallback(() => {
-        const filter = districts.filter(item => item.city.id === city.value.id);
-        district.setOptions(filter)
-        if(initialAddress?.city) {
-            district.onChange(findInOptions(initialAddress.district.name, filter));
+
+    useEffect(() => {
+        if (city.value) {
+            setDistrictsOptions();
         }
     }, [city.value]);
+
+    const setDistrictsOptions = () => {
+        const filter = districts.filter(item => item.city.id === city.value.id);
+        //console.log(filter.filter(item => item.name == 'Cidade Jardim'));
+        district.setOptions(filter)
+        if (initialAddress?.city) {
+            district.onChange(findInOptions(initialAddress.district.name, filter));
+        }
+    };
 
     useEffect(() => {
         setEstateOptions();
@@ -56,7 +63,7 @@ export function useAddress(): useAddressProps {
         if (state.value?.id) {
             setCitiesOptions();
         } else {
-            {city.options.length > 0 && city.setOptions([])}
+            { city.options.length > 0 && city.setOptions([]) }
         }
     }, [state.value]);
 
@@ -64,7 +71,7 @@ export function useAddress(): useAddressProps {
         if (city.value?.id) {
             setDistrictsOptions();
         } else {
-            {district.options.length > 0 && district.setOptions([])}
+            { district.options.length > 0 && district.setOptions([]) }
         }
     }, [city.value]);
 

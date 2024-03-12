@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://www.rotinaimoveis.com.br</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/admin</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/area-do-cliente</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/area-do-cliente/login</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/contato</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/login</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/politica-privacidade</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/sobre</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=aluguel</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=venda</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=venda&amp;amp;type=casa</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=aluguel&amp;amp;type=casa</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=aluguel&amp;amp;type=apartamento</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=venda&amp;amp;type=apartamento</loc><lastmod>2023-04-14T19:33:34.019Z</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/area-do-cliente</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/area-do-cliente/login</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/contato</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/forgot-password</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/login</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/nossa-equipe</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/politica-privacidade</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/reset-password</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/sobre</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=aluguel</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=venda</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=venda&amp;type=casa</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=aluguel&amp;type=casa</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=aluguel&amp;type=apartamento</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.rotinaimoveis.com.br/imoveis/filter?adType=venda&amp;type=apartamento</loc><lastmod>2024-01-12T17:16:51.884Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

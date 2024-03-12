@@ -66714,7 +66714,7 @@ export const districts = [
             "name": "Catalão"
         }
     },
-    {
+    /* {
         "id": 2655,
         "apiId": 43181,
         "name": "Cidade Jardim",
@@ -66724,7 +66724,7 @@ export const districts = [
             "apiId": 3826,
             "name": "Catalão"
         }
-    },
+    }, */
     {
         "id": 2656,
         "apiId": 43182,
