@@ -69,7 +69,12 @@ export const contractRentalModel = `
 <div>&nbsp;</div>
 <div>&nbsp; &nbsp; &nbsp; (20&deg;) &ndash; A falta de pagamento, nas &eacute;pocas supradeterminadas, dos alugueis e encargos, por si constituir&aacute; o locat&aacute;rio em mora, independente de qualquer Notifica&ccedil;&atilde;o, Interpela&ccedil;&atilde;o ou aviso extrajudicial;</div>
 <div>&nbsp;</div>
+<div>&nbsp;</div>
 <div>&nbsp; &nbsp; &nbsp;(21&deg;) &ndash; Se o locador admitir, em beneficio do locat&aacute;rio, qualquer atraso no pagamento do aluguel e demais despesas que lhe incumba, ou no cumprimento de qualquer outra obriga&ccedil;&atilde;o contratual, essa toler&acirc;ncia n&atilde;o poder&aacute; ser considerada como altera&ccedil;&atilde;o das condi&ccedil;&otilde;es deste contrato, nem dar&aacute; ensejo &agrave; invoca&ccedil;&atilde;o do Artigo 1.503 &ndash; inciso I do C&oacute;digo Civil Brasileiro, por parte do fiador, pois se constituir&aacute; em ato de mera liberdade do locador;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp; &nbsp; &nbsp;(22&deg;) &ndash; O LOCATÁRIO declara receber o imóvel objeto deste contrato em perfeito estado de conservação e uso, com todas as suas instalações funcionando corretamente e com pintura nova em todos os cômodos. Compromete-se, por ocasião da entrega do imóvel ao término da locação, a restituí-lo nas mesmas condições em que o recebeu, salvo o desgaste natural pelo uso adequado do bem. O LOCATÁRIO se responsabiliza pela realização de pintura completa (interna e externa, porta envernizadas, pintura dos portões) e reparos necessários que se fizerem necessários para a devolução do imóvel nas condições acordadas, assim como pela manutenção periódica das instalações e funcionalidades do imóvel durante o período de locação;</div>
+<div>&nbsp;</div>
 <div>OBS.: O locat&aacute;rio se compromete a entregar o im&oacute;vel com todas as instala&ccedil;&otilde;es el&eacute;tricas e hidr&aacute;ulicas em perfeito estado de funcionamento, e as contas de &aacute;gua e luz pagas em dia.</div>
 <div>&nbsp;</div>
 <div>ANEXOS: LAUDO DE VISTORIA DO IM&Oacute;VEL E C&Oacute;PIA DOS DOCUMENTOS PESSOAIS.</div>

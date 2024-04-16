@@ -1,4 +1,3 @@
-import { CreateRentals } from "@/src/ui/screens/Admin/Contracts/create-rentals";
 import { api } from "@/src/services/api";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
