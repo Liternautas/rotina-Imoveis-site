@@ -329,9 +329,9 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
     }
 
     const convertDate = (value: string | Date) => {
-            const date = value.toString().split('T')[0];
-            const [year, month, day] = date.split('-');
-            return `${day}/${month}/${year}`
+        const date = value.toString().split('T')[0];
+        const [year, month, day] = date.split('-');
+        return `${day}/${month}/${year}`
     }
 
     const hydrateContract = (contract: IRentalContract) => {
@@ -350,14 +350,14 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
         document = document.replace('{endContract}', convertDate(contract.end));
         document = document.replace('{type}', contract.property.type.name);
         document = document.replace('{pix}', contract.pix);
-        document = document.replace('{shorts}', maskPrice(contract.shorts));
-        document = document.replace('{price}', maskPrice(contract.price));
+        document = document.replace('{shorts}', maskPrice(contract?.shorts ?? '000'));
+        contract.price ? document = document.replace('{price}', maskPrice(contract?.price)) : null;
         document = document.replace('{paymentLimit}', contract.paymentLimit.toString());
         document = document.replace('{duration}', `${contract.duration} meses`);
         const city = contract.property.address.city;
         const state = contract.property.address.state;
         document = document.replace('{propertyAddress}', `${city.name} - ${state?.shortName}`);
-        
+
         setContent(document);
     }
 
@@ -469,7 +469,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                 </Box>
                 {property &&
                     <Box sx={{ maxWidth: 1080, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
-                        
+
                         {/* Dados do Contrato */}
                         <Box sx={{ mt: 5, maxWidth: 720, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
                             <Typography variant="h6">Dados do contrato</Typography>
@@ -483,7 +483,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => <TextField {...params} label="Captador (Opcional)" />}
                                     renderOption={(props, option) => <Box component={'li'} {...props}>{option.name}</Box>}
-                                    sx={{ flex: 1}}
+                                    sx={{ flex: 1 }}
                                     readOnly
                                 />
                                 <Autocomplete
@@ -760,7 +760,7 @@ export function UpdateRentals({ customers, realtors, contract, owners }: Props) 
                             </Box>
                             <GalleryRentalContract />
                         </Box>
-                        
+
                         <Editor content={content} onChange={str => setContent(str)} />
 
                         <Button
